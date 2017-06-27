@@ -35,16 +35,62 @@ void LayoutManager::setup()
 	if(m_initialized)
 		return;
 
-    ofLogNotice() <<"LayoutManager::initialized";
-
 	Manager::setup();
-
+    
+    this->setupFbo();
+    this->setupSyphon();
+    
     this->createTextVisuals();
     this->createSvgVisuals();
     this->createImageVisuals();
-
+    
     this->addVisuals();
+    
+    ofLogNotice() <<"LayoutManager::initialized";
 
+}
+
+
+void LayoutManager::setupFbo()
+{
+    int margin = MARGIN;
+    
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+    float ratio = width/ height;
+    
+    m_windowRect.width = ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
+    m_windowRect.height =  m_windowRect.width / ratio;
+    
+    m_windowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
+    m_windowRect.y = ofGetHeight()*0.5 - m_windowRect.height*0.5;
+    
+    m_fbo.allocate(width, height, GL_RGBA);
+    m_fbo.begin(); ofClear(0,0,0,0); m_fbo.end();
+    
+    m_fbo.getTexture().getTextureData().bFlipTexture = true;
+ 
+}
+
+void LayoutManager::setupSyphon()
+{
+    string name = AppManager::getInstance().getSettingsManager().getSyphonName();
+    m_syphonServer.setName(name);
+    
+    ofLogNotice() <<"VideoOutputManager::setupSyphon << Setting up Syphon server: " << name;
+}
+
+void LayoutManager::update()
+{
+    // m_scrollView.update();
+    
+    this->updateSyphonTexture();
+}
+
+
+void LayoutManager::updateSyphonTexture()
+{
+    m_syphonServer.publishFBO(&m_fbo);
 }
 
 
@@ -98,9 +144,35 @@ void LayoutManager::onFullScreenChange(bool value)
     }
 }
 
+void LayoutManager::draw()
+{
+    
+    ofEnableAlphaBlending();
+    m_fbo.begin();
+    ofPushStyle();
+    ofClear(255, 0, 0);
+    
+    ofPopStyle();
+    m_fbo.end();
+    ofDisableAlphaBlending();
+    
+    m_fbo.draw(m_windowRect.x,m_windowRect.y,m_windowRect.width,m_windowRect.height);
+    
+}
+
 void LayoutManager::windowResized(int w, int h)
 {
-    //AppManager::getInstance().getStageManager().windowResized(w,h);
+    int margin =  LayoutManager::MARGIN;
+    
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+    float ratio = width/ height;
+    
+    m_windowRect.width = w - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
+    m_windowRect.height =  m_windowRect.width / ratio;
+    
+    m_windowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
+    m_windowRect.y = h*0.5 - m_windowRect.height*0.5;
 
 }
 

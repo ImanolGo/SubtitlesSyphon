@@ -79,6 +79,7 @@ void AppManager::update()
     m_oscManager.update();
     m_visualEffectsManager.update();
     m_viewManager.update();
+    m_layoutManager.update();
     m_guiManager.update();
 }
 
@@ -87,7 +88,7 @@ void AppManager::draw()
 {
     ofBackground(50,50,50);
    // m_viewManager.draw();
-    //m_layoutManager.draw();
+    m_layoutManager.draw();
     m_guiManager.draw();
 
 }

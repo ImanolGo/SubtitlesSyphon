@@ -64,8 +64,7 @@ void StageManager::setupFbo()
     m_syphonFbo.begin(); ofClear(255,0,0); m_syphonFbo.end();
     
     m_fbo.getTexture().getTextureData().bFlipTexture = true;
-    m_syphonFbo.getTexture().getTextureData().bFlipTexture = true;
-    
+    m_syphonFbo.getTexture().getTextureData().bFlipTexture = true; 
 }
 
 void StageManager::setupShader()

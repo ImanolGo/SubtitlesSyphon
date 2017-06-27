@@ -13,6 +13,8 @@
 #include "SvgVisual.h"
 #include "ImageVisual.h"
 
+#include "ofxSyphon.h"
+
 //========================== class LayoutManager ==============================
 //============================================================================
 /** \class LayoutManager LayoutManager.h
@@ -34,6 +36,12 @@ public:
 
     //! Set-up the layout
     void setup();
+    
+    //! Update the layout
+    void update();
+    
+    //! Draw the layout
+    void draw();
     
     void onFullScreenChange(bool value);
     
@@ -58,6 +66,13 @@ private:
     //! Add all visuals as overlays
     void addVisuals();
 
+    //! Set-up the syphon server
+    void setupSyphon();
+    
+    void setupFbo();
+    
+    //! updates the syphon textture to be published
+    void updateSyphonTexture();
 
 private:
 
@@ -69,6 +84,11 @@ private:
     TextMap             m_textVisuals;             ///< map storing the text visuals attached to a name
     SvgMap              m_svgVisuals;              ///< map storing the svg visuals attached to a name
     ImageMap            m_imageVisuals;            ///< map storing the image visuals attached to a name
+    
+    ofxSyphonServer     m_syphonServer;
+    ofRectangle         m_windowRect;
+    
+    ofFbo               m_fbo;
 
 };
 
