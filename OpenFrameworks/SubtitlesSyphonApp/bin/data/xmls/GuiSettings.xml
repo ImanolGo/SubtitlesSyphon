@@ -1,0 +1,8 @@
+<group>
+	<Time>4.3</Time>
+	<Next_Time>30</Next_Time>
+	<Smoothing>0.13</Smoothing>
+	<Onset_Alpha>0.07</Onset_Alpha>
+	<Onset_Sil__Thr_>0.04</Onset_Sil__Thr_>
+	<Onset_Time_Thr_>230.34</Onset_Time_Thr_>
+</group>

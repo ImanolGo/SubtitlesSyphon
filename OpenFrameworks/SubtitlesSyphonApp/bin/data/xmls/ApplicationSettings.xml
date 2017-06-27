@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+  <of_settings>
+
+      <window title="Subtitles Syphon" x="0" y="0" width="960" height="600" fullscreen="0" showCursor="1"/>
+
+      <debug showCursor="1" setVerbose="1"/>
+      <network ip="127.0.0.1"  portOscSend="7890" portOscReceive="50001" syphon="SubtitlesSyphon" midi_name="LPD8" />
+
+  </of_settings>
+
+  <textures>
+
+    <texture name="Equalizer" path="images/general/equalizer.png"/>
+    <texture name="Brush" path="images/general/brush.png"/>
+
+  </textures>
+
+  <colors>
+
+    <color name="CenterBackgroundColor" r="85" g="78" b="68" a="255"/>
+    <color name="EdgeBackgroundColor" r="30" g="30" b="30" a="255"/>
+    <color  name="GUI_Background" r="0" g="0" b="0" a="127"/>
+    <color  name="GUI_Fill" r="160" g="160" b="160" a="160"/>
+    <color  name="GUI1" r="160" g="160" b="80" a="200"/>
+    <color  name="GUI2" r="80" g="160" b="160" a="200"/>
+
+  </colors>
+
+</settings>
+
+
