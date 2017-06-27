@@ -19,4 +19,5 @@
 #include "GuiManager.h"
 #include "MouseManager.h"
 #include "OscManager.h"
+#include "TextManager.h"
 

@@ -27,6 +27,9 @@ class TextVisual: public BasicVisual
 
         //! Constructor
         TextVisual(ofVec3f pos, float width, float height, bool centred = false);
+    
+        //! Constructor
+        TextVisual();
 
         //! Destructor
         virtual ~TextVisual();
@@ -51,14 +54,25 @@ class TextVisual: public BasicVisual
 
         //! Gets the height of the current bounding box
         virtual float getHeight() {return m_box.getHeight();}
+    
+        void setCentred(bool centred) {m_centred = centred;}
+    
+        void drawBoundingBox(bool draw){m_drawBB = draw;}
+    
+        void setFontSize(int value);
 
     private:
 
         EngineFont        m_font;		 ///< EngineFont class
         std::string       m_text;        ///< text to be rendered
+        std::string       m_fontName;    ///< saves the fontName
         float             m_fontSize;    ///< saves the font size
+        float             m_lineHeight;  ///< saves the current line height;
         bool              m_centred;     ///< determines whether the visual is centred or not
         ofRectangle       m_box;         ///< the box surrounding the text
         ofVec3f           m_translation; ///< the point to which shift the origin
+        bool              m_drawBB;      ///< determines whether the bounding box should be drawn or not
+    
+    
 };
 

@@ -60,6 +60,8 @@ private:
     
     void setupGuiParameters();
     
+    void setupTextGui();
+    
     void setupGuiEvents();
     
     void drawRectangle();
@@ -81,6 +83,12 @@ private:
     ofxDatGui               m_gui;
     
     ofParameterGroup        m_parameters;
+    
+    ofParameter<int>        m_textSize;
+    ofParameter<float>      m_textWitdh;
+    ofParameter<float>      m_textLineHeight;
+    ofParameter<float>      m_textX;
+    ofParameter<float>      m_textY;
     
    
     bool        m_showGui;  //It defines the whether the gui should be shown or not

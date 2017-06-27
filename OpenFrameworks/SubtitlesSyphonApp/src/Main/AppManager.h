@@ -65,6 +65,9 @@ public:
     //! Returns the  OSC manager
     OscManager&  getOscManager() { return m_oscManager; }
     
+    //! Returns the  text manager
+    TextManager&  getTextManager() { return m_textManager; }
+    
     //==========================================================================
     
     void toggleDebugMode();
@@ -106,6 +109,7 @@ private:
     MouseManager             m_mouseManager;             ///< Manages the mouse
     GuiManager               m_guiManager;               ///< Manages the graphical user interface
     OscManager               m_oscManager;               ///< Manages the OSC messages
+    TextManager              m_textManager;              ///< Manages the text to be rendered
     
     bool                     m_debugMode;
 };

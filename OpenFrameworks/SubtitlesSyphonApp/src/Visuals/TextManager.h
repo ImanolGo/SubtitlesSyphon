@@ -1,5 +1,5 @@
 /*
- *  StageManager.h
+ *  TextManager.h
  *  Subtitles Syphon 
  *
  *  Created by Imanol Gomez on 27/06/17.
@@ -10,27 +10,26 @@
 #pragma once
 
 #include "Manager.h"
-#include "ImageVisual.h"
-#include "ofxSyphon.h"
+#include "TextVisual.h"
 
-//========================== class StageManager ==============================
+//========================== class TextManager ==============================
 //============================================================================
-/** \class StageManager StageManager.h
- *	\brief Class managing the stage visuals
- *	\details it creates and updates the stage visuals and its output
+/** \class TextManager TextManager.h
+ *	\brief Class managing the text
+ *	\details it renders the current subtitles according to a width, height and position
  */
 
 
-class StageManager: public Manager
+class TextManager: public Manager
 {
     
 public:
     
     //! Constructor
-    StageManager();
+    TextManager();
     
     //! Destructor
-    ~StageManager();
+    ~TextManager();
     
     //! Setup the Halo Manager
     void setup();
@@ -41,47 +40,29 @@ public:
     //! Draw the Halo Manager
     void draw();
     
-    float getWidth() const {return m_costumeImage->getOriginalWidth();}
+    void  onChangeSize(int& value);
     
-    float getHeight() const {return m_costumeImage->getOriginalHeight();}
+    void  onChangeWidth(float& value);
     
-    void setupFbo();
+    void  onChangeLineHeight(float& value);
     
-    void  onChangeTrailEffect(bool value) {m_trail = value;}
+    void  onChangePos(ofVec2f& value);
     
-    void  onChangeLiquifyEffect(bool value) {m_liquify = value;}
+    void  onChangePosX (float& value);
     
-    void onChangeBrihtnessEffect(bool value){m_brightnessEffect = value;}
+    void  onChangePosY (float& value);
     
-    void  windowResized(int w, int h);
+    void  onChangeShowBox (bool value);
+    
     
 private:
     
-    void setupImages();
+    void setupText();
     
-    void setupShader();
+private:
+    
+    TextVisual  m_textVisual;    
 
-    //! Set-up the syphon server
-    void setupSyphon();
-    
-    //! updates the syphon textture to be published
-    void updateSyphonTexture();
-    
-    
-    ofPtr<ImageVisual>  m_costumeImage;
-
-    ofxSyphonServer     m_syphonServer;
-    ofRectangle         m_windowRect;
-    
-    ofFbo               m_fbo;
-    ofFbo               m_syphonFbo;
-    ofShader            m_liquifyShader;
-    
-    bool                m_trail;
-    bool                m_liquify;
-    bool                m_brightnessEffect;
-  
-    float               m_frequency, m_amplitude, m_speed; //shader parameters
 };
 
 

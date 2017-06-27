@@ -8,7 +8,12 @@
 
 #include "TextVisual.h"
 
-TextVisual::TextVisual(ofVec3f pos, float width, float height, bool centred): BasicVisual(pos, width, height),m_fontSize(0), m_centred(centred)
+TextVisual::TextVisual(ofVec3f pos, float width, float height, bool centred): BasicVisual(pos, width, height),m_fontSize(0), m_centred(centred), m_drawBB(true),m_lineHeight(1.0)
+{
+    //Intentionally left empty
+}
+
+TextVisual::TextVisual(): BasicVisual(),m_fontSize(0), m_centred(false), m_drawBB(false), m_lineHeight(1.0)
 {
     //Intentionally left empty
 }
@@ -41,8 +46,10 @@ void TextVisual::setText(const std::string& text, const std::string& fontName, f
 
     m_text = text;
     m_fontSize = fontSize;
+    m_fontName = fontName;
 
     m_font.setup(fontName,m_fontSize);
+    m_font.setLineHeight(m_lineHeight);
 
     if(m_centred){
         m_font.setTextBlockAlignment(EngineFont::OF_TEXT_ALIGN_CENTER);
@@ -88,9 +95,19 @@ void  TextVisual::setWidth(float width)
     this->setText(m_text);
 }
 
+void  TextVisual::setFontSize(int value)
+{
+    m_fontSize = value;
+    m_font.setup(m_fontName,m_fontSize);
+    m_font.setLineHeight(m_lineHeight);
+    this->setText(m_text);
+}
+
 void  TextVisual::setLineHeight(float lineHeight)
 {
-     m_font.setLineHeight(lineHeight);
+     m_lineHeight= lineHeight;
+     m_font.setLineHeight(m_lineHeight);
+     this->setText(m_text);
 }
 
 void TextVisual::draw()
@@ -110,10 +127,26 @@ void TextVisual::draw()
             //ofRect(m_position.x, m_position.y, m_box.width, m_box.height);
         //}
 
-        ofSetColor(m_color);
+    
+        if(m_drawBB){
+            ofNoFill();
+            ofSetColor(ofColor::yellow);
+            if(m_centred){
+                ofDrawRectangle(m_position.x - m_box.width*0.5, m_position.y - m_box.height*0.5, m_box.width, m_box.height);
+            }
+            else{
+                ofDrawRectangle(m_position.x, m_position.y, m_box.width, m_box.height);
+            }
+        }
+    
+
+    
         ofTranslate(m_translation.x, m_translation.y);
+        ofSetColor(m_color);
+
         //m_font.drawMultiLineColumn(m_text,m_fontSize, m_position.x,m_position.y,m_width);
         m_font.drawMultiLineColumn(m_text,m_position.x,m_position.y,m_width);
+       
 
     //ofDisableAlphaBlending();
     

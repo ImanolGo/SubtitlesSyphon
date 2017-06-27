@@ -38,6 +38,7 @@ void GuiManager::setup()
     Manager::setup();
 
     this->setupGuiParameters();
+    this->setupTextGui();
     this->setupGuiEvents();
     this->loadGuiValues();
     
@@ -69,7 +70,42 @@ void GuiManager::setupGuiParameters()
     m_gui.addButton("* Save GUI");
     
     m_gui.addBreak();
+}
+
+void GuiManager::setupTextGui()
+{
+    auto textManager = &AppManager::getInstance().getTextManager();
     
+    m_textSize.set("Font Size", 10, 1, 100);
+    m_textSize.addListener(textManager, &TextManager::onChangeSize);
+    m_parameters.add(m_textSize);
+    
+    m_textWitdh.set("Width", 0.9, 0.0, 1.0);
+    m_textWitdh.addListener(textManager, &TextManager::onChangeWidth);
+    m_parameters.add(m_textWitdh);
+    
+    m_textLineHeight.set("Line Height", 1.0, 0.0, 3.0);
+    m_textLineHeight.addListener(textManager, &TextManager::onChangeLineHeight);
+    m_parameters.add(m_textLineHeight);
+    
+    m_textX.set("X", 0.5, 0.0, 1.0);
+    m_textX.addListener(textManager, &TextManager::onChangePosX);
+    m_parameters.add(m_textX);
+    
+    m_textY.set("Y", 0.5, 0.0, 1.0);
+    m_textY.addListener(textManager, &TextManager::onChangePosY);
+    m_parameters.add(m_textY);
+
+    
+    // add a folder to group a few components together //
+    ofxDatGuiFolder* folder = m_gui.addFolder("TEXT", ofColor::cyan);
+    folder->addSlider(m_textSize);
+    folder->addSlider(m_textWitdh);
+    folder->addSlider(m_textLineHeight);
+    folder->addSlider(m_textX);
+    folder->addSlider(m_textY);
+    folder->addToggle("Show Box");
+    folder->expand();
 }
 
 void GuiManager::setupGuiEvents()
@@ -172,9 +208,9 @@ void GuiManager::onToggleEvent(ofxDatGuiToggleEvent e)
 {
     cout << "onToggleEvent: " << e.target->getName() << " Selected" << endl;
     
-    if(e.target->getName() == "Block")
+    if(e.target->getName() == "Show Box")
     {
-        //AppManager::getInstance().getAnimationsManager().onChangeBlockAnimations(e.target->getChecked());
+        AppManager::getInstance().getTextManager().onChangeShowBox(e.target->getChecked());
     }
     
     else if(e.target->getName() == "Fullscreen")

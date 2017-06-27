@@ -1,5 +1,5 @@
 /*
- *  StageManager.cpp
+ *  TextManager.cpp
  *  Subtitles Syphon 
  *
  *  Created by Imanol Gomez on 27/06/17.
@@ -10,22 +10,22 @@
 
 #include "ofMain.h"
 
-#include "StageManager.h"
+#include "TextManager.h"
 #include "AppManager.h"
 
 
-StageManager::StageManager(): Manager(), m_trail(false), m_liquify(false), m_brightnessEffect(false), m_frequency(0.6), m_amplitude(30.0), m_speed(0.5)
+TextManager::TextManager(): Manager()
 {
     //Intentionally left empty
 }
 
 
-StageManager::~StageManager()
+TextManager::~TextManager()
 {
-    ofLogNotice() <<"StageManager::Destructor" ;
+    ofLogNotice() <<"TextManager::Destructor" ;
 }
 
-void StageManager::setup()
+void TextManager::setup()
 {
     if(m_initialized)
         return;
@@ -33,156 +33,91 @@ void StageManager::setup()
     
     Manager::setup();
     
-    //this->setupImages();
-    this->setupFbo();
-    this->setupShader();
-    //this->setupScrollView();
-    this->setupSyphon();
+
+    this->setupText();
     
-    ofLogNotice() <<"StageManager::initialized" ;
+    ofLogNotice() <<"TextManager::initialized" ;
     
 }
 
-void StageManager::setupFbo()
+void TextManager::setupText()
 {
     int margin =  LayoutManager::MARGIN;
     
     float width = AppManager::getInstance().getSettingsManager().getAppWidth();
     float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
-    float ratio = width/ height;
+    ofPoint pos = ofPoint(width/2, height/2);
     
-    m_windowRect.width = ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
-    m_windowRect.height =  m_windowRect.width / ratio;
+    m_textVisual.setWidth(width - 2*margin); m_textVisual.setHeight(height - 2*margin);
+    m_textVisual.setPosition(pos); m_textVisual.setCentred(true);
     
-    m_windowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
-    m_windowRect.y = ofGetHeight()*0.5 - m_windowRect.height*0.5;
     
-    m_fbo.allocate(width, height, GL_RGBA);
-    m_fbo.begin(); ofClear(0,0,0,0); m_fbo.end();
+    string text = "Grundlage für ein Referenzkorpus der neuhochdeutschenßßßßß ÍÍ¨¨¨¨UUUÜUUprache Das Deutsche Textarchiv stellt einen disziplinen- und gattungsübergreifenden Grundbestand deutschsprachiger Texte aus dem Zeitraum von ca. 1600 bis 1900 bereit. Die Textauswahl erfolgte auf der Grundlage einer von Akademiemitgliedern erstellten und ausführlich kommentierten, umfangreichen Bibliographie. In Ergänzung wurden einschlägige Literaturgeschichten und (Fach-)Bibliographien ausgewertet. Aus der Gesamtliste der auf diesem Wege ermittelten Titel wurde von der DTA-Projektgruppe ein hinsichtlich der";
+    string fontName = "Lucida Grande";
+    float size = 30;
     
-    m_syphonFbo.allocate(width, height, GL_RGB);
-    m_syphonFbo.begin(); ofClear(255,0,0); m_syphonFbo.end();
+    m_textVisual.setText(text, fontName, size, ofColor::white);
     
-    m_fbo.getTexture().getTextureData().bFlipTexture = true;
-    m_syphonFbo.getTexture().getTextureData().bFlipTexture = true; 
 }
 
-void StageManager::setupShader()
+
+void TextManager::update()
 {
-    m_liquifyShader.load("shaders/shadersGL3/LiquifyShader.vert", "shaders/shadersGL3/LiquifyShader.frag" );
-    
-    m_frequency = 0.6;
-    m_amplitude = 40.0;
-    m_speed = 1.0;
 }
 
-void StageManager::setupImages()
+
+void TextManager::draw()
 {
-    string resourceName = "BlackBackground";
-    ofPoint position;
-    
-    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    m_textVisual.draw();
+}
+
+
+void TextManager::onChangeShowBox(bool value)
+{
+    m_textVisual.drawBoundingBox(value);
+}
+
+void TextManager::onChangeSize(int& value)
+{
     float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
     
-    m_costumeImage =  ofPtr<ImageVisual> (new ImageVisual(position,resourceName));
-    m_costumeImage->setWidth(width, false);
-    m_costumeImage->setHeight(height, false);
-    //m_costumeImage->setHeight(700,true);
+    int size = (int) ofMap(value, 0, 100, height/100, height/10, true);
+    m_textVisual.setFontSize(size);
 }
 
-void StageManager::setupSyphon()
+void TextManager::onChangeWidth(float& value)
 {
-    string name = AppManager::getInstance().getSettingsManager().getSyphonName();
-    m_syphonServer.setName(name);
-    
-    ofLogNotice() <<"VideoOutputManager::setupSyphon << Setting up Syphon server: " << name;
-}
-
-void StageManager::update()
-{
-   // m_scrollView.update();
-    
-    this->updateSyphonTexture();
-}
-
-
-void StageManager::updateSyphonTexture()
-{
-    m_syphonServer.publishFBO(&m_syphonFbo);
-}
-
-
-void StageManager::draw()
-{
-    
-    ofEnableAlphaBlending();
-    m_fbo.begin();
-    ofPushStyle();
-    //ofClear(0, 0, 0);
-    
-    
-    if(m_trail){
-        ofFill();
-        //ofSetColor(0,0,0, 5);
-        //ofDrawRectangle(0,0,m_fbo.getWidth(),m_fbo.getHeight());
-        ofSetColor(255, 30);
-    }
-    else{
-        ofSetColor(255);
-    }
-    
-        AppManager::getInstance().getSceneManager().draw();
-    
-    ofPopStyle();
-    m_fbo.end();
-    ofDisableAlphaBlending();
-    
-    
-    m_syphonFbo.begin();
-    if(m_liquify){
-        m_liquifyShader.begin();
-        float time = ofGetElapsedTimef();
-        float energy = 1.3*AppManager::getInstance().getAudioManager().getBrightness();
-        m_liquifyShader.setUniform1f( "time", time );	//Passing float parameter "time" to shader
-        m_liquifyShader.setUniform1f("frequency", m_frequency);
-        m_liquifyShader.setUniform1f("amplitude", m_amplitude*energy);
-        m_liquifyShader.setUniform1f("speed", m_speed*energy);
-    }
-    
-    int brightness = 255;
-    if(m_brightnessEffect){
-        float volume = AppManager::getInstance().getAudioManager().getBrightness();
-        brightness  = ofMap(volume, 0.0, 0.5, 0, 255, true);
-        //brightness  = ofClamp(brightness,0, 255);
-    }
-    
-     ofSetColor(brightness);
-     m_fbo.draw(0,0);
-    
-     if(m_liquify){
-         m_liquifyShader.end();
-     }
-    
-    m_syphonFbo.end();
-    
-    m_syphonFbo.draw(m_windowRect.x,m_windowRect.y,m_windowRect.width,m_windowRect.height);
-
-}
-
-void  StageManager::windowResized(int w, int h)
-{
-int margin =  LayoutManager::MARGIN;
-    
     float width = AppManager::getInstance().getSettingsManager().getAppWidth();
-    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
-    float ratio = width/ height;
+    int text_width = (int) ofMap(value, 0.0, 1.0, 0, width, true);
     
-    m_windowRect.width = w - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
-    m_windowRect.height =  m_windowRect.width / ratio;
-    
-    m_windowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
-    m_windowRect.y = h*0.5 - m_windowRect.height*0.5;
+    m_textVisual.setWidth(text_width);
+}
 
+void TextManager::onChangeLineHeight(float& value)
+{
+    m_textVisual.setLineHeight(value);
+}
+
+void TextManager::onChangePos(ofVec2f& value)
+{
+    m_textVisual.setPosition(value);
 }
 
 
+void TextManager::onChangePosX (float& value)
+{
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    auto pos = m_textVisual.getPosition();
+    float posX = (int) ofMap(value, 0.0, 1.0, 0, width, true);
+    pos.x = posX;
+    m_textVisual.setPosition(pos);
+}
+
+void TextManager::onChangePosY (float& value)
+{
+    float height = AppManager::getInstance().getSettingsManager().getAppHeight();
+    auto pos = m_textVisual.getPosition();
+    float posY = (int) ofMap(value, 0.0, 1.0, 0, height, true);
+    pos.y = posY;
+    m_textVisual.setPosition(pos);
+}

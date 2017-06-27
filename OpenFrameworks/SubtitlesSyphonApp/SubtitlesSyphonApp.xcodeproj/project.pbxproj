@@ -16,6 +16,7 @@
  */; };
 		084931991F02D996004A77C0 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 084931981F02D996004A77C0 /* Syphon.framework */; };
 		0849319C1F02DB8E004A77C0 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0849319B1F02DB8E004A77C0 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0849319F1F02DF96004A77C0 /* TextManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0849319D1F02DF96004A77C0 /* TextManager.cpp */; };
 		0884F371D5C030CA38985436 /* Icon
  in Sources */ = {isa = PBXBuildFile; fileRef = 6CD58DF2C526968CCEEE56B0 /* Icon
  */; };
@@ -53,9 +54,6 @@
  in Sources */ = {isa = PBXBuildFile; fileRef = 6A9C184C9B1C1F5BCEF59645 /* Icon
  */; };
 		34CDB15CB0780633DAF598F9 /* OscManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1AC164C5A14E8FB05048E /* OscManager.cpp */; };
-		36E6368D6F15286A198607AC /* Icon
- in Sources */ = {isa = PBXBuildFile; fileRef = B87D982E1AA4889FD669901F /* Icon
- */; };
 		37B1B972D19A3C66FF450E8C /* Icon
  in Sources */ = {isa = PBXBuildFile; fileRef = A8AEC1F655C6188950B7712F /* Icon
  */; };
@@ -166,9 +164,6 @@
  in Sources */ = {isa = PBXBuildFile; fileRef = 353021B8315DAA9B49580194 /* Icon
  */; };
 		C6B3BFC2668F137F745DC3C6 /* CameraAnimationsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C01FEEAD29823C01C4EEC27 /* CameraAnimationsManager.cpp */; };
-		C872CA247700885C2067F376 /* Icon
- in Sources */ = {isa = PBXBuildFile; fileRef = 1AE6F342157AAD82C8B590E9 /* Icon
- */; };
 		C9054A34855F443F112D8518 /* Icon
  in Sources */ = {isa = PBXBuildFile; fileRef = 40403C3FD65042859F71C4C5 /* Icon
  */; };
@@ -277,6 +272,8 @@
 		074978820820325AB8737225 /* README.md */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = README.md; path = src/Addons/ofxUnicode/README.md; sourceTree = SOURCE_ROOT; };
 		084931981F02D996004A77C0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = src/Addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		0849319B1F02DB8E004A77C0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = src/Addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
+		0849319D1F02DF96004A77C0 /* TextManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextManager.cpp; path = Visuals/TextManager.cpp; sourceTree = "<group>"; };
+		0849319E1F02DF96004A77C0 /* TextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextManager.h; path = Visuals/TextManager.h; sourceTree = "<group>"; };
 		08C5194B0C92DDA2A7539395 /* core.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = core.h; path = src/Addons/ofxUnicode/libs/utf8cpp/src/utf8_v2_3_1/source/utf8/core.h; sourceTree = SOURCE_ROOT; };
 		09BB1D7613A1F9D8E8B11D7A /* KeyboardManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = KeyboardManager.h; path = src/I0/KeyboardManager.h; sourceTree = SOURCE_ROOT; };
 		09F8F2DF1D53E65319F30B96 /* LightManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LightManager.cpp; path = src/Engine/3D/LightManager.cpp; sourceTree = SOURCE_ROOT; };
@@ -299,9 +296,6 @@
 		17033FE4CD5784E39A430736 /* OscHostEndianness.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscHostEndianness.h; path = src/Addons/ofxOsc/libs/oscpack/src/osc/OscHostEndianness.h; sourceTree = SOURCE_ROOT; };
 		177B2CF2F12B417629282688 /* utf8cpp.html */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = utf8cpp.html; path = src/Addons/ofxUnicode/libs/utf8cpp/src/utf8_v2_3_1/doc/utf8cpp.html; sourceTree = SOURCE_ROOT; };
 		19361E6857FB31277A2FEE46 /* SvgVisual.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = SvgVisual.cpp; path = src/Engine/Visuals/SvgVisual.cpp; sourceTree = SOURCE_ROOT; };
-		1AE6F342157AAD82C8B590E9 /* Icon
- */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
-"; path = "src/Engine/Visuals/Icon\n"; sourceTree = SOURCE_ROOT; };
 		1D2BF526CAE69C51615BBD19 /* Icon
  */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
 "; path = "src/Addons/ofxSvg/libs/svgTiny/Icon\n"; sourceTree = SOURCE_ROOT; };
@@ -497,9 +491,6 @@
 		B5EF13F44987F50BC7D475DA /* UdpSocket.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = UdpSocket.cpp; path = src/Addons/ofxOsc/libs/oscpack/src/ip/posix/UdpSocket.cpp; sourceTree = SOURCE_ROOT; };
 		B75584AF4ADE4F6E8297B5DC /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = src/Addons/ofxDatGui/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
 		B85668EF08E3AB77BC096562 /* ofxOscMessage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscMessage.h; path = src/Addons/ofxOsc/src/ofxOscMessage.h; sourceTree = SOURCE_ROOT; };
-		B87D982E1AA4889FD669901F /* Icon
- */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
-"; path = "src/Engine/Tools/Icon\n"; sourceTree = SOURCE_ROOT; };
 		B93A388E6EB01116F26480DB /* Icon
  */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
 "; path = "src/Addons/ofxDatGui/Icon\n"; sourceTree = SOURCE_ROOT; };
@@ -786,8 +777,6 @@
 			isa = PBXGroup;
 			children = (
 				3656BF3981C35A273806DCEB /* BasicVisual.h */,
-				1AE6F342157AAD82C8B590E9 /* Icon
- */,
 				4F661FE0411AA0AC01E34CB7 /* ImageVisual.cpp */,
 				11C490A0CA5771C60AE54B4B /* ImageVisual.h */,
 				3DD6F074B2A9C65331157B2C /* ImageVisual3D.cpp */,
@@ -1035,8 +1024,6 @@
 			children = (
 				71EF984EC44E239BE26DBB24 /* EngineFont.cpp */,
 				16DB6BE691528929B0B76B4A /* EngineFont.h */,
-				B87D982E1AA4889FD669901F /* Icon
- */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -1143,6 +1130,8 @@
 		C02C33831C66F04FEBAE29DE /* Visuals */ = {
 			isa = PBXGroup;
 			children = (
+				0849319D1F02DF96004A77C0 /* TextManager.cpp */,
+				0849319E1F02DF96004A77C0 /* TextManager.h */,
 			);
 			name = Visuals;
 			sourceTree = "<group>";
@@ -1476,6 +1465,7 @@
 				51A1E9E9F0B8D1DE74C73B51 /* addon_config.mk in Sources */,
 				4553F4D4F1F1C4D834ECF97A /* Icon
  in Sources */,
+				0849319F1F02DF96004A77C0 /* TextManager.cpp in Sources */,
 				CEDB182608D08CDB266DE884 /* Icon
  in Sources */,
 				0B91C52074E412CEF6279A9E /* Icon
@@ -1577,10 +1567,6 @@
  in Sources */,
 				6F36C225B48477DFCCA6FB64 /* ResourceManager.cpp in Sources */,
 				68A59FFAF8D6A1C715A69CD4 /* EngineFont.cpp in Sources */,
-				36E6368D6F15286A198607AC /* Icon
- in Sources */,
-				C872CA247700885C2067F376 /* Icon
- in Sources */,
 				3A6C7D72771284673CBE247D /* ImageVisual.cpp in Sources */,
 				F7EA3801298F5E54967C119B /* ImageVisual3D.cpp in Sources */,
 				DEBDF1F781CA34214BEBD185 /* RectangleVisual.cpp in Sources */,

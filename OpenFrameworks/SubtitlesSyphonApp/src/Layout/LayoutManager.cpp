@@ -68,7 +68,7 @@ void LayoutManager::setupFbo()
     m_fbo.allocate(width, height, GL_RGBA);
     m_fbo.begin(); ofClear(0,0,0,0); m_fbo.end();
     
-    m_fbo.getTexture().getTextureData().bFlipTexture = true;
+    //m_fbo.getTexture().getTextureData().bFlipTexture = true;
  
 }
 
@@ -77,7 +77,7 @@ void LayoutManager::setupSyphon()
     string name = AppManager::getInstance().getSettingsManager().getSyphonName();
     m_syphonServer.setName(name);
     
-    ofLogNotice() <<"VideoOutputManager::setupSyphon << Setting up Syphon server: " << name;
+    ofLogNotice() <<"SyphonManager::setupSyphon << Setting up Syphon server: " << name;
 }
 
 void LayoutManager::update()
@@ -150,7 +150,9 @@ void LayoutManager::draw()
     ofEnableAlphaBlending();
     m_fbo.begin();
     ofPushStyle();
-    ofClear(255, 0, 0);
+        ofClear(255, 0, 0);
+    
+        AppManager::getInstance().getTextManager().draw();
     
     ofPopStyle();
     m_fbo.end();
