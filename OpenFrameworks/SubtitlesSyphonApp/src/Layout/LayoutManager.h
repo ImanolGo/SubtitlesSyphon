@@ -89,6 +89,7 @@ private:
     ofRectangle         m_windowRect;
     
     ofFbo               m_fbo;
+    ofFbo               m_syphonFbo;
 
 };
 

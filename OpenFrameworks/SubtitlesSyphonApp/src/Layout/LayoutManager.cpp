@@ -68,7 +68,11 @@ void LayoutManager::setupFbo()
     m_fbo.allocate(width, height, GL_RGBA);
     m_fbo.begin(); ofClear(0,0,0,0); m_fbo.end();
     
-    //m_fbo.getTexture().getTextureData().bFlipTexture = true;
+    m_syphonFbo.allocate(width, height, GL_RGBA);
+    m_syphonFbo.begin(); ofClear(0,0,0,0); m_syphonFbo.end();
+    
+    m_fbo.getTexture().getTextureData().bFlipTexture = true;
+    m_syphonFbo.getTexture().getTextureData().bFlipTexture = true;
  
 }
 
@@ -90,7 +94,7 @@ void LayoutManager::update()
 
 void LayoutManager::updateSyphonTexture()
 {
-    m_syphonServer.publishFBO(&m_fbo);
+    m_syphonServer.publishFBO(&m_syphonFbo);
 }
 
 
@@ -150,7 +154,7 @@ void LayoutManager::draw()
     ofEnableAlphaBlending();
     m_fbo.begin();
     ofPushStyle();
-        ofClear(255, 0, 0);
+        ofClear(0, 0, 0);
     
         AppManager::getInstance().getTextManager().draw();
     
@@ -158,7 +162,11 @@ void LayoutManager::draw()
     m_fbo.end();
     ofDisableAlphaBlending();
     
-    m_fbo.draw(m_windowRect.x,m_windowRect.y,m_windowRect.width,m_windowRect.height);
+    m_syphonFbo.begin();
+        m_fbo.draw(0,0);
+    m_syphonFbo.end();
+    
+    m_syphonFbo.draw(m_windowRect.x,m_windowRect.y,m_windowRect.width,m_windowRect.height);
     
 }
 
