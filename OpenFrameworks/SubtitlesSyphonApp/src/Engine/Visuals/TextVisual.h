@@ -55,6 +55,8 @@ class TextVisual: public BasicVisual
         //! Gets the height of the current bounding box
         virtual float getHeight() {return m_box.getHeight();}
     
+        const string& getText(){return m_text;}
+    
         void setCentred(bool centred) {m_centred = centred;}
     
         void drawBoundingBox(bool draw){m_drawBB = draw;}

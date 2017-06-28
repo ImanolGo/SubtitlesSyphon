@@ -8,7 +8,7 @@
 
 #include "TextVisual.h"
 
-TextVisual::TextVisual(ofVec3f pos, float width, float height, bool centred): BasicVisual(pos, width, height),m_fontSize(0), m_centred(centred), m_drawBB(true),m_lineHeight(1.0)
+TextVisual::TextVisual(ofVec3f pos, float width, float height, bool centred): BasicVisual(pos, width, height),m_fontSize(0), m_centred(centred), m_drawBB(false),m_lineHeight(1.0)
 {
     //Intentionally left empty
 }
@@ -136,9 +136,9 @@ void TextVisual::draw()
         //}
 
     
+        ofSetColor(m_color);
         if(m_drawBB){
             ofNoFill();
-            ofSetColor(ofColor::yellow);
             if(m_centred){
                 ofDrawRectangle(m_position.x - m_box.width*0.5, m_position.y - m_box.height*0.5, m_box.width, m_box.height);
             }
@@ -148,7 +148,7 @@ void TextVisual::draw()
         }
     
         ofTranslate(m_translation.x, m_translation.y);
-        ofSetColor(m_color);
+    
 
         //m_font.drawMultiLineColumn(m_text,m_fontSize, m_position.x,m_position.y,m_width);
         m_font.drawMultiLineColumn(m_text,m_position.x,m_position.y,m_width);

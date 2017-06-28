@@ -58,18 +58,33 @@ public:
     
     void  setColor(const ofColor& color);
     
-    void setText(const string& text);
+    void setCurrentText(const string& text);
+    
+    void setNextText(const string& text);
     
     void setFontType(const string& name);
     
     
 private:
     
-    void setupText();
+    void setupFbos();
+    
+    void setupVisuals();
+    
+    void drawCurrentVisuals();
+    
+    void drawPreviousVisuals();
+    
+    void addCrossFadeAnimations();
     
 private:
     
-    TextVisual  m_textVisual;    
+    typedef  map<string, shared_ptr<TextVisual>> TextVisualMap;
+    
+    TextVisualMap  m_textVisuals;
+    
+    ofFbo       m_currentFbo;
+    ofFbo       m_previusFbo;
 
 };
 

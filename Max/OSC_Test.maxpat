@@ -283,9 +283,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 143.0, 611.0, 68.0, 22.0 ],
+					"patching_rect" : [ 143.0, 611.0, 61.0, 22.0 ],
 					"style" : "",
-					"text" : "port 50001"
+					"text" : "port 5678"
 				}
 
 			}
@@ -518,9 +518,9 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 58.0, 659.0, 144.0, 22.0 ],
+					"patching_rect" : [ 58.0, 659.0, 137.0, 22.0 ],
 					"style" : "",
-					"text" : "udpsend localhost 50001"
+					"text" : "udpsend localhost 5678"
 				}
 
 			}
