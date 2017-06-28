@@ -60,6 +60,8 @@ class TextVisual: public BasicVisual
         void drawBoundingBox(bool draw){m_drawBB = draw;}
     
         void setFontSize(int value);
+    
+        void setFontName(const string& name);
 
     private:
 

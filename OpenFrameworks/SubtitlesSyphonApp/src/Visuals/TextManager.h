@@ -52,9 +52,15 @@ public:
     
     void  onChangePosY (float& value);
     
+    void  onChangePosZ (float& value);
+    
     void  onChangeShowBox (bool value);
     
     void  setColor(const ofColor& color);
+    
+    void setText(const string& text);
+    
+    void setFontType(const string& name);
     
     
 private:

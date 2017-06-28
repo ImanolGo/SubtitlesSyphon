@@ -64,7 +64,34 @@ public:
     void setNumRows(int value);
     
     void setSubtitlesName(const string& name);
-
+    
+    void setFontLabel(const string& name);
+    
+    void setTextSize(int value);
+    
+    void setTextLineHeight(float value);
+    
+    void setTextWidth(float value);
+    
+    void setTextPosX(float value);
+    
+    void setTextPosY(float value);
+    
+    void setColorR(int value);
+    
+    void setColorG(int value);
+    
+    void setColorB(int value);
+    
+    void setSubCol(int value);
+    
+    void setSubRow(int value);
+    
+    void setSyphonToggle(bool value);
+    
+    void setSyphonEnable(bool value);
+    
+    void setShowBox(bool value);
     
 private:
     
@@ -101,10 +128,12 @@ private:
     ofParameterGroup        m_parameters;
     
     ofParameter<int>        m_textSize;
-    ofParameter<float>      m_textWitdh;
+    ofParameter<float>      m_textWidth;
     ofParameter<float>      m_textLineHeight;
     ofParameter<float>      m_textX;
     ofParameter<float>      m_textY;
+    ofParameter<float>      m_textZ;
+    ofxDatGuiLabel*         m_fontLabel;
     
     ofParameter<int>        m_red, m_green,m_blue;
     ofColor                 m_currentColor;
@@ -112,7 +141,6 @@ private:
     ofParameter<int>        m_subCol;
     ofParameter<int>        m_subRow;
     ofxDatGuiLabel*         m_subLabel;
-    
    
     bool        m_showGui;  //It defines the whether the gui should be shown or not
     

@@ -103,6 +103,14 @@ void  TextVisual::setFontSize(int value)
     this->setText(m_text);
 }
 
+void  TextVisual::setFontName(const string& name)
+{
+    m_fontName = name;
+    m_font.setup(m_fontName,m_fontSize);
+    m_font.setLineHeight(m_lineHeight);
+    this->setText(m_text);
+}
+
 void  TextVisual::setLineHeight(float lineHeight)
 {
      m_lineHeight= lineHeight;
@@ -138,8 +146,6 @@ void TextVisual::draw()
                 ofDrawRectangle(m_position.x, m_position.y, m_box.width, m_box.height);
             }
         }
-    
-
     
         ofTranslate(m_translation.x, m_translation.y);
         ofSetColor(m_color);

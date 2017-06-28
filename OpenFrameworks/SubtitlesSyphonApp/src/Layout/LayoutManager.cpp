@@ -18,7 +18,7 @@
 
 const int LayoutManager::MARGIN = 20;
 
-LayoutManager::LayoutManager(): Manager()
+LayoutManager::LayoutManager(): Manager(), m_syphonToggle(true), m_syphonEnable(true)
 {
 	//Intentionally left empty
 }
@@ -94,7 +94,9 @@ void LayoutManager::update()
 
 void LayoutManager::updateSyphonTexture()
 {
-    m_syphonServer.publishFBO(&m_syphonFbo);
+    if(m_syphonEnable){
+        m_syphonServer.publishFBO(&m_syphonFbo);
+    }
 }
 
 
@@ -163,7 +165,10 @@ void LayoutManager::draw()
     ofDisableAlphaBlending();
     
     m_syphonFbo.begin();
-        m_fbo.draw(0,0);
+        ofClear(0);
+        if(m_syphonToggle){
+            m_fbo.draw(0,0);
+        }
     m_syphonFbo.end();
     
     m_syphonFbo.draw(m_windowRect.x,m_windowRect.y,m_windowRect.width,m_windowRect.height);
@@ -184,6 +189,18 @@ void LayoutManager::windowResized(int w, int h)
     m_windowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
     m_windowRect.y = h*0.5 - m_windowRect.height*0.5;
 
+}
+
+void LayoutManager::onSyphonEnable(bool value)
+{
+    m_syphonEnable = value;
+    if(m_syphonEnable){
+        string name = AppManager::getInstance().getSettingsManager().getSyphonName();
+        m_syphonServer.setName(name);
+    }
+    else{
+        m_syphonServer.exit();
+    }
 }
 
 

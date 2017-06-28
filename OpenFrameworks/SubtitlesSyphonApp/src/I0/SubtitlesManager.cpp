@@ -10,7 +10,7 @@
 #include "AppManager.h"
 
 
-SubtitlesManager::SubtitlesManager(): Manager()
+SubtitlesManager::SubtitlesManager(): Manager(), m_currentRow(0), m_currentCol(0)
 {
     //Intentionally left empty
 }
@@ -71,7 +71,13 @@ void SubtitlesManager::onChangeCol(int& value)
     if(value<0 || value>= m_csv.getNumCols())
     {
         ofLogNotice() <<"SubtitlesManager::onChangeCol -> out of col range: "<< value;
+        return;
     }
+    
+    m_currentCol = value;
+    AppManager::getInstance().getTextManager().setText(m_csv[m_currentRow][m_currentCol]);
+    
+    
 }
 
 void SubtitlesManager::onChangeRow(int& value)
@@ -79,7 +85,11 @@ void SubtitlesManager::onChangeRow(int& value)
     if(value<0 || value>= m_csv.getNumRows())
     {
         ofLogNotice() <<"SubtitlesManager::onChangeRow -> out of row range: "<< value;
+        return;
     }
+    
+    m_currentRow = value;
+    AppManager::getInstance().getTextManager().setText(m_csv[m_currentRow][m_currentCol]);
 }
 
 

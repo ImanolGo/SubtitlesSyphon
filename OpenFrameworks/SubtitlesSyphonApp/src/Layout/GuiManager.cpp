@@ -18,7 +18,7 @@ const string GuiManager::GUI_SETTINGS_NAME = "SUBTITLES SYPHON GUI";
 const int GuiManager::GUI_WIDTH = 350;
 
 
-GuiManager::GuiManager(): Manager(), m_showGui(true)
+GuiManager::GuiManager(): Manager(), m_showGui(true), m_subLabel(NULL), m_fontLabel(NULL)
 {
     //! Intentionally left empty
 }
@@ -66,8 +66,11 @@ void GuiManager::setupGuiParameters()
     //m_gui.addLabel("PrimaveraSound GUI");
     
     m_gui.addFRM();
-    m_gui.addToggle("Fullscreen");
-    auto toggle = m_gui.getToggle("Fullscreen");
+    auto toggle = m_gui.addToggle("Fullscreen");
+    toggle->setChecked(true);
+    toggle = m_gui.addToggle("Syphon");
+    toggle->setChecked(true);
+    toggle = m_gui.addToggle("Enable");
     toggle->setChecked(true);
     m_gui.addButton("* Save GUI");
     
@@ -78,11 +81,11 @@ void GuiManager::setupSubtitlesGui()
 {
     auto subtitles = &AppManager::getInstance().getSubtitlesManager();
     
-    m_subCol.set("Col: ", 0, 0, 0);
+    m_subCol.set("Language: ", 1, 1, 1);
     m_subCol.addListener(subtitles, &SubtitlesManager::onChangeCol);
     //m_parameters.add(m_subCol);
     
-    m_subRow.set("Row: ", 0, 0, 0);
+    m_subRow.set("Sentence: ", 1, 1, 1);
     m_subRow.addListener(subtitles, &SubtitlesManager::onChangeRow);
     //m_parameters.add(m_subRow)
     
@@ -106,9 +109,9 @@ void GuiManager::setupTextGui()
     m_textSize.addListener(textManager, &TextManager::onChangeSize);
     m_parameters.add(m_textSize);
     
-    m_textWitdh.set("Width", 0.9, 0.0, 1.0);
-    m_textWitdh.addListener(textManager, &TextManager::onChangeWidth);
-    m_parameters.add(m_textWitdh);
+    m_textWidth.set("Width", 0.9, 0.0, 1.0);
+    m_textWidth.addListener(textManager, &TextManager::onChangeWidth);
+    m_parameters.add(m_textWidth);
     
     m_textLineHeight.set("Line Height", 1.0, 0.0, 3.0);
     m_textLineHeight.addListener(textManager, &TextManager::onChangeLineHeight);
@@ -121,17 +124,24 @@ void GuiManager::setupTextGui()
     m_textY.set("Y", 0.5, 0.0, 1.0);
     m_textY.addListener(textManager, &TextManager::onChangePosY);
     m_parameters.add(m_textY);
+    
+    m_textZ.set("Z", 0.0, -1.0, 1.0);
+    m_textZ.addListener(textManager, &TextManager::onChangePosZ);
+    m_parameters.add(m_textZ);
 
     
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("TEXT", ofColor::cyan);
+    folder->addLabel("Font Name:");
     folder->addSlider(m_textSize);
-    folder->addSlider(m_textWitdh);
+    folder->addSlider(m_textWidth);
     folder->addSlider(m_textLineHeight);
     folder->addSlider(m_textX);
     folder->addSlider(m_textY);
     folder->addToggle("Show Box");
     folder->expand();
+    
+    m_fontLabel = m_gui.getLabel("Font Name:");
 }
 
 
@@ -277,6 +287,18 @@ void GuiManager::onToggleEvent(ofxDatGuiToggleEvent e)
     {
         AppManager::getInstance().getLayoutManager().onFullScreenChange(e.target->getChecked());
     }
+    
+    else if(e.target->getName() == "Syphon")
+    {
+        ofLogNotice()<< "GuiManager::onToggleEvent-> Syphon : " << e.target->getChecked();
+        AppManager::getInstance().getLayoutManager().onSyphonEnable(e.target->getChecked());
+    }
+    else if(e.target->getName() == "Enable")
+    {
+        ofLogNotice()<< "GuiManager::onToggleEvent-> Enable : " << e.target->getChecked();
+        AppManager::getInstance().getLayoutManager().onSyphonToggle(e.target->getChecked());
+    }
+
 }
 
 void GuiManager::onMatrixEvent(ofxDatGuiMatrixEvent e)
@@ -310,7 +332,7 @@ void GuiManager::setNumCols(int value)
 {
     if(value>0){
         m_subCol.setMax(value);
-        m_gui.getSlider(m_subCol.getName())->setMax(value);
+        m_gui.getSlider(m_subCol.getName())->setMax(value-1);
     }
 }
 
@@ -318,11 +340,103 @@ void GuiManager::setNumRows(int value)
 {
     if(value>0){
         m_subRow.setMax(value);
-        m_gui.getSlider(m_subRow.getName())->setMax(value);
+        m_gui.getSlider(m_subRow.getName())->setMax(value-1);
     }
 }
 
 void GuiManager::setSubtitlesName(const string& name)
 {
+    if(m_subLabel == NULL){
+        return;
+    }
     m_subLabel->setLabel("FILE: " + name);
 }
+
+void GuiManager::setFontLabel(const string& name)
+{
+    if(m_fontLabel == NULL){
+        return;
+    }
+    
+    m_fontLabel->setLabel("Font Name: " + name);
+}
+
+
+void GuiManager::setTextSize(int value)
+{
+    m_textSize = ofClamp(value, 0, 100);
+}
+
+void GuiManager::setTextLineHeight(float value)
+{
+    m_textLineHeight = ofClamp(value, 0, 3);
+}
+
+
+void GuiManager::setTextWidth(float value)
+{
+    m_textWidth = ofClamp(value, 0.0, 1.0);
+}
+
+
+void GuiManager::setTextPosX(float value)
+{
+    m_textX = ofClamp(value, 0.0, 1.0);
+}
+
+
+void GuiManager::setTextPosY(float value)
+{
+    m_textY = ofClamp(value, 0.0, 1.0);
+}
+
+
+void GuiManager::setColorR(int value)
+{
+    m_red = ofClamp(value, 0, 255);
+}
+
+
+void GuiManager::setColorG(int value)
+{
+    m_green = ofClamp(value, 0, 255);
+}
+
+void GuiManager::setColorB(int value)
+{
+    m_blue = ofClamp(value, 0, 255);
+}
+
+void GuiManager::setSubCol(int value)
+{
+    m_subCol = ofClamp(value, m_subCol.getMin(), m_subCol.getMax());
+}
+
+
+void GuiManager::setSubRow(int value)
+{
+    m_subRow = ofClamp(value, m_subRow.getMin(), m_subRow.getMax());
+}
+
+
+void GuiManager::setSyphonToggle(bool value)
+{
+    auto toggle = m_gui.getToggle("Syphon");
+    toggle->setChecked(value);
+    AppManager::getInstance().getLayoutManager().onSyphonToggle(value);
+}
+
+void GuiManager::setSyphonEnable(bool value)
+{
+    auto toggle = m_gui.getToggle("Enable");
+    toggle->setChecked(value);
+    AppManager::getInstance().getLayoutManager().onSyphonEnable(value);
+}
+
+void GuiManager::setShowBox(bool value)
+{
+    auto toggle = m_gui.getToggle("Show Box");
+    toggle->setChecked(value);
+    AppManager::getInstance().getTextManager().onChangeShowBox(value);
+}
+

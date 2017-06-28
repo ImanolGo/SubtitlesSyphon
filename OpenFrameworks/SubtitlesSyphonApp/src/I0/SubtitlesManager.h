@@ -50,5 +50,8 @@ private:
 private:
     
     ofxCsv m_csv;
+    
+    int m_currentRow;
+    int m_currentCol;
 };
 

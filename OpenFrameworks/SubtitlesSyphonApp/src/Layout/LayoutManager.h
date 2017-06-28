@@ -46,6 +46,10 @@ public:
     void onFullScreenChange(bool value);
     
     void windowResized(int w, int h);
+    
+    void onSyphonToggle(bool value) {m_syphonToggle = value;}
+    
+    void onSyphonEnable(bool value);
 
 private:
 
@@ -90,6 +94,9 @@ private:
     
     ofFbo               m_fbo;
     ofFbo               m_syphonFbo;
+    
+    bool                m_syphonToggle;
+    bool                m_syphonEnable;
 
 };
 

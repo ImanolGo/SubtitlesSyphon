@@ -70,16 +70,72 @@ void OscManager::update()
         
         if(m.getAddress() == OSC_PARENT_ADDRESS + "/sentence")
         {
-            string sceneName = m.getArgAsString(0);
-            //AppManager::getInstance().getGuiManager().onSceneChange(sceneName);
+            int value = m.getArgAsInt(0);
+            AppManager::getInstance().getGuiManager().setSubRow(value);
         }
         
-        else if(m.getAddress() ==  OSC_PARENT_ADDRESS + "/color")
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/language")
         {
-            string colorPaletteName = m.getArgAsString(0);
-            //AppManager::getInstance().getGuiManager().onColorChange(colorPaletteName);
+            int value = m.getArgAsInt(0);
+            AppManager::getInstance().getGuiManager().setSubCol(value);
         }
         
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/color")
+        {
+            int r = m.getArgAsInt(0); int g = m.getArgAsInt(1); int b = m.getArgAsInt(2);
+            AppManager::getInstance().getGuiManager().setColorR(r);
+            AppManager::getInstance().getGuiManager().setColorG(g);
+            AppManager::getInstance().getGuiManager().setColorB(b);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/textsize")
+        {
+            int value = m.getArgAsInt(0);
+            AppManager::getInstance().getGuiManager().setTextSize(value);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/lineheight")
+        {
+            float value = m.getArgAsFloat(0);
+            AppManager::getInstance().getGuiManager().setTextLineHeight(value);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/textwidth")
+        {
+            float value = m.getArgAsFloat(0);
+            AppManager::getInstance().getGuiManager().setTextWidth(value);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/position")
+        {
+            float x = m.getArgAsFloat(0);  float y = m.getArgAsFloat(1);
+            AppManager::getInstance().getGuiManager().setTextPosX(x);
+            AppManager::getInstance().getGuiManager().setTextPosY(y);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/font")
+        {
+            string value  = m.getArgAsString(0);
+            AppManager::getInstance().getTextManager().setFontType(value);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/syphon")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getGuiManager().setSyphonToggle(value);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/enable")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getGuiManager().setSyphonEnable(value);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/showbox")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getGuiManager().setShowBox(value);
+        }
           //ofLogNotice() <<"OscManager::received -> " << this->getMessageAsString(m);
     }
 }

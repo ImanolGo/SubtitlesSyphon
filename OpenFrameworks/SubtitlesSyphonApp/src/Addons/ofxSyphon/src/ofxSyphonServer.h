@@ -19,6 +19,7 @@ class ofxSyphonServer {
     void publishTexture(ofTexture* inputTexture);
     void publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
     void publishFBO(ofFbo* inputFbo);
+    void exit();
 	protected:
 	void *mSyphon;
 };

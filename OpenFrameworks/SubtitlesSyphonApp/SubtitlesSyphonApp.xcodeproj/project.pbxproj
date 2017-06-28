@@ -44,9 +44,6 @@
 		280905B52141707127AB8C24 /* Icon
  in Sources */ = {isa = PBXBuildFile; fileRef = 99308782B1D8558CB19CCB5A /* Icon
  */; };
-		282324E57BE68605CC33832F /* Icon
- in Sources */ = {isa = PBXBuildFile; fileRef = C87164782D0614F544B4DCDA /* Icon
- */; };
 		308F3ACCDDFA3EB57F8A26F5 /* Icon
  in Sources */ = {isa = PBXBuildFile; fileRef = 057115B1DC9F16EDFCA6BE57 /* Icon
  */; };
@@ -188,9 +185,6 @@
 		DA22DA3A4F2E611DF50078F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F47F486843AA062205007 /* main.cpp */; };
 		DB05E98D002D6650AA23E87B /* TextVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0227F9BE14631C9FE7CA55B1 /* TextVisual.cpp */; };
 		DC16DA963E4E5873F0AE7C9E /* LightManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 09F8F2DF1D53E65319F30B96 /* LightManager.cpp */; };
-		DD87F627B47B4250E52E3EDC /* Icon
- in Sources */ = {isa = PBXBuildFile; fileRef = D49593D04C09F7C988AE4062 /* Icon
- */; };
 		DEBDF1F781CA34214BEBD185 /* RectangleVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96ADFA6EE75BC1E2BEDC0EAE /* RectangleVisual.cpp */; };
 		DF2764E1860DD2D324923A1D /* ofxDatGuiComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7E328B97B36DC3EFCF35D9 /* ofxDatGuiComponent.cpp */; };
 		E21401A2204DD6BB43CD695C /* Icon
@@ -524,9 +518,6 @@
 		C3766129862C931409F5C3D4 /* ofxTCPClient.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTCPClient.cpp; path = src/Addons/ofxNetwork/src/ofxTCPClient.cpp; sourceTree = SOURCE_ROOT; };
 		C4DEA9B316209449F17ED538 /* ofUTF8.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofUTF8.cpp; path = src/Addons/ofxUnicode/src/ofUTF8.cpp; sourceTree = SOURCE_ROOT; };
 		C5C837BC8A64CCF1A788C49A /* checked.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = checked.h; path = src/Addons/ofxUnicode/libs/utf8cpp/include/utf8/checked.h; sourceTree = SOURCE_ROOT; };
-		C87164782D0614F544B4DCDA /* Icon
- */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
-"; path = "src/Addons/ofxSyphon/src/Icon\n"; sourceTree = SOURCE_ROOT; };
 		CBAA95445CDEC59B48B9B042 /* Icon
  */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
 "; path = "src/Addons/ofxDatGui/ofxbraitsch/Icon\n"; sourceTree = SOURCE_ROOT; };
@@ -535,9 +526,6 @@
 		D26C09D837E4FD6CBDBE2B8C /* AppManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = AppManager.h; path = src/Main/AppManager.h; sourceTree = SOURCE_ROOT; };
 		D2A2BE33BFF330BDC05A7FC5 /* managers.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = managers.h; path = src/Main/managers.h; sourceTree = SOURCE_ROOT; };
 		D35FE818DAD79E0110A02D56 /* history.md */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = history.md; path = src/Addons/ofxDatGui/history.md; sourceTree = SOURCE_ROOT; };
-		D49593D04C09F7C988AE4062 /* Icon
- */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
-"; path = "src/Addons/ofxSyphon/Icon\n"; sourceTree = SOURCE_ROOT; };
 		D4F6A4A691305A483A3724C4 /* ofxTCPClient.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxTCPClient.h; path = src/Addons/ofxNetwork/src/ofxTCPClient.h; sourceTree = SOURCE_ROOT; };
 		D5BBC200839D2DFA77CB6DDF /* license.txt */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = license.txt; path = src/Addons/ofxDatGui/license.txt; sourceTree = SOURCE_ROOT; };
 		D5E54C634F456A020BAA6FBA /* OscReceivedElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscReceivedElements.h; path = src/Addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.h; sourceTree = SOURCE_ROOT; };
@@ -832,8 +820,6 @@
 		59DC3AF74F9BADB5F56E8346 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				C87164782D0614F544B4DCDA /* Icon
- */,
 				30BE2B498C720D76803876E3 /* ofxSyphon.h */,
 				1F51507F4B720B2E82BFF651 /* ofxSyphonClient.h */,
 				79313EDD5D404AFF891F8AB7 /* ofxSyphonClient.mm */,
@@ -917,8 +903,6 @@
 		88908DD389F65F617DF04FD0 /* ofxSyphon */ = {
 			isa = PBXGroup;
 			children = (
-				D49593D04C09F7C988AE4062 /* Icon
- */,
 				C926306DA6BEC88F3A81EACB /* libs */,
 				0ED75BB7C2FE645940BF27BA /* License.txt */,
 				CC60C86F9A80CA5D2C9F582B /* README.md */,
@@ -1541,8 +1525,6 @@
 				8CAFBC478B17E96C16F9DFFA /* Icon
  in Sources */,
 				E76816EF014518B0B3E83C39 /* ofxSvg.cpp in Sources */,
-				DD87F627B47B4250E52E3EDC /* Icon
- in Sources */,
 				7CC6D1CA91AC0FA5BD8B77B1 /* Icon
  in Sources */,
 				F5006A63560B4F492AEAED5E /* Icon
@@ -1556,8 +1538,6 @@
 				0C8E6109528865C738BFD818 /* SyphonNameboundClient.m in Sources */,
 				B35B435B3FBB7A5DE8E1E114 /* License.txt in Sources */,
 				ACB63CE0B5D6B2C3874ACF33 /* README.md in Sources */,
-				282324E57BE68605CC33832F /* Icon
- in Sources */,
 				E8DCE950B5C5DDF9DACD286A /* ofxSyphonClient.mm in Sources */,
 				EF0089626C4D8C2EB283BF9B /* ofxSyphonServer.mm in Sources */,
 				E2C4EC0DD7FCC79D37B6D59D /* ofxSyphonServerDirectory.mm in Sources */,

@@ -25,6 +25,18 @@ ofxSyphonServer::~ofxSyphonServer()
     [pool drain];
 }
 
+void ofxSyphonServer::exit()
+{
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    
+    [(SyphonServer *)mSyphon stop];
+    [(SyphonServer *)mSyphon release];
+    
+    [pool drain];
+    
+    mSyphon = nil;
+    
+}
 
 void ofxSyphonServer::setName(string n)
 {

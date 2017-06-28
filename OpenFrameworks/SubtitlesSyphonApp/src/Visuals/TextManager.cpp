@@ -52,9 +52,9 @@ void TextManager::setupText()
     m_textVisual.setPosition(pos); m_textVisual.setCentred(true);
     
     
-    string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel tempor diam, ut laoreet risus. Mauris est orci, scelerisque et accumsan in, porttitor eget ipsum. Pellentesque eleifend justo sapien, sit amet vulputate quam vehicula quis. Aenean eu condimentum velit, ut eleifend quam. Morbi faucibus erat in suscipit aliquet. Integer arcu nibh, porttitor a arcu sagittis, luctus laoreet mauris. Etiam tincidunt pulvinar metus, fringilla ultricies urna condimentum in. Praesent in neque enim. Phasellus mattis congue fringilla. Donec condimentum vitae lectus vel laoreet. Praesent lobortis ac massa eget elementum. Ut non magna rutrum quam sollicitudin posuere et a sem. Integer id arcu sit amet neque luctus semper. Donec faucibus rutrum risus.";
+    string text = " ";
     
-    string fontName = "Lucida Grande";
+    string fontName = OF_TTF_SANS;
     float size = 30;
     
     m_textVisual.setText(text, fontName, size, ofColor::white);
@@ -105,7 +105,7 @@ void TextManager::onChangePos(ofVec2f& value)
 }
 
 
-void TextManager::onChangePosX (float& value)
+void TextManager::onChangePosX(float& value)
 {
     float width = AppManager::getInstance().getSettingsManager().getAppWidth();
     auto pos = m_textVisual.getPosition();
@@ -114,7 +114,7 @@ void TextManager::onChangePosX (float& value)
     m_textVisual.setPosition(pos);
 }
 
-void TextManager::onChangePosY (float& value)
+void TextManager::onChangePosY(float& value)
 {
     float height = AppManager::getInstance().getSettingsManager().getAppHeight();
     auto pos = m_textVisual.getPosition();
@@ -123,8 +123,30 @@ void TextManager::onChangePosY (float& value)
     m_textVisual.setPosition(pos);
 }
 
+void TextManager::onChangePosZ(float& value)
+{
+    auto pos = m_textVisual.getPosition();
+    float posZ = (int) ofMap(value, -1.0, 1.0, -100, 100, true);
+    pos.z = posZ;
+    m_textVisual.setPosition(pos);
+}
+
+
 
 void TextManager::setColor(const ofColor& color)
 {
     m_textVisual.setColor(color);
 }
+
+void TextManager::setText(const string& text)
+{
+    m_textVisual.setText(text);
+}
+
+void TextManager::setFontType(const string& name)
+{
+    m_textVisual.setFontName(name);
+    AppManager::getInstance().getGuiManager().setFontLabel(name);
+}
+
+
