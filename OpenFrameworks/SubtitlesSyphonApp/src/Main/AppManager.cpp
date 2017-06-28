@@ -71,6 +71,7 @@ void AppManager::setupManagers()
     m_keyboardManager.setup();
     m_mouseManager.setup();
     m_oscManager.setup();
+    m_subtitlesManager.setup();
     m_textManager.setup();
     m_guiManager.setup();
     

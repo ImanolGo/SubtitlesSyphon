@@ -20,4 +20,5 @@
 #include "MouseManager.h"
 #include "OscManager.h"
 #include "TextManager.h"
+#include "SubtitlesManager.h"
 

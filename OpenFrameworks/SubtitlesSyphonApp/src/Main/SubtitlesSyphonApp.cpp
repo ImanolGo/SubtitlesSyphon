@@ -76,6 +76,7 @@ void SubtitlesSyphonApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void SubtitlesSyphonApp::dragEvent(ofDragInfo dragInfo){
-
+void SubtitlesSyphonApp::dragEvent(ofDragInfo dragInfo)
+{
+    AppManager::getInstance().getSubtitlesManager().loadFiles(dragInfo.files);
 }

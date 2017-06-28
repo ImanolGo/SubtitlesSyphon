@@ -38,7 +38,9 @@ void GuiManager::setup()
     Manager::setup();
 
     this->setupGuiParameters();
+    this->setupSubtitlesGui();
     this->setupTextGui();
+    this->setupColorGui();
     this->setupGuiEvents();
     this->loadGuiValues();
     
@@ -71,6 +73,30 @@ void GuiManager::setupGuiParameters()
     
     m_gui.addBreak();
 }
+
+void GuiManager::setupSubtitlesGui()
+{
+    auto subtitles = &AppManager::getInstance().getSubtitlesManager();
+    
+    m_subCol.set("Col: ", 0, 0, 0);
+    m_subCol.addListener(subtitles, &SubtitlesManager::onChangeCol);
+    //m_parameters.add(m_subCol);
+    
+    m_subRow.set("Row: ", 0, 0, 0);
+    m_subRow.addListener(subtitles, &SubtitlesManager::onChangeRow);
+    //m_parameters.add(m_subRow)
+    
+    // add a folder to group a few components together //
+    ofxDatGuiFolder* folder = m_gui.addFolder("SUBTITLES", ofColor::green);
+    folder->addLabel("FILE:");
+    folder->addButton("* LOAD CSV");
+    folder->addSlider(m_subCol);
+    folder->addSlider(m_subRow);
+    folder->expand();
+    
+     m_subLabel = m_gui.getLabel("FILE:");
+}
+
 
 void GuiManager::setupTextGui()
 {
@@ -107,6 +133,31 @@ void GuiManager::setupTextGui()
     folder->addToggle("Show Box");
     folder->expand();
 }
+
+
+
+void GuiManager::setupColorGui()
+{
+    m_red.set("R: ", 255, 0, 255);
+    m_red.addListener(this, &GuiManager::onChangeColor);
+    m_parameters.add(m_red);
+    
+    m_green.set("G: ", 255, 0, 255);
+    m_green.addListener(this, &GuiManager::onChangeColor);
+    m_parameters.add(m_green);
+    
+    m_blue.set("B: ", 255, 0, 255);
+    m_blue.addListener(this, &GuiManager::onChangeColor);
+    m_parameters.add(m_blue);
+    
+    // add a folder to group a few components together //
+    ofxDatGuiFolder* folder = m_gui.addFolder("COLOR", ofColor::purple);
+    folder->addSlider(m_red);
+    folder->addSlider(m_green);
+    folder->addSlider(m_blue);
+    folder->expand();
+}
+
 
 void GuiManager::setupGuiEvents()
 {
@@ -165,6 +216,15 @@ void GuiManager::drawRectangle()
     ofDrawRectangle( m_gui.getPosition().x - margin, 0, m_gui.getWidth() + 2*margin, ofGetHeight());
     ofPopStyle();
 }
+
+
+void GuiManager::onChangeColor(int& value)
+{
+    m_currentColor.r = m_red;  m_currentColor.g = m_green; m_currentColor.b = m_blue;
+    AppManager::getInstance().getTextManager().setColor(m_currentColor);
+}
+
+
 void GuiManager::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
     cout << "onDropdownEvent: " << e.target->getName() << " Selected" << endl;
@@ -192,9 +252,9 @@ void GuiManager::onButtonEvent(ofxDatGuiButtonEvent e)
 {
     cout << "onButtonEvent: " << e.target->getName() << " Selected" << endl;
     
-    if(e.target->getName() == "* Next Video")
+    if(e.target->getName() == "* LOAD CSV")
     {
-        //AppManager::getInstance().getVideoManager().onNextVideoChange();
+        this->openSystemDialog();
     }
 
     else if(e.target->getName() == "* Save GUI")
@@ -229,4 +289,40 @@ void GuiManager::onMatrixEvent(ofxDatGuiMatrixEvent e)
     }
 }
 
+void GuiManager::openSystemDialog()
+{
+    //Open the Open File Dialog
+    ofFileDialogResult openFileResult= ofSystemLoadDialog("Select a csv file");
+    
+    //Check if the user opened a file
+    if (openFileResult.bSuccess){
+        
+        ofLogNotice() << "GuiManager::openSystemDialog-> User selected a file: " << openFileResult.getName();
+        
+        AppManager::getInstance().getSubtitlesManager().loadFile(openFileResult.getPath());
+        
+    }else {
+        ofLogNotice() << "GuiManager::openSystemDialog-> User hit cancel";
+    }
+}
 
+void GuiManager::setNumCols(int value)
+{
+    if(value>0){
+        m_subCol.setMax(value);
+        m_gui.getSlider(m_subCol.getName())->setMax(value);
+    }
+}
+
+void GuiManager::setNumRows(int value)
+{
+    if(value>0){
+        m_subRow.setMax(value);
+        m_gui.getSlider(m_subRow.getName())->setMax(value);
+    }
+}
+
+void GuiManager::setSubtitlesName(const string& name)
+{
+    m_subLabel->setLabel("FILE: " + name);
+}

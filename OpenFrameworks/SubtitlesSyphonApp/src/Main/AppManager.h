@@ -68,6 +68,9 @@ public:
     //! Returns the  text manager
     TextManager&  getTextManager() { return m_textManager; }
     
+    //! Returns the  subtitles manager
+    SubtitlesManager&  getSubtitlesManager() { return m_subtitlesManager; }
+    
     //==========================================================================
     
     void toggleDebugMode();
@@ -110,7 +113,7 @@ private:
     GuiManager               m_guiManager;               ///< Manages the graphical user interface
     OscManager               m_oscManager;               ///< Manages the OSC messages
     TextManager              m_textManager;              ///< Manages the text to be rendered
-    
+    SubtitlesManager         m_subtitlesManager;         ///< Manages the current subtitles
     bool                     m_debugMode;
 };
 

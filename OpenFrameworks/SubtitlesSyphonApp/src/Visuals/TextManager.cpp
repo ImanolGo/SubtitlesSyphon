@@ -52,7 +52,8 @@ void TextManager::setupText()
     m_textVisual.setPosition(pos); m_textVisual.setCentred(true);
     
     
-    string text = "Grundlage für ein Referenzkorpus der neuhochdeutschenßßßßß ÍÍ¨¨¨¨UUUÜUUprache Das Deutsche Textarchiv stellt einen disziplinen- und gattungsübergreifenden Grundbestand deutschsprachiger Texte aus dem Zeitraum von ca. 1600 bis 1900 bereit. Die Textauswahl erfolgte auf der Grundlage einer von Akademiemitgliedern erstellten und ausführlich kommentierten, umfangreichen Bibliographie. In Ergänzung wurden einschlägige Literaturgeschichten und (Fach-)Bibliographien ausgewertet. Aus der Gesamtliste der auf diesem Wege ermittelten Titel wurde von der DTA-Projektgruppe ein hinsichtlich der";
+    string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel tempor diam, ut laoreet risus. Mauris est orci, scelerisque et accumsan in, porttitor eget ipsum. Pellentesque eleifend justo sapien, sit amet vulputate quam vehicula quis. Aenean eu condimentum velit, ut eleifend quam. Morbi faucibus erat in suscipit aliquet. Integer arcu nibh, porttitor a arcu sagittis, luctus laoreet mauris. Etiam tincidunt pulvinar metus, fringilla ultricies urna condimentum in. Praesent in neque enim. Phasellus mattis congue fringilla. Donec condimentum vitae lectus vel laoreet. Praesent lobortis ac massa eget elementum. Ut non magna rutrum quam sollicitudin posuere et a sem. Integer id arcu sit amet neque luctus semper. Donec faucibus rutrum risus.";
+    
     string fontName = "Lucida Grande";
     float size = 30;
     
@@ -120,4 +121,10 @@ void TextManager::onChangePosY (float& value)
     float posY = (int) ofMap(value, 0.0, 1.0, 0, height, true);
     pos.y = posY;
     m_textVisual.setPosition(pos);
+}
+
+
+void TextManager::setColor(const ofColor& color)
+{
+    m_textVisual.setColor(color);
 }

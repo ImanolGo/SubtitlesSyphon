@@ -54,6 +54,8 @@ public:
     
     void  onChangeShowBox (bool value);
     
+    void  setColor(const ofColor& color);
+    
     
 private:
     

@@ -56,11 +56,25 @@ public:
     
     ofPoint  getPosition() {return m_gui.getPosition();}
     
+    void onChangeColor(int& value);
+    
+    
+    void setNumCols(int value);
+    
+    void setNumRows(int value);
+    
+    void setSubtitlesName(const string& name);
+
+    
 private:
     
     void setupGuiParameters();
     
     void setupTextGui();
+    
+    void setupColorGui();
+    
+    void setupSubtitlesGui();
     
     void setupGuiEvents();
     
@@ -76,6 +90,8 @@ private:
     
     void onMatrixEvent(ofxDatGuiMatrixEvent e);
     
+    void openSystemDialog();
+    
 
 private:
     
@@ -89,6 +105,13 @@ private:
     ofParameter<float>      m_textLineHeight;
     ofParameter<float>      m_textX;
     ofParameter<float>      m_textY;
+    
+    ofParameter<int>        m_red, m_green,m_blue;
+    ofColor                 m_currentColor;
+    
+    ofParameter<int>        m_subCol;
+    ofParameter<int>        m_subRow;
+    ofxDatGuiLabel*         m_subLabel;
     
    
     bool        m_showGui;  //It defines the whether the gui should be shown or not
