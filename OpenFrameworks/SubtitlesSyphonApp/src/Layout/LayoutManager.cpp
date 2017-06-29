@@ -61,17 +61,19 @@ void LayoutManager::setupFbo()
     float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
     float ratio = width/ height;
     
-    m_currentWindowRect.width = (ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth())/2 - 4*margin;
+    float frame_width = ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth() - 2*margin;
+    
+    m_currentWindowRect.width = 3*frame_width/5 - 2*margin;
     m_currentWindowRect.height =  m_currentWindowRect.width / ratio;
     
-    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth();
-    m_currentWindowRect.y = ofGetHeight()*0.5 - m_currentWindowRect.height*0.5;
+    m_previewWindowRect.width = 2*frame_width/5 - 2*margin;
+    m_previewWindowRect.height = m_previewWindowRect.width / ratio;
     
-    m_previewWindowRect.width = m_currentWindowRect.getWidth();
-    m_previewWindowRect.height =  m_currentWindowRect.getHeight();
+    m_currentWindowRect.x = AppManager::getInstance().getGuiManager().getWidth()  + 3*margin;
+    m_currentWindowRect.y = ofGetHeight()/2 - m_currentWindowRect.height/2;
     
-    m_previewWindowRect.x = 4*margin + AppManager::getInstance().getGuiManager().getWidth() +  m_previewWindowRect.width;
-    m_previewWindowRect.y = m_currentWindowRect.y;
+    m_previewWindowRect.x = m_currentWindowRect.x + 2*margin + m_currentWindowRect.width;
+    m_previewWindowRect.y = ofGetHeight()/2 - m_previewWindowRect.height/2;
     
     m_currentFbo.allocate(width, height, GL_RGBA);
     m_currentFbo.begin(); ofClear(0,0,0,0); m_currentFbo.end();
@@ -251,20 +253,55 @@ void LayoutManager::drawPreviewFbo()
 
 void LayoutManager::windowResized(int w, int h)
 {
-//    int margin =  LayoutManager::MARGIN;
-//    
-//    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
-//    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
-//    float ratio = width/ height;
-//    
-//    m_currentWindowRect.width = w - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
-//    m_currentWindowRect.height =  m_currentWindowRect.width / ratio;
-//    
-//    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
-//    m_currentWindowRect.y = h*0.5 - m_currentWindowRect.height*0.5;
-//    
-//    m_currentFboRectangle.setPosition(ofPoint( m_currentWindowRect.x - FRAME_MARGIN, m_currentWindowRect.y - FRAME_MARGIN, 0));
-//    m_currentFboRectangle.setWidth(m_currentWindowRect.width + 2*FRAME_MARGIN); m_currentFboRectangle.setHeight(m_currentWindowRect.height + 2*FRAME_MARGIN);
+    int margin =  LayoutManager::MARGIN;
+    
+    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+    float ratio = width/ height;
+    float frame_width = w - AppManager::getInstance().getGuiManager().getWidth() - 2*margin;
+    
+    if(frame_width >= h)
+    {
+        m_currentWindowRect.width = 3*frame_width/5 - 2*margin;
+        m_currentWindowRect.height =  m_currentWindowRect.width / ratio;
+        
+        m_previewWindowRect.width = 2*frame_width/5 - 2*margin;
+        m_previewWindowRect.height = m_previewWindowRect.width / ratio;
+        
+        m_currentWindowRect.x = AppManager::getInstance().getGuiManager().getWidth()  + 3*margin;
+        m_currentWindowRect.y = h/2 - m_currentWindowRect.height/2;
+        
+        m_previewWindowRect.x = m_currentWindowRect.x + 2*margin + m_currentWindowRect.width;
+        m_previewWindowRect.y = h/2 - m_previewWindowRect.height/2;
+    }
+    else
+    {
+        m_currentWindowRect.width = frame_width - 2*margin;
+        m_currentWindowRect.height =  m_currentWindowRect.width / ratio;
+        
+        m_previewWindowRect.width = 3*m_currentWindowRect.width/4;
+        m_previewWindowRect.height = m_previewWindowRect.width / ratio;
+        
+        m_currentWindowRect.x = AppManager::getInstance().getGuiManager().getWidth()  + 3*margin;
+        m_currentWindowRect.y = m_liveRectangle.getHeight() + 2*margin;
+        
+        m_previewWindowRect.x = m_currentWindowRect.x;
+        m_previewWindowRect.y = m_currentWindowRect.y + m_currentWindowRect.height + 2*margin;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    m_currentFboRectangle.setPosition(ofPoint( m_currentWindowRect.x - FRAME_MARGIN, m_currentWindowRect.y - FRAME_MARGIN, 0));
+    m_currentFboRectangle.setWidth(m_currentWindowRect.width + 2*FRAME_MARGIN); m_currentFboRectangle.setHeight(m_currentWindowRect.height + 2*FRAME_MARGIN);
+    
+    m_previewFboRectangle.setPosition(ofPoint( m_previewWindowRect.x - FRAME_MARGIN, m_previewWindowRect.y - FRAME_MARGIN, 0));
+    m_previewFboRectangle.setWidth(m_previewWindowRect.width + 2*FRAME_MARGIN); m_previewFboRectangle.setHeight(m_previewWindowRect.height + 2*FRAME_MARGIN);
 
 }
 
