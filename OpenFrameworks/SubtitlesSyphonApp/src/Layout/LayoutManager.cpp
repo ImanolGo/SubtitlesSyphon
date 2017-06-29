@@ -64,14 +64,14 @@ void LayoutManager::setupFbo()
     m_currentWindowRect.width = (ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth())/2 - 4*margin;
     m_currentWindowRect.height =  m_currentWindowRect.width / ratio;
     
-    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
+    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth();
     m_currentWindowRect.y = ofGetHeight()*0.5 - m_currentWindowRect.height*0.5;
     
     m_previewWindowRect.width = m_currentWindowRect.getWidth();
     m_previewWindowRect.height =  m_currentWindowRect.getHeight();
     
-    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() +  m_currentWindowRect.width;
-    m_currentWindowRect.y = m_currentWindowRect.y;
+    m_previewWindowRect.x = 4*margin + AppManager::getInstance().getGuiManager().getWidth() +  m_previewWindowRect.width;
+    m_previewWindowRect.y = m_currentWindowRect.y;
     
     m_currentFbo.allocate(width, height, GL_RGBA);
     m_currentFbo.begin(); ofClear(0,0,0,0); m_currentFbo.end();
@@ -184,6 +184,7 @@ void LayoutManager::onFullScreenChange(bool value)
 
 void LayoutManager::draw()
 {
+    //AppManager::getInstance().getTextManager().drawCurrentVisuals();
     this->drawFbos();
     this->drawRectangles();
 }
@@ -200,6 +201,7 @@ void LayoutManager::drawFbos()
 {
     this->drawCurrentFbo();
     this->drawPreviewFbo();
+
 }
 
 void LayoutManager::drawCurrentFbo()
@@ -207,10 +209,10 @@ void LayoutManager::drawCurrentFbo()
     
     ofEnableAlphaBlending();
     m_currentFbo.begin();
-    ofPushStyle();
+        ofPushStyle();
         ofClear(0, 0, 0);
     
-        AppManager::getInstance().getTextManager().draw();
+            AppManager::getInstance().getTextManager().draw();
     
     ofPopStyle();
     m_currentFbo.end();
@@ -225,7 +227,7 @@ void LayoutManager::drawCurrentFbo()
     
     m_currentFboRectangle.draw();
     m_syphonFbo.draw(m_currentWindowRect.x,m_currentWindowRect.y,m_currentWindowRect.width,m_currentWindowRect.height);
-    
+   
 }
 
 void LayoutManager::drawPreviewFbo()
@@ -243,7 +245,7 @@ void LayoutManager::drawPreviewFbo()
     ofDisableAlphaBlending();
     
     m_previewFboRectangle.draw();
-    m_previewFbo.draw(m_currentWindowRect.x,m_currentWindowRect.y,m_currentWindowRect.width,m_currentWindowRect.height);
+    m_previewFbo.draw(m_previewWindowRect.x,m_previewWindowRect.y,m_previewWindowRect.width,m_previewWindowRect.height);
     
 }
 

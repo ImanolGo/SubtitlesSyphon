@@ -121,7 +121,7 @@ void TextManager::onChangeSize(int& value)
 {
     float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
     
-    int size = (int) ofMap(value, 0, 100, height/100, height/10, true);
+    int size = (int) ofMap(value, 0, 100, height/100, height/8, true);
     
     for(auto visual: m_textVisuals){
         visual.second->setFontSize(size);
@@ -205,8 +205,8 @@ void TextManager::setColor(ofColor& color)
 
 void TextManager::setCurrentText(const string& text)
 {
-    //ofLogNotice() <<"TextManager::PreviousText -> " << m_textVisuals["CurrentText"]->getText();
-    //ofLogNotice() <<"TextManager::CurrentText -> " << text;
+    ofLogNotice() <<"TextManager::PreviousText -> " << m_textVisuals["CurrentText"]->getText();
+    ofLogNotice() <<"TextManager::CurrentText -> " << text;
     m_textVisuals["PreviousText"]->setText(m_textVisuals["CurrentText"]->getText());
     m_textVisuals["CurrentText"]->setText(text);
     this->addCurrentCrossFadeAnimations();
@@ -231,9 +231,6 @@ void TextManager::setFontType(const string& name)
 
 void TextManager::addCurrentCrossFadeAnimations()
 {
-    for(auto visual: m_textVisuals){
-         AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(visual.second);
-    }
     
     AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["CurrentText"]);
     AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["PreviousText"]);
@@ -253,10 +250,6 @@ void TextManager::addCurrentCrossFadeAnimations()
 
 void TextManager::addPreviewCrossFadeAnimations()
 {
-    for(auto visual: m_textVisuals){
-        AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(visual.second);
-    }
-    
     AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["CurrentTextPreview"]);
     AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["PreviousTextPreview"]);
     

@@ -42,6 +42,8 @@ public:
     
     void drawPreviousVisuals();
     
+    void drawCurrentVisuals();
+    
     void  onChangeSize(int& value);
     
     void  onChangeWidth(float& value);
@@ -74,8 +76,6 @@ private:
     void setupFbos();
     
     void setupVisuals();
-    
-    void drawCurrentVisuals();
     
     void addCurrentCrossFadeAnimations();
     

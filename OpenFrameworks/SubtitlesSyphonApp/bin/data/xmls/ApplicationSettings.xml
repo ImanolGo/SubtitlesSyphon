@@ -19,7 +19,7 @@
 
   <colors>
 
-    <color name="BackgroundColor" r="50" g="50" b="50" a="255"/>
+    <color name="BackgroundColor" r="40" g="40" b="43" a="255"/>
     <color name="CenterBackgroundColor" r="85" g="78" b="68" a="255"/>
     <color name="EdgeBackgroundColor" r="30" g="30" b="30" a="255"/>
     <color  name="GUI_Background" r="0" g="0" b="0" a="127"/>
