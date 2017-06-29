@@ -105,6 +105,10 @@ void GuiManager::setupTextGui()
 {
     auto textManager = &AppManager::getInstance().getTextManager();
     
+    m_textTransitionTime.set("Transition Time", 0.5, 0, 2);
+    m_textTransitionTime.addListener(textManager, &TextManager::onChangeTransitionTime);
+    m_parameters.add(m_textTransitionTime);
+    
     m_textSize.set("Font Size", 10, 1, 100);
     m_textSize.addListener(textManager, &TextManager::onChangeSize);
     m_parameters.add(m_textSize);
@@ -133,6 +137,7 @@ void GuiManager::setupTextGui()
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("TEXT", ofColor::cyan);
     folder->addLabel("Font Name:");
+    folder->addSlider(m_textTransitionTime);
     folder->addSlider(m_textSize);
     folder->addSlider(m_textWidth);
     folder->addSlider(m_textLineHeight);
@@ -418,6 +423,10 @@ void GuiManager::setSubRow(int value)
     m_subRow = ofClamp(value, m_subRow.getMin(), m_subRow.getMax());
 }
 
+void GuiManager::setTextTransitionTime(float value)
+{
+    m_textTransitionTime = ofClamp(value, m_textTransitionTime.getMin(), m_textTransitionTime.getMax());
+}
 
 void GuiManager::setSyphonToggle(bool value)
 {

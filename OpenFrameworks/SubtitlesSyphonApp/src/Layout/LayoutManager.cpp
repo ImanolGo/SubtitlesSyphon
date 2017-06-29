@@ -17,6 +17,7 @@
 
 
 const int LayoutManager::MARGIN = 20;
+const int LayoutManager::FRAME_MARGIN = 2;
 
 LayoutManager::LayoutManager(): Manager(), m_syphonToggle(true), m_syphonEnable(true)
 {
@@ -39,6 +40,7 @@ void LayoutManager::setup()
     
     this->setupFbo();
     this->setupSyphon();
+    this->setupRectangle();
     
     this->createTextVisuals();
     this->createSvgVisuals();
@@ -59,21 +61,51 @@ void LayoutManager::setupFbo()
     float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
     float ratio = width/ height;
     
-    m_windowRect.width = ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
-    m_windowRect.height =  m_windowRect.width / ratio;
+    m_currentWindowRect.width = (ofGetWidth() - AppManager::getInstance().getGuiManager().getWidth())/2 - 4*margin;
+    m_currentWindowRect.height =  m_currentWindowRect.width / ratio;
     
-    m_windowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
-    m_windowRect.y = ofGetHeight()*0.5 - m_windowRect.height*0.5;
+    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
+    m_currentWindowRect.y = ofGetHeight()*0.5 - m_currentWindowRect.height*0.5;
     
-    m_fbo.allocate(width, height, GL_RGBA);
-    m_fbo.begin(); ofClear(0,0,0,0); m_fbo.end();
+    m_previewWindowRect.width = m_currentWindowRect.getWidth();
+    m_previewWindowRect.height =  m_currentWindowRect.getHeight();
+    
+    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() +  m_currentWindowRect.width;
+    m_currentWindowRect.y = m_currentWindowRect.y;
+    
+    m_currentFbo.allocate(width, height, GL_RGBA);
+    m_currentFbo.begin(); ofClear(0,0,0,0); m_currentFbo.end();
+    
+    m_previewFbo.allocate(width, height, GL_RGBA);
+    m_previewFbo.begin(); ofClear(0,0,0,0); m_previewFbo.end();
     
     m_syphonFbo.allocate(width, height, GL_RGBA);
     m_syphonFbo.begin(); ofClear(0,0,0,0); m_syphonFbo.end();
     
-    m_fbo.getTexture().getTextureData().bFlipTexture = true;
+    m_currentFbo.getTexture().getTextureData().bFlipTexture = true;
     m_syphonFbo.getTexture().getTextureData().bFlipTexture = true;
  
+}
+
+void LayoutManager::setupRectangle()
+{
+    float width = ofGetScreenWidth();
+    float height = ofGetScreenHeight()/80;
+    
+    m_liveRectangle.setWidth(width); m_liveRectangle.setHeight(height);
+    
+    auto color = AppManager::getInstance().getSettingsManager().getColor("LiveRectangle");
+    m_liveRectangle.setColor(color);
+    
+    m_currentFboRectangle.setPosition(ofPoint( m_currentWindowRect.x - FRAME_MARGIN, m_currentWindowRect.y - FRAME_MARGIN, 0));
+    m_currentFboRectangle.setWidth(m_currentWindowRect.width + 2*FRAME_MARGIN); m_currentFboRectangle.setHeight(m_currentWindowRect.height + 2*FRAME_MARGIN);
+    color = AppManager::getInstance().getSettingsManager().getColor("FrameRectangle");
+    m_currentFboRectangle.setColor(color);
+    
+    
+    m_previewFboRectangle.setPosition(ofPoint( m_previewWindowRect.x - FRAME_MARGIN, m_previewWindowRect.y - FRAME_MARGIN, 0));
+    m_previewFboRectangle.setWidth(m_previewWindowRect.width + 2*FRAME_MARGIN); m_previewFboRectangle.setHeight(m_previewWindowRect.height + 2*FRAME_MARGIN);
+    m_previewFboRectangle.setColor(color);
 }
 
 void LayoutManager::setupSyphon()
@@ -152,42 +184,85 @@ void LayoutManager::onFullScreenChange(bool value)
 
 void LayoutManager::draw()
 {
+    this->drawFbos();
+    this->drawRectangles();
+}
+
+void LayoutManager::drawRectangles()
+{
+    if(m_syphonEnable){
+        m_liveRectangle.draw();
+    }
+}
+
+
+void LayoutManager::drawFbos()
+{
+    this->drawCurrentFbo();
+    this->drawPreviewFbo();
+}
+
+void LayoutManager::drawCurrentFbo()
+{
     
     ofEnableAlphaBlending();
-    m_fbo.begin();
+    m_currentFbo.begin();
     ofPushStyle();
         ofClear(0, 0, 0);
     
         AppManager::getInstance().getTextManager().draw();
     
     ofPopStyle();
-    m_fbo.end();
+    m_currentFbo.end();
     ofDisableAlphaBlending();
     
     m_syphonFbo.begin();
         ofClear(0);
         if(m_syphonToggle){
-            m_fbo.draw(0,0);
+            m_currentFbo.draw(0,0);
         }
     m_syphonFbo.end();
     
-    m_syphonFbo.draw(m_windowRect.x,m_windowRect.y,m_windowRect.width,m_windowRect.height);
+    m_currentFboRectangle.draw();
+    m_syphonFbo.draw(m_currentWindowRect.x,m_currentWindowRect.y,m_currentWindowRect.width,m_currentWindowRect.height);
+    
+}
+
+void LayoutManager::drawPreviewFbo()
+{
+    
+    ofEnableAlphaBlending();
+    m_previewFbo.begin();
+    ofPushStyle();
+    ofClear(0, 0, 0);
+    
+    AppManager::getInstance().getTextManager().drawPreviousVisuals();
+    
+    ofPopStyle();
+    m_previewFbo.end();
+    ofDisableAlphaBlending();
+    
+    m_previewFboRectangle.draw();
+    m_previewFbo.draw(m_currentWindowRect.x,m_currentWindowRect.y,m_currentWindowRect.width,m_currentWindowRect.height);
     
 }
 
 void LayoutManager::windowResized(int w, int h)
 {
-    int margin =  LayoutManager::MARGIN;
-    
-    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
-    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
-    float ratio = width/ height;
-    
-    m_windowRect.width = w - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
-    m_windowRect.height =  m_windowRect.width / ratio;
-    
-    m_windowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
-    m_windowRect.y = h*0.5 - m_windowRect.height*0.5;
+//    int margin =  LayoutManager::MARGIN;
+//    
+//    float width = AppManager::getInstance().getSettingsManager().getAppWidth();
+//    float height  = AppManager::getInstance().getSettingsManager().getAppHeight();
+//    float ratio = width/ height;
+//    
+//    m_currentWindowRect.width = w - AppManager::getInstance().getGuiManager().getWidth() - 4*margin;
+//    m_currentWindowRect.height =  m_currentWindowRect.width / ratio;
+//    
+//    m_currentWindowRect.x = 3*margin + AppManager::getInstance().getGuiManager().getWidth() ;
+//    m_currentWindowRect.y = h*0.5 - m_currentWindowRect.height*0.5;
+//    
+//    m_currentFboRectangle.setPosition(ofPoint( m_currentWindowRect.x - FRAME_MARGIN, m_currentWindowRect.y - FRAME_MARGIN, 0));
+//    m_currentFboRectangle.setWidth(m_currentWindowRect.width + 2*FRAME_MARGIN); m_currentFboRectangle.setHeight(m_currentWindowRect.height + 2*FRAME_MARGIN);
 
 }
 

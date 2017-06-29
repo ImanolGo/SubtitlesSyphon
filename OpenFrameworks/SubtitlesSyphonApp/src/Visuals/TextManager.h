@@ -31,14 +31,16 @@ public:
     //! Destructor
     ~TextManager();
     
-    //! Setup the Halo Manager
+    //! Setup the Text Manager
     void setup();
     
-    //! Update the Halo Manager
+    //! Update the Text Manager
     void update();
     
-    //! Draw the Halo Manager
+    //! Draw the Text Manager
     void draw();
+    
+    void drawPreviousVisuals();
     
     void  onChangeSize(int& value);
     
@@ -56,7 +58,9 @@ public:
     
     void  onChangeShowBox (bool value);
     
-    void  setColor(const ofColor& color);
+    void onChangeTransitionTime(float& value);
+    
+    void  setColor(ofColor& color);
     
     void setCurrentText(const string& text);
     
@@ -73,9 +77,9 @@ private:
     
     void drawCurrentVisuals();
     
-    void drawPreviousVisuals();
+    void addCurrentCrossFadeAnimations();
     
-    void addCrossFadeAnimations();
+    void addPreviewCrossFadeAnimations();
     
 private:
     
@@ -85,6 +89,7 @@ private:
     
     ofFbo       m_currentFbo;
     ofFbo       m_previusFbo;
+    float       m_transitionTime;
 
 };
 

@@ -11,7 +11,7 @@
 #include "Manager.h"
 #include "TextVisual.h"
 #include "SvgVisual.h"
-#include "ImageVisual.h"
+#include "RectangleVisual.h"
 
 #include "ofxSyphon.h"
 
@@ -27,6 +27,7 @@ class LayoutManager: public Manager
 public:
     
     static const int MARGIN;
+    static const int FRAME_MARGIN;
 
     //! Constructor
     LayoutManager();
@@ -75,8 +76,18 @@ private:
     
     void setupFbo();
     
+    void setupRectangle();
+    
     //! updates the syphon textture to be published
     void updateSyphonTexture();
+    
+    void drawFbos();
+    
+    void drawCurrentFbo();
+    
+    void drawPreviewFbo();
+    
+    void drawRectangles();
 
 private:
 
@@ -90,9 +101,14 @@ private:
     ImageMap            m_imageVisuals;            ///< map storing the image visuals attached to a name
     
     ofxSyphonServer     m_syphonServer;
-    ofRectangle         m_windowRect;
+    ofRectangle         m_currentWindowRect;
+    ofRectangle         m_previewWindowRect;
+    RectangleVisual     m_liveRectangle;
+    RectangleVisual     m_currentFboRectangle;
+    RectangleVisual     m_previewFboRectangle;
     
-    ofFbo               m_fbo;
+    ofFbo               m_currentFbo;
+    ofFbo               m_previewFbo;
     ofFbo               m_syphonFbo;
     
     bool                m_syphonToggle;

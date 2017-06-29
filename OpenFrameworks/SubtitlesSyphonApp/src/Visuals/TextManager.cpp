@@ -14,7 +14,7 @@
 #include "AppManager.h"
 
 
-TextManager::TextManager(): Manager()
+TextManager::TextManager(): Manager(), m_transitionTime(0.5)
 {
     //Intentionally left empty
 }
@@ -94,7 +94,6 @@ void TextManager::update()
 void TextManager::draw()
 {
     this->drawCurrentVisuals();
-   //  m_textVisuals["CurrentText"]->draw();
 }
 
 
@@ -127,6 +126,11 @@ void TextManager::onChangeSize(int& value)
     for(auto visual: m_textVisuals){
         visual.second->setFontSize(size);
     }
+}
+
+void TextManager::onChangeTransitionTime(float& value)
+{
+    m_transitionTime = value;
 }
 
 void TextManager::onChangeWidth(float& value)
@@ -190,21 +194,22 @@ void TextManager::onChangePosZ(float& value)
 
 
 
-void TextManager::setColor(const ofColor& color)
+void TextManager::setColor(ofColor& color)
 {
     for(auto visual: m_textVisuals){
+        int alpha = visual.second->getAlpha();
+        color.a = alpha;
         visual.second->setColor(color);
     }
 }
 
 void TextManager::setCurrentText(const string& text)
 {
-    ofLogNotice() <<"TextManager::PreviousText -> " << m_textVisuals["CurrentText"]->getText();
-    ofLogNotice() <<"TextManager::CurrentText -> " << text;
-    
+    //ofLogNotice() <<"TextManager::PreviousText -> " << m_textVisuals["CurrentText"]->getText();
+    //ofLogNotice() <<"TextManager::CurrentText -> " << text;
     m_textVisuals["PreviousText"]->setText(m_textVisuals["CurrentText"]->getText());
     m_textVisuals["CurrentText"]->setText(text);
-    this->addCrossFadeAnimations();
+    this->addCurrentCrossFadeAnimations();
 }
 
 
@@ -212,6 +217,7 @@ void TextManager::setNextText(const string& text)
 {
     m_textVisuals["PreviousTextPreview"]->setText(m_textVisuals["CurrentTextPreview"]->getText());
     m_textVisuals["CurrentTextPreview"]->setText(text);
+    this->addPreviewCrossFadeAnimations();
 }
 
 void TextManager::setFontType(const string& name)
@@ -223,15 +229,18 @@ void TextManager::setFontType(const string& name)
 }
 
 
-void TextManager::addCrossFadeAnimations()
+void TextManager::addCurrentCrossFadeAnimations()
 {
     for(auto visual: m_textVisuals){
          AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(visual.second);
     }
     
+    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["CurrentText"]);
+    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["PreviousText"]);
+    
     EffectSettings settings;
     settings.function = LINEAR; settings.type = EASE_OUT;
-    settings.startAnimation = 0; settings.animationTime = 1.0;
+    settings.startAnimation = 0; settings.animationTime = m_transitionTime;
     
     auto  previousAlpha = m_textVisuals["CurrentText"]->getAlpha();
     m_textVisuals["PreviousText"]->setAlpha(previousAlpha);
@@ -240,4 +249,27 @@ void TextManager::addCrossFadeAnimations()
     AppManager::getInstance().getVisualEffectsManager().createFadeEffect(m_textVisuals["CurrentText"], 0,255, settings);
     AppManager::getInstance().getVisualEffectsManager().createFadeEffect(m_textVisuals["PreviousText"], previousAlpha, 0, settings);
 }
+
+
+void TextManager::addPreviewCrossFadeAnimations()
+{
+    for(auto visual: m_textVisuals){
+        AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(visual.second);
+    }
+    
+    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["CurrentTextPreview"]);
+    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_textVisuals["PreviousTextPreview"]);
+    
+    EffectSettings settings;
+    settings.function = LINEAR; settings.type = EASE_OUT;
+    settings.startAnimation = 0; settings.animationTime = m_transitionTime;
+    
+    auto  previousAlpha = m_textVisuals["CurrentTextPreview"]->getAlpha();
+    m_textVisuals["PreviousTextPreview"]->setAlpha(previousAlpha);
+    m_textVisuals["CurrentTextPreview"]->setAlpha(0);
+    
+    AppManager::getInstance().getVisualEffectsManager().createFadeEffect(m_textVisuals["CurrentTextPreview"], 0,255, settings);
+    AppManager::getInstance().getVisualEffectsManager().createFadeEffect(m_textVisuals["PreviousTextPreview"], previousAlpha, 0, settings);
+}
+
 

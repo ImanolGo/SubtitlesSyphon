@@ -38,6 +38,35 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"format" : 6,
+					"id" : "obj-19",
+					"maxclass" : "flonum",
+					"maximum" : 3.0,
+					"minimum" : 0.0,
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "bang" ],
+					"parameter_enable" : 0,
+					"patching_rect" : [ 543.0, 285.0, 50.0, 22.0 ],
+					"style" : ""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-20",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 543.0, 350.0, 131.0, 22.0 ],
+					"style" : "",
+					"text" : "/subs/transitiontime $1"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-43",
 					"maxclass" : "toggle",
 					"numinlets" : 1,
@@ -68,7 +97,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 586.0, 341.0, 66.0, 22.0 ],
+					"patching_rect" : [ 712.0, 185.0, 66.0, 22.0 ],
 					"style" : "",
 					"text" : "s udpsend"
 				}
@@ -81,7 +110,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 586.0, 285.0, 119.0, 22.0 ],
+					"patching_rect" : [ 712.0, 129.0, 119.0, 22.0 ],
 					"style" : "",
 					"text" : "/subs/color $1 $2 $3"
 				}
@@ -97,7 +126,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 696.0, 195.0, 50.0, 22.0 ],
+					"patching_rect" : [ 822.0, 39.0, 50.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -112,7 +141,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 641.0, 195.0, 50.0, 22.0 ],
+					"patching_rect" : [ 767.0, 39.0, 50.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -124,7 +153,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 586.0, 246.0, 129.0, 22.0 ],
+					"patching_rect" : [ 712.0, 90.0, 129.0, 22.0 ],
 					"style" : "",
 					"text" : "pak 0 0 0"
 				}
@@ -140,7 +169,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 586.0, 195.0, 50.0, 22.0 ],
+					"patching_rect" : [ 712.0, 39.0, 50.0, 22.0 ],
 					"style" : ""
 				}
 
@@ -607,6 +636,26 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-20", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 552.5, 309.0, 552.5, 309.0 ],
+					"source" : [ "obj-19", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 552.5, 425.5, 49.5, 425.5 ],
+					"source" : [ "obj-20", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
@@ -720,7 +769,7 @@
 					"destination" : [ "obj-38", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 595.5, 219.0, 595.5, 219.0 ],
+					"midpoints" : [ 721.5, 63.0, 721.5, 63.0 ],
 					"source" : [ "obj-37", 0 ]
 				}
 
@@ -730,7 +779,7 @@
 					"destination" : [ "obj-41", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 595.5, 270.0, 595.5, 270.0 ],
+					"midpoints" : [ 721.5, 114.0, 721.5, 114.0 ],
 					"source" : [ "obj-38", 0 ]
 				}
 
@@ -740,7 +789,7 @@
 					"destination" : [ "obj-38", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 650.5, 219.0, 650.5, 219.0 ],
+					"midpoints" : [ 776.5, 63.0, 776.5, 63.0 ],
 					"source" : [ "obj-39", 0 ]
 				}
 
@@ -750,7 +799,7 @@
 					"destination" : [ "obj-38", 2 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 705.5, 219.0, 705.5, 219.0 ],
+					"midpoints" : [ 831.5, 63.0, 831.5, 63.0 ],
 					"source" : [ "obj-40", 0 ]
 				}
 
@@ -760,7 +809,7 @@
 					"destination" : [ "obj-42", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 595.5, 309.0, 595.5, 309.0 ],
+					"midpoints" : [ 721.5, 153.0, 721.5, 153.0 ],
 					"source" : [ "obj-41", 0 ]
 				}
 

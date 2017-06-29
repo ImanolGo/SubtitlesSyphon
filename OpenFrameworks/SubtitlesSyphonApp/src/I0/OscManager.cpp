@@ -100,6 +100,12 @@ void OscManager::update()
             AppManager::getInstance().getGuiManager().setTextLineHeight(value);
         }
         
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/transitiontime")
+        {
+            float value = m.getArgAsFloat(0);
+            AppManager::getInstance().getGuiManager().setTextTransitionTime(value);
+        }
+        
         else if(m.getAddress() == OSC_PARENT_ADDRESS + "/textwidth")
         {
             float value = m.getArgAsFloat(0);

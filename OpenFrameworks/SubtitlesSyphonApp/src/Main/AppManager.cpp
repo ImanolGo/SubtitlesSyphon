@@ -90,7 +90,9 @@ void AppManager::update()
 
 void AppManager::draw()
 {
-    ofBackground(50,50,50);
+    auto color = AppManager::getInstance().getSettingsManager().getColor("BackgroundColor");
+    ofBackground(color);
+    //ofBackground(50,50,50);
    // m_viewManager.draw();
     m_layoutManager.draw();
     m_guiManager.draw();

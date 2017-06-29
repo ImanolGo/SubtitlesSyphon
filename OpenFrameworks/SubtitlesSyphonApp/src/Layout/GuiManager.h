@@ -71,6 +71,8 @@ public:
     
     void setTextLineHeight(float value);
     
+    void setTextTransitionTime(float value);
+    
     void setTextWidth(float value);
     
     void setTextPosX(float value);
@@ -133,6 +135,7 @@ private:
     ofParameter<float>      m_textX;
     ofParameter<float>      m_textY;
     ofParameter<float>      m_textZ;
+    ofParameter<float>      m_textTransitionTime;
     ofxDatGuiLabel*         m_fontLabel;
     
     ofParameter<int>        m_red, m_green,m_blue;

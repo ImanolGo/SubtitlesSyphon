@@ -81,11 +81,17 @@ void SubtitlesManager::onChangeCol(int& value)
     m_currentCol = value;
     
     AppManager::getInstance().getTextManager().setCurrentText(m_csv.getRow(m_currentRow).getString(m_currentCol));
-    ofLogNotice() <<"SubtitlesManager::onChangeCol -> text "<< m_csv.getRow(m_currentRow).getString(m_currentCol);
-    
-    AppManager::getInstance().getTextManager().setNextText(m_csv.getRow(m_currentRow + 1).getString(m_currentCol));
+    //ofLogNotice() <<"SubtitlesManager::onChangeCol -> text "<< m_csv.getRow(m_currentRow).getString(m_currentCol);
     
     
+    int nextRow = m_currentRow + 1;
+    string nextText = "";
+    if(nextRow < m_csv.getNumRows())
+    {
+        nextText = m_csv.getRow(nextRow).getString(m_currentCol);
+    }
+    
+    AppManager::getInstance().getTextManager().setNextText(nextText);
 }
 
 void SubtitlesManager::onChangeRow(int& value)
@@ -100,11 +106,20 @@ void SubtitlesManager::onChangeRow(int& value)
         return;
     }
     
-    ofLogNotice() <<"SubtitlesManager::onChangeCol -> "<< m_csv.getRow(m_currentRow).getString(m_currentCol);
+   // ofLogNotice() <<"SubtitlesManager::onChangeCol -> "<< m_csv.getRow(m_currentRow).getString(m_currentCol);
     
     m_currentRow = value;
     AppManager::getInstance().getTextManager().setCurrentText(m_csv.getRow(m_currentRow).getString(m_currentCol));
-    AppManager::getInstance().getTextManager().setNextText(m_csv.getRow(m_currentRow + 1).getString(m_currentCol));
+    
+    
+    int nextRow = m_currentRow + 1;
+    string nextText = "";
+    if(nextRow < m_csv.getNumRows())
+    {
+        nextText = m_csv.getRow(nextRow).getString(m_currentCol);
+    }
+    
+    AppManager::getInstance().getTextManager().setNextText(nextText);
 }
 
 
