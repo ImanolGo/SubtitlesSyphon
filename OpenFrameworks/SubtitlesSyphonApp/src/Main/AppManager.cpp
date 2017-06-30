@@ -55,9 +55,9 @@ void AppManager::setupOF()
     ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
     ofSetDataPathRoot("../Resources/data/");
-    ofDisableSmoothing();
-    ofDisableAntiAliasing();
-
+    ofEnableSmoothing();
+    ofEnableAntiAliasing();
+    ofSetBackgroundAuto(true);
 }
 
 
@@ -79,6 +79,9 @@ void AppManager::setupManagers()
 
 void AppManager::update()
 {
+    if(!m_initialized)
+        return;
+    
     m_oscManager.update();
     m_visualEffectsManager.update();
     m_viewManager.update();
@@ -90,6 +93,9 @@ void AppManager::update()
 
 void AppManager::draw()
 {
+    if(!m_initialized)
+        return;
+    
     auto color = AppManager::getInstance().getSettingsManager().getColor("BackgroundColor");
     ofBackground(color);
     //ofBackground(50,50,50);

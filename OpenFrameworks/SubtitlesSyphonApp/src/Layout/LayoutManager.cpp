@@ -120,7 +120,9 @@ void LayoutManager::setupSyphon()
 
 void LayoutManager::update()
 {
-    // m_scrollView.update();
+    if(!m_initialized)
+        return;
+    
     
     this->updateSyphonTexture();
 }
@@ -186,6 +188,9 @@ void LayoutManager::onFullScreenChange(bool value)
 
 void LayoutManager::draw()
 {
+    if(!m_initialized)
+        return;
+    
     //AppManager::getInstance().getTextManager().drawCurrentVisuals();
     this->drawFbos();
     this->drawRectangles();

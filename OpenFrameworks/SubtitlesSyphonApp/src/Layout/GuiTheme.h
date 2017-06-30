@@ -28,7 +28,8 @@ public:
         layout.width = 350;
         layout.upperCaseLabels = false;
         //font.file =  AssetPath + "fonts/open-sans/OpenSans-Regular.ttf";
-        //font.size = 8;
+        font.file =  "Helvetica Neue";
+        font.size = 7;
         color.matrix.normal.button = hex(0x6E6E6E);
         color.matrix.hover.button = hex(0x9C9DA1);
         color.matrix.selected.button = hex(0x2FA1D6);
