@@ -10,6 +10,7 @@
 #pragma once
 
 #include "ofxDatGuiTheme.h"
+#include "LayoutManager.h"
 
 //========================== class GuiTheme ==============================
 //============================================================================
@@ -28,7 +29,7 @@ public:
         layout.width = 350;
         layout.upperCaseLabels = false;
         //font.file =  AssetPath + "fonts/open-sans/OpenSans-Regular.ttf";
-        font.file =  "Helvetica Neue";
+        font.file = LayoutManager::LAYOUT_FONT;
         font.size = 7;
         color.matrix.normal.button = hex(0x6E6E6E);
         color.matrix.hover.button = hex(0x9C9DA1);

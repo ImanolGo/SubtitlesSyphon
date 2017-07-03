@@ -28,6 +28,8 @@ public:
     
     static const int MARGIN;
     static const int FRAME_MARGIN;
+    static const string LAYOUT_FONT;
+    static const string LAYOUT_FONT_LIGHT;
 
     //! Constructor
     LayoutManager();
@@ -76,7 +78,13 @@ private:
     
     void setupFbo();
     
-    void setupRectangle();
+    void resetWindowRects();
+    
+    void resetWindowFrames();
+    
+    void resetWindowTitles();
+    
+    void setupWindowFrames();
     
     //! updates the syphon textture to be published
     void updateSyphonTexture();
@@ -88,6 +96,8 @@ private:
     void drawPreviewFbo();
     
     void drawRectangles();
+    
+    void drawText();
 
 private:
 
@@ -95,6 +105,7 @@ private:
     typedef  map<string, ofPtr<TextVisual> >      TextMap;            ///< defines a map of Text attached to an identifier
     typedef  map<string, ofPtr<SvgVisual>  >      SvgMap;             ///< defines a map of SvgVisual Map attached to an identifier
     typedef  map<string, ofPtr<ImageVisual>  >    ImageMap;           ///< defines a map of ImageVisual Map attached to an identifier
+    
   
     TextMap             m_textVisuals;             ///< map storing the text visuals attached to a name
     SvgMap              m_svgVisuals;              ///< map storing the svg visuals attached to a name
@@ -104,8 +115,8 @@ private:
     ofRectangle         m_currentWindowRect;
     ofRectangle         m_previewWindowRect;
     RectangleVisual     m_liveRectangle;
-    RectangleVisual     m_currentFboRectangle;
-    RectangleVisual     m_previewFboRectangle;
+    RectangleVisual     m_currentWindowFrame;
+    RectangleVisual     m_previewWindowFrame;
     
     ofFbo               m_currentFbo;
     ofFbo               m_previewFbo;
