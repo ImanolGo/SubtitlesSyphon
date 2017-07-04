@@ -44,6 +44,8 @@ void GuiManager::setup()
     this->setupGuiEvents();
     this->loadGuiValues();
     
+    ofxDatGuiLog::quiet();
+    
     ofLogNotice() <<"GuiManager::initialized";
     
 }
@@ -60,10 +62,7 @@ void GuiManager::setupGuiParameters()
     m_gui.setAutoDraw(false);
     auto pos = m_gui.getPosition();
     m_gui.setPosition(pos.x + margin, pos.y + margin);
-    m_gui.addHeader(GUI_SETTINGS_NAME, true);
-    
-    // add some components //
-    //m_gui.addLabel("PrimaveraSound GUI");
+    m_gui.addHeader(GUI_SETTINGS_NAME, false);
     
     m_gui.addFRM();
     auto toggle = m_gui.addToggle("Fullscreen");
@@ -72,8 +71,7 @@ void GuiManager::setupGuiParameters()
     toggle->setChecked(true);
     toggle = m_gui.addToggle("Blackout");
     toggle->setChecked(true);
-    m_gui.addButton("* Save GUI");
-    
+    //m_gui.addButton("* Save GUI");
     
     auto oscManager = &AppManager::getInstance().getOscManager();
     

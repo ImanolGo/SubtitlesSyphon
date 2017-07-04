@@ -120,7 +120,6 @@ private:
     
     ofFbo               m_currentFbo;
     ofFbo               m_previewFbo;
-    ofFbo               m_syphonFbo;
     
     bool                m_syphonToggle;
     bool                m_syphonEnable;

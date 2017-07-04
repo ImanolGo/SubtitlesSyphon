@@ -51,7 +51,7 @@ void TextManager::setupVisuals()
     float w = width - 2*margin;
     float h = height - 2*margin;
     string text = " ";
-    string fontName = "Helvetica Neue";
+    string fontName = "Helvetica";
     float size = 30;
     
 
