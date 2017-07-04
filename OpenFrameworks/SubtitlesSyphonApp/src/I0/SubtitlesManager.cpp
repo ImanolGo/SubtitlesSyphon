@@ -45,6 +45,7 @@ bool SubtitlesManager::loadFile(string path)
         AppManager::getInstance().getGuiManager().setNumCols(m_csv.getNumCols());
         AppManager::getInstance().getGuiManager().setNumRows(m_csv.getNumRows());
         AppManager::getInstance().getGuiManager().setSubtitlesName(this->getName(path));
+        AppManager::getInstance().getGuiManager().resetSubtitles();
         return true;
         
     }
@@ -54,6 +55,12 @@ bool SubtitlesManager::loadFile(string path)
          return false;
     }
 }
+
+bool SubtitlesManager::reloadFile()
+{
+    return loadFile(m_csv.getPath());
+}
+
 
 void SubtitlesManager::loadFiles(vector <string>& files)
 {
@@ -106,7 +113,7 @@ void SubtitlesManager::onChangeRow(int& value)
         return;
     }
     
-   // ofLogNotice() <<"SubtitlesManager::onChangeCol -> "<< m_csv.getRow(m_currentRow).getString(m_currentCol);
+    ofLogNotice() <<"SubtitlesManager::onChangeCol -> "<< m_csv.getRow(m_currentRow).getString(m_currentCol);
     
     m_currentRow = value;
     AppManager::getInstance().getTextManager().setCurrentText(m_csv.getRow(m_currentRow).getString(m_currentCol));

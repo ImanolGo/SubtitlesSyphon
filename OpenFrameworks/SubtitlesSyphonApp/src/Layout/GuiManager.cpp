@@ -70,9 +70,18 @@ void GuiManager::setupGuiParameters()
     toggle->setChecked(true);
     toggle = m_gui.addToggle("Syphon");
     toggle->setChecked(true);
-    toggle = m_gui.addToggle("Enable");
+    toggle = m_gui.addToggle("Blackout");
     toggle->setChecked(true);
     m_gui.addButton("* Save GUI");
+    
+    
+    auto oscManager = &AppManager::getInstance().getOscManager();
+    
+    m_oscPort.set("OSC Port: ", 5678, 1024, 50000);
+    m_oscPort.addListener(oscManager, &OscManager::onChangePort);
+    m_parameters.add(m_oscPort);
+    
+    m_gui.addSlider(m_oscPort);
     
     m_gui.addBreak();
 }
@@ -81,18 +90,21 @@ void GuiManager::setupSubtitlesGui()
 {
     auto subtitles = &AppManager::getInstance().getSubtitlesManager();
     
-    m_subCol.set("Language: ", 1, 1, 1);
+    m_subCol.set("Column: ", 0, 0, 0);
     m_subCol.addListener(subtitles, &SubtitlesManager::onChangeCol);
     //m_parameters.add(m_subCol);
     
-    m_subRow.set("Sentence: ", 1, 1, 1);
+    m_subRow.set("Row: ", 0, 0, 0);
     m_subRow.addListener(subtitles, &SubtitlesManager::onChangeRow);
     //m_parameters.add(m_subRow)
     
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("SUBTITLES", ofColor::green);
     folder->addLabel("FILE:");
-    folder->addButton("* LOAD CSV");
+    folder->addButton("* LOAD");
+    folder->addButton("* RELOAD");
+    folder->addButton("* NEXT");
+    folder->addButton("* PREVIOUS");
     folder->addSlider(m_subCol);
     folder->addSlider(m_subRow);
     folder->expand();
@@ -267,7 +279,7 @@ void GuiManager::onButtonEvent(ofxDatGuiButtonEvent e)
 {
     cout << "onButtonEvent: " << e.target->getName() << " Selected" << endl;
     
-    if(e.target->getName() == "* LOAD CSV")
+    if(e.target->getName() == "* LOAD")
     {
         this->openSystemDialog();
     }
@@ -275,6 +287,21 @@ void GuiManager::onButtonEvent(ofxDatGuiButtonEvent e)
     else if(e.target->getName() == "* Save GUI")
     {
         this->saveGuiValues();
+    }
+    
+    else if(e.target->getName() == "* RELOAD")
+    {
+        AppManager::getInstance().getSubtitlesManager().reloadFile();
+    }
+    
+    else if(e.target->getName() == "* NEXT")
+    {
+        this->nextRow();
+    }
+    
+    else if(e.target->getName() == "* PREVIOUS")
+    {
+        this->previousRow();
     }
 }
 
@@ -298,7 +325,7 @@ void GuiManager::onToggleEvent(ofxDatGuiToggleEvent e)
         ofLogNotice()<< "GuiManager::onToggleEvent-> Syphon : " << e.target->getChecked();
         AppManager::getInstance().getLayoutManager().onSyphonEnable(e.target->getChecked());
     }
-    else if(e.target->getName() == "Enable")
+    else if(e.target->getName() == "Blackout")
     {
         ofLogNotice()<< "GuiManager::onToggleEvent-> Enable : " << e.target->getChecked();
         AppManager::getInstance().getLayoutManager().onSyphonToggle(e.target->getChecked());
@@ -333,6 +360,24 @@ void GuiManager::openSystemDialog()
     }
 }
 
+
+void GuiManager::nextRow()
+{
+    if(m_subRow.get() < m_subRow.getMax())
+    {
+        m_subRow = m_subRow.get()  + 1;
+    }
+}
+
+void GuiManager::previousRow()
+{
+    if(m_subRow.get() > m_subRow.getMin())
+    {
+        m_subRow = m_subRow.get()  - 1;
+    }
+}
+
+
 void GuiManager::setNumCols(int value)
 {
     if(value>0){
@@ -347,6 +392,12 @@ void GuiManager::setNumRows(int value)
         m_subRow.setMax(value);
         m_gui.getSlider(m_subRow.getName())->setMax(value-1);
     }
+}
+
+void GuiManager::resetSubtitles()
+{
+    m_subRow = m_subRow.getMin();
+    m_subCol = m_subCol.getMin();
 }
 
 void GuiManager::setSubtitlesName(const string& name)
@@ -432,14 +483,14 @@ void GuiManager::setSyphonToggle(bool value)
 {
     auto toggle = m_gui.getToggle("Syphon");
     toggle->setChecked(value);
-    AppManager::getInstance().getLayoutManager().onSyphonToggle(value);
+    AppManager::getInstance().getLayoutManager().onSyphonEnable(value);
 }
 
 void GuiManager::setSyphonEnable(bool value)
 {
-    auto toggle = m_gui.getToggle("Enable");
+    auto toggle = m_gui.getToggle("Blackout");
     toggle->setChecked(value);
-    AppManager::getInstance().getLayoutManager().onSyphonEnable(value);
+    AppManager::getInstance().getLayoutManager().onSyphonToggle(value);
 }
 
 void GuiManager::setShowBox(bool value)

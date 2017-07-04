@@ -51,7 +51,7 @@ void TextManager::setupVisuals()
     float w = width - 2*margin;
     float h = height - 2*margin;
     string text = " ";
-    string fontName = OF_TTF_SANS;
+    string fontName = "Helvetica Neue";
     float size = 30;
     
 
@@ -99,6 +99,8 @@ void TextManager::draw()
 
 void TextManager::drawCurrentVisuals()
 {
+    //ofSetColor(255, 0, 0);
+    //ofDrawRectangle(0, 0, 1920, 1080);
     m_textVisuals["CurrentText"]->draw();
     m_textVisuals["PreviousText"]->draw();
 }

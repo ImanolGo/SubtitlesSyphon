@@ -36,6 +36,9 @@ public:
     //! loads a file given a path
     bool loadFile(string path);
     
+    //! reloads the current file
+    bool reloadFile();
+    
     //! loads a file given a list of files
     void loadFiles(vector <string>& files);
     

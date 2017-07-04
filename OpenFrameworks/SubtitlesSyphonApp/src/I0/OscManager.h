@@ -45,6 +45,8 @@ public:
     void draw();
     
     
+    void onChangePort(int& value);
+    
 private:
     
     //! sets upt the osc receiver

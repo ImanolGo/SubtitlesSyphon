@@ -295,4 +295,5 @@ class ofxCsv {
 		string filePath;       //< Current file path
 		string fieldSeparator; //< Field separator, default: comma ","
 		string commentPrefix;  //< Comment line prefix, default: "#"
+        string tempLine;
 };

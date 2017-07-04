@@ -64,16 +64,16 @@ void LayoutManager::setupFbo()
     
     
     m_currentFbo.allocate(width, height, GL_RGBA);
-    m_currentFbo.begin(); ofClear(0,0,0,0); m_currentFbo.end();
+    m_currentFbo.begin(); ofClear(0); m_currentFbo.end();
     
     m_previewFbo.allocate(width, height, GL_RGBA);
-    m_previewFbo.begin(); ofClear(0,0,0,0); m_previewFbo.end();
+    m_previewFbo.begin(); ofClear(0); m_previewFbo.end();
     
     m_syphonFbo.allocate(width, height, GL_RGBA);
-    m_syphonFbo.begin(); ofClear(0,0,0,0); m_syphonFbo.end();
+    m_syphonFbo.begin(); ofClear(0); m_syphonFbo.end();
     
-    m_currentFbo.getTexture().getTextureData().bFlipTexture = true;
-    m_syphonFbo.getTexture().getTextureData().bFlipTexture = true;
+    //m_currentFbo.getTexture().getTextureData().bFlipTexture = true;
+    //m_syphonFbo.getTexture().getTextureData().bFlipTexture = true;
     
  
 }
@@ -165,7 +165,7 @@ void LayoutManager::update()
 void LayoutManager::updateSyphonTexture()
 {
     if(m_syphonEnable){
-        m_syphonServer.publishFBO(&m_syphonFbo);
+        m_syphonServer.publishTexture(&m_syphonFbo.getTexture());
     }
 }
 
@@ -210,6 +210,7 @@ void LayoutManager::resetWindowTitles()
     pos.y =  m_previewWindowRect.y - m_textVisuals["NextSubtitle"]->getHeight()*0.5  - MARGIN;
     m_textVisuals["NextSubtitle"]->setPosition(pos);
 }
+
 
 
 void LayoutManager::createSvgVisuals()
@@ -262,7 +263,6 @@ void LayoutManager::draw()
     if(!m_initialized)
         return;
     
-    //AppManager::getInstance().getTextManager().drawCurrentVisuals();
     this->drawFbos();
     this->drawText();
     this->drawRectangles();

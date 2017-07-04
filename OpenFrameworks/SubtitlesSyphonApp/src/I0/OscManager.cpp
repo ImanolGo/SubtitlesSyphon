@@ -59,6 +59,12 @@ void OscManager::setupOscSender()
 }
 
 
+void OscManager::onChangePort(int& value)
+{
+    ofLogNotice() <<"OscManager::onChangePort -> listening for osc messages on port  " << value;
+    m_oscReceiver.setup(value);
+}
+
 void OscManager::update()
 {
     // check for waiting messages
@@ -171,6 +177,8 @@ string OscManager::getMessageAsString(const ofxOscMessage& m) const
     
     return msg_string;
 }
+
+
 
 
 

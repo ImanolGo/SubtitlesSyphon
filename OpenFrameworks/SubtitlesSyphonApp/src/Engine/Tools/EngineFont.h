@@ -13,6 +13,7 @@
 #include "ofMain.h"
 #include "ofUTF8.h"
 #include "ofTextConverter.h"
+#include "ofxTrueTypeFontUC.h"
 
 
 class EngineFont{
@@ -46,10 +47,13 @@ class EngineFont{
 
         //fill in a string
 		string walkAndFill(ofUTF8Ptr being, ofUTF8Ptr & iter, ofUTF8Ptr end);
+    
+        string getFilePathName(string _fontname);
 
 	private:
 
-        ofTrueTypeFont		m_trueTypeFont;
+        ofxTrueTypeFontUC		m_trueTypeFont;
+        //ofTrueTypeFont		m_trueTypeFont;
 		TextBlockAlignment  m_textBlockAlignment;
 
 		float				m_lineHeight; // as percent, 1.0 would be normal

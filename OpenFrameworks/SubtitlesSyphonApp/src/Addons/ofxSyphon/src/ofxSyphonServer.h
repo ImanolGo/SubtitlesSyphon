@@ -10,16 +10,16 @@
 #include "ofMain.h"
 
 class ofxSyphonServer {
-	public:
-	ofxSyphonServer();
-	~ofxSyphonServer();
-	void setName (string n);
-	string getName();
-	void publishScreen();
+public:
+    ofxSyphonServer();
+    ~ofxSyphonServer();
+    void setName (string n);
+    string getName();
+    void publishScreen();
     void publishTexture(ofTexture* inputTexture);
     void publishTexture(GLuint id, GLenum target, GLsizei width, GLsizei height, bool isFlipped);
     void publishFBO(ofFbo* inputFbo);
     void exit();
-	protected:
-	void *mSyphon;
+protected:
+    void *mSyphon;
 };

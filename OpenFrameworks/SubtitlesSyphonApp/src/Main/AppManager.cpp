@@ -55,7 +55,6 @@ void AppManager::setupOF()
     ofSetVerticalSync(true);
     ofSetEscapeQuitsApp(false);
     ofSetDataPathRoot("../Resources/data/");
-    ofEnableSmoothing();
     ofEnableAntiAliasing();
     ofSetBackgroundAuto(true);
 }

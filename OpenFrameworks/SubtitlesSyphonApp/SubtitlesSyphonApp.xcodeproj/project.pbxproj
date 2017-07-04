@@ -14,6 +14,7 @@
 		05A89811FEC8FE0E17582E71 /* Icon
  in Sources */ = {isa = PBXBuildFile; fileRef = 5EE26CE5B83E4FD7FD0D9EE8 /* Icon
  */; };
+		0818F2091F0A2CF3007FCE90 /* ofxTrueTypeFontUC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0818F2071F0A2CF3007FCE90 /* ofxTrueTypeFontUC.cpp */; };
 		084931991F02D996004A77C0 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 084931981F02D996004A77C0 /* Syphon.framework */; };
 		0849319C1F02DB8E004A77C0 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0849319B1F02DB8E004A77C0 /* Syphon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0849319F1F02DF96004A77C0 /* TextManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0849319D1F02DF96004A77C0 /* TextManager.cpp */; };
@@ -267,6 +268,8 @@
 		05C7229BA31FC4B627D19D84 /* ofxSyphonServer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSyphonServer.h; path = src/Addons/ofxSyphon/src/ofxSyphonServer.h; sourceTree = SOURCE_ROOT; };
 		0731597061D6181DB86681B1 /* ofxDatGuiSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiSlider.h; path = src/Addons/ofxDatGui/src/components/ofxDatGuiSlider.h; sourceTree = SOURCE_ROOT; };
 		074978820820325AB8737225 /* README.md */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = README.md; path = src/Addons/ofxUnicode/README.md; sourceTree = SOURCE_ROOT; };
+		0818F2071F0A2CF3007FCE90 /* ofxTrueTypeFontUC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxTrueTypeFontUC.cpp; path = Addons/ofxTrueTypeFontUC/src/ofxTrueTypeFontUC.cpp; sourceTree = "<group>"; };
+		0818F2081F0A2CF3007FCE90 /* ofxTrueTypeFontUC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxTrueTypeFontUC.h; path = Addons/ofxTrueTypeFontUC/src/ofxTrueTypeFontUC.h; sourceTree = "<group>"; };
 		084931981F02D996004A77C0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = src/Addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		0849319B1F02DB8E004A77C0 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Syphon.framework; path = src/Addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework; sourceTree = "<group>"; };
 		0849319D1F02DF96004A77C0 /* TextManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextManager.cpp; path = Visuals/TextManager.cpp; sourceTree = "<group>"; };
@@ -347,7 +350,7 @@
 		421BC5558F183C318C5F149D /* Icon
  */ = {isa = PBXFileReference; explicitFileType = file; fileEncoding = 30; name = "Icon
 "; path = "src/Addons/ofxSvg/src/Icon\n"; sourceTree = SOURCE_ROOT; };
-		4229475864D5EBC7913C8351 /* LayoutManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = LayoutManager.cpp; path = src/Layout/LayoutManager.cpp; sourceTree = SOURCE_ROOT; };
+		4229475864D5EBC7913C8351 /* LayoutManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LayoutManager.cpp; path = src/Layout/LayoutManager.cpp; sourceTree = SOURCE_ROOT; };
 		4566CCE6C988FFDD806F74EE /* OscTypes.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscTypes.cpp; path = src/Addons/ofxOsc/libs/oscpack/src/osc/OscTypes.cpp; sourceTree = SOURCE_ROOT; };
 		478D509B2DE7CC0EC16A7E2A /* VideoVisual.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = VideoVisual.cpp; path = src/Engine/Visuals/VideoVisual.cpp; sourceTree = SOURCE_ROOT; };
 		47AC3CA7B49C2AAC830EAE04 /* ofxSyphonServerDirectory.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSyphonServerDirectory.h; path = src/Addons/ofxSyphon/src/ofxSyphonServerDirectory.h; sourceTree = SOURCE_ROOT; };
@@ -601,6 +604,23 @@
 				47B837DB6F7B4DA45AC9E559 /* src */,
 			);
 			name = oscpack;
+			sourceTree = "<group>";
+		};
+		0818F2051F0A2CDA007FCE90 /* ofxTrueTypeFontUC */ = {
+			isa = PBXGroup;
+			children = (
+				0818F2061F0A2CE3007FCE90 /* src */,
+			);
+			name = ofxTrueTypeFontUC;
+			sourceTree = "<group>";
+		};
+		0818F2061F0A2CE3007FCE90 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				0818F2071F0A2CF3007FCE90 /* ofxTrueTypeFontUC.cpp */,
+				0818F2081F0A2CF3007FCE90 /* ofxTrueTypeFontUC.h */,
+			);
+			name = src;
 			sourceTree = "<group>";
 		};
 		084931971F02D996004A77C0 /* Frameworks */ = {
@@ -1055,6 +1075,7 @@
 		AD642137CCDF61FB3E6CCEA2 /* Addons */ = {
 			isa = PBXGroup;
 			children = (
+				0818F2051F0A2CDA007FCE90 /* ofxTrueTypeFontUC */,
 				084931AA1F03979E004A77C0 /* ofxCsv */,
 				74A312B2568D421CAAEF740A /* ofxDatGui */,
 				5C73414BDD3C2D5896B30DB4 /* ofxNetwork */,
@@ -1566,6 +1587,7 @@
 				B7993B374B98F50CBD9EC220 /* README.md in Sources */,
 				D2FD5D9183F9BFE93C5167EA /* Icon
  in Sources */,
+				0818F2091F0A2CF3007FCE90 /* ofxTrueTypeFontUC.cpp in Sources */,
 				20DD9BBB631FBC0CDCCFA6B6 /* ofTextConverter.cpp in Sources */,
 				7E78555D595408C86F902937 /* ofUnicode.cpp in Sources */,
 				EC108074DB75C3CD93A7DADF /* ofUTF8.cpp in Sources */,

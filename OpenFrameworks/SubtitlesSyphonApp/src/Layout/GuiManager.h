@@ -58,6 +58,11 @@ public:
     
     void onChangeColor(int& value);
     
+    void nextRow();
+    
+    void previousRow();
+    
+    void resetSubtitles();
     
     void setNumCols(int value);
     
@@ -128,6 +133,8 @@ private:
     ofxDatGui               m_gui;
     
     ofParameterGroup        m_parameters;
+    
+    ofParameter<int>        m_oscPort;
     
     ofParameter<int>        m_textSize;
     ofParameter<float>      m_textWidth;

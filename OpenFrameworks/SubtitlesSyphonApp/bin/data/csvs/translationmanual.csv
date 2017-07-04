@@ -1,0 +1,244 @@
+,Simple touring Subs v0.1,Simple touring Subs v0.1
+number,Nederlands,English
+1,Sander’s Super Subs,Sander’s Super Subs
+2,,
+3,Juni 2016,June 2016
+4,,
+5,de vorige cel en de volgende zijn leeg.,the previous slide and the next one are empty.
+6,,
+7,er zijn een aantal settings die je met OSC kan besturen,there are several settings that you can control with OSC
+8,Bijgevoegd in deze sample folder,Included in this sample folder
+9,is een Qlab file,is a Qlab file
+10,,
+11,terzijner tijd komt er ook een TouchOSC layout,In time there will also be a TouchOSC layout
+12,maar ik was het programeren even zat,but I got fed up with programming
+13,aangezien ik op het moment niet een direct gebruik heb hiervoor. Dit was gewoon iets wat ik al een tijdje wilde bouwen,since I do not have a actual need for this yet. It was just something that I wanted to build for a long time
+14,,
+15,het is aan te raden niet teveel karakters op een “slide” te zetten,it is advisable not to use to many characters in one “slide”
+16,,
+17,1.23456789012346E+34,1.23456789012346E+34
+18,,
+19,er gaan er oneveer 35 op een rij            (inclusief spaties),there are around 35 in a row            (including spaces)
+20,,
+21,de makkelijkste manier om de text grote aan te passen,the easiest way to change the size of the text
+22,is om de z waarde aante passen in de positie parameter,is to adjust the “Z” value in the position parameter
+23,/subs/position [x]0 [y]0 [z]0,/subs/position [x]0 [y]0 [z]0
+24,de positie is in Quartz Composer ruimte,the position is in Quartz Composer space
+25,0 is het midden van het scherm,0 is the middle of the screen
+26,,
+27,ook de kleur kan op dezelfde manier worden aangepast,Also the color can be changed in the same way
+28,/subs/color/ 0 0 0 0,/subs/color/ 0 0 0 0
+29,parameters zijn Rood-Groen-Blauw-Transparantie,parameters are Red-Green-Blue-Alpha
+30,,
+31,het Font heeft ook een parameter,The Font has a setting as well 
+32,/subs/font [font naam] [moet uit 2 delen bestaan],/subs/font [font name] [must consist of two parts]
+33,,
+34,je kan de text grote aanpassen,you can change the font size
+35,/subs/textsize [integer],/subs/textsize [integer]
+36,,
+37,de CSV file behoort opgeslagen te worden in dezelfde folder als de Subs app,the CSV file should be stored in the same folder as the Subs app
+38,je kan de bestands naam ingegen in het file veld door cmd-I in te drukken,the file name can be set by pressing cmd+I and filling it in the file field
+39,of je kan de origionele Quartz Composer file aanpassen,or to cahnge the origional Quartz Composer file
+40,,
+41,na iedere verandering in de (reeds opgeslagen) CSV file moet je de referentie updaten,after each adaptation of the (saved) translation CSV file you must update the reference
+42,sla her CSV bestand op (met de zelfde naam of pas de naam aan) and stuur …,save the CSV file (with the same name or adjust the name) and fire …
+43,/subs/updatefile 1,/subs/updatefile 1
+44,en zet de update weer uit,and turn the update signal off
+45,/subs/updatefile 0,/subs/updatefile 0
+46,Ik heb een group Cue gemaakt in de Qlab file,I have made a group Cue for this in the Qlab file 
+47,met de HOT-key “U”,with the HOT-key “U”
+48,om een of andere reden mag de file naam geen spatie bevatten,for some reason or another the file name should not have a space in its name
+49,,
+50,Misschien is het iemand al opgevallen,Maybe someone has noted by now
+51,omdat dit spreadsheet een CSV bestand is,that because of the spreadsheet being a CSV
+52,kan je geen komma’s gebruiken,you cannot use a comma in the text
+53,als je dit wel doet komt de text na de komma in de volgende,because that causes the text after the comma to appear in a next
+54,kolom te staan nadat je het bestand gesloten en heropend hebt.,column after you close and open the file
+55,,
+56,ook is er een Syphon uitgang beschikbaar,There is also a Syphon out available
+57,/subs/syphon 1,/subs/syphon 1
+58,om het aan te zetten,to turn it on
+59,/subs/syphon 0,/subs/syphon 0
+60,om het uit te zetten,to turn it off
+61,de naam van de Syphon server is “subs”,the name of the syphon server is “subs”
+62,,
+63,alle beschikbare OSC parameters (met zonder volgorde),all available OSC Parameters (in no order)
+64,/subs/textsize [integer],/subs/textsize [integer]
+65,/subs/enable [integer boolean],/subs/enable [integer boolean]
+66,/subs/position [x]0 [y]0 [z]0 [structure],/subs/position [x]0 [y]0 [z]0 [structure]
+67,/subs/language [integer] [selects column in the CSV file],/subs/language [integer] [selects column in the CSV file]
+68,/subs/color/ [r]1 [g]1 [b]1 [a]1 [structure],/subs/color/ [r]1 [g]1 [b]1 [a]1 [structure]
+69,/subs/sentence [integer] [selects line in the CSV file],/subs/sentence [integer] [selects line in the CSV file]
+70,/subs/updatefile [integer boolean],/subs/updatefile [integer boolean]
+71,/subs/syphon[integer boolean],/subs/syphon[integer boolean]
+72,/subs/font [font name] [must consist of two parts],/subs/font [font name] [must consist of two parts]
+73,,
+74,,
+75,,
+76,,
+77,,
+78,,
+79,,
+80,,
+81,,
+82,,
+83,,
+84,,
+85,,
+86,,
+87,,
+88,,
+89,,
+90,,
+91,,
+92,,
+93,,
+94,,
+95,,
+96,,
+97,,
+98,,
+99,,
+100,,
+101,,
+102,,
+103,,
+104,,
+105,,
+106,,
+107,,
+108,,
+109,,
+110,,
+111,,
+112,,
+113,,
+114,,
+115,,
+116,,
+117,,
+118,,
+119,,
+120,,
+121,,
+122,,
+123,,
+124,,
+125,,
+126,,
+127,,
+128,,
+129,,
+130,,
+131,,
+132,,
+133,,
+134,,
+135,,
+136,,
+137,,
+138,,
+139,,
+140,,
+141,,
+142,,
+143,,
+144,,
+145,,
+146,,
+147,,
+148,,
+149,,
+150,,
+151,,
+152,,
+153,,
+154,,
+155,,
+156,,
+157,,
+158,,
+159,,
+160,,
+161,,
+162,,
+163,,
+164,,
+165,,
+166,,
+167,,
+168,,
+169,,
+170,,
+171,,
+172,,
+173,,
+174,,
+175,,
+176,,
+177,,
+178,,
+179,,
+180,,
+181,,
+182,,
+183,,
+184,,
+185,,
+186,,
+187,,
+188,,
+189,,
+190,,
+191,,
+192,,
+193,,
+194,,
+195,,
+196,,
+197,,
+198,,
+199,,
+200,,
+201,,
+202,,
+203,,
+204,,
+205,,
+206,,
+207,,
+208,,
+209,,
+210,,
+211,,
+212,,
+213,,
+214,,
+215,,
+216,,
+217,,
+218,,
+219,,
+220,,
+221,,
+222,,
+223,,
+224,,
+225,,
+226,,
+227,,
+228,,
+229,,
+230,,
+231,,
+232,,
+233,,
+234,,
+235,,
+236,,
+237,,
+238,,
+239,,
+240,,
+241,,
+242,,
