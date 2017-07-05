@@ -157,6 +157,7 @@ void GuiManager::setupTextGui()
     folder->expand();
     
     m_fontLabel = m_gui.getLabel("Font Name:");
+
 }
 
 

@@ -113,6 +113,121 @@ bool ofxCsv::load(const string &path, const string &separator, const string &com
 	return true;
 }
 
+////--------------------------------------------------
+bool ofxCsv::loadAndParse(const string &path, const string &separator, const string &comment) {
+    
+    clear();
+    
+    if(path != "") {
+        filePath = path;
+    }
+    fieldSeparator = separator;
+    commentPrefix = comment;
+    
+    // verbose log print
+    ofLogVerbose("ofxCsv") << "Loading " << filePath;
+    ofLogVerbose("ofxCsv") << "  separator: " << fieldSeparator;
+    ofLogVerbose("ofxCsv") << "  comment: " << commentPrefix;
+    
+    // do some checks
+    ofFile file(ofToDataPath(filePath), ofFile::Reference);
+    if(!file.exists()) {
+        ofLogError("ofxCsv") << "Cannot load " << filePath << ": file not found";
+        return false;
+    }
+    if(!file.canRead()) {
+        ofLogError("ofxCsv") << "Cannot load " << filePath << ": file not readable";
+        return false;
+    }
+    if(file.isDirectory()) {
+        ofLogError("ofxCsv") << "Cannot load " << filePath << ": \"file\" is actually a directory";
+        return false;
+    }
+    
+    // open file & read each line
+    int maxCols = 0;
+    ofBuffer buffer = ofBufferFromFile(file.getAbsolutePath());
+    for(auto line : buffer.getLines()) {
+        
+        // skip empty lines
+        if(line.empty()) {
+            continue;
+        }
+        
+        // skip comment lines
+        // TODO: only checks substring at line beginning, does not ignore whitespace
+        if(line.substr(0, commentPrefix.length()) == commentPrefix) {
+            continue;
+        }
+        
+        // split line into separate files
+        vector<string> cols = fromRowString(line);
+        
+        // calc maxium table cols
+        if(cols.size() > maxCols) {
+            maxCols = cols.size();
+        }
+    }
+    
+    
+    // read each line again
+    int lineCount = 0;
+    string auxString = "";
+    for(auto line : buffer.getLines()) {
+        
+        // skip empty lines
+        if(line.empty()) {
+            ofLogVerbose("ofxCsv") << "Skipping empty line: " << lineCount;
+            lineCount++;
+            continue;
+        }
+        
+        // skip comment lines
+        // TODO: only checks substring at line beginning, does not ignore whitespace
+        if(line.substr(0, commentPrefix.length()) == commentPrefix) {
+            ofLogVerbose("ofxCsv") << "Skipping comment line: " << lineCount;
+            lineCount++;
+            continue;
+        }
+        
+        // split line into separate files
+        vector<string> cols = fromRowString(line);
+        if(cols.size()<maxCols)
+        {
+            if(auxString.empty()){
+                auxString = line;
+            }
+            else{
+                auxString += '\n' + line;
+                ofLogVerbose("ofxCsv") << "Extra LINE: " << auxString;
+                cols = fromRowString(auxString);
+                 ofLogVerbose("ofxCsv") << "Num Cols: " << cols.size();
+                if(cols.size()>=maxCols){
+                    data.push_back(cols);
+                    auxString = "";
+                    lineCount++;
+                }
+            }
+        }
+        else{
+            data.push_back(cols);
+            auxString = "";
+            lineCount++;
+        }
+        
+    }
+    buffer.clear();
+    
+    // expand to fill in any missing cols, just in case
+    expand(data.size(), maxCols);
+    
+    ofLogVerbose("ofxCsv") << "Read " << lineCount << " lines from " << filePath;
+    ofLogVerbose("ofxCsv") << "Loaded a " << data.size() << "x" << maxCols << " table";
+    
+    return true;
+}
+
+
 //--------------------------------------------------
 bool ofxCsv::load(const string &path, const string &separator) {
 	return load(path, separator, commentPrefix);

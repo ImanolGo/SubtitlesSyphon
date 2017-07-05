@@ -37,7 +37,7 @@ void SubtitlesManager::setup()
 bool SubtitlesManager::loadFile(string path)
 {
     // Load a CSV File.
-    if(m_csv.load(path))
+    if(m_csv.loadAndParse(path,",","#"))
     {
         ofLogNotice() <<"SubtitlesManager::loadFile -> Successfully loaded: "<< path ;
         ofLogNotice() <<"SubtitlesManager::loadFile -> csv rows: "<< m_csv.getNumRows() << ", csv cols: " << m_csv.getNumCols();

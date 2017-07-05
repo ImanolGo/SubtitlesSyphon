@@ -66,6 +66,17 @@ class ofxCsv {
 		/// \param comment Comment line prefix string, default "#".
 		/// \returns true if file loaded successfully
 		bool load(const string &path, const string &separator, const string &comment);
+    
+        /// Load a CSV File.
+        ///
+        /// Clears any currently loaded data and sets the current path,
+        /// fieldSeparator, & commentPrefix.
+        ///
+        /// \param path File path to load and parse
+        /// \param separator Field separator string, default comma ",".
+        /// \param comment Comment line prefix string, default "#".
+        /// \returns true if file loaded successfully
+        bool loadAndParse(const string &path, const string &separator, const string &comment);
 	
 		/// Load a CSV File.
 		///
@@ -295,5 +306,4 @@ class ofxCsv {
 		string filePath;       //< Current file path
 		string fieldSeparator; //< Field separator, default: comma ","
 		string commentPrefix;  //< Comment line prefix, default: "#"
-        string tempLine;
 };
