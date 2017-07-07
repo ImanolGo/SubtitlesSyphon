@@ -110,6 +110,10 @@ private:
     
     void setupSubtitlesGui();
     
+    void setupFontsGui();
+    
+    void setupFontView();
+    
     void setupGuiEvents();
     
     void drawRectangle();
@@ -151,6 +155,7 @@ private:
     ofParameter<int>        m_subCol;
     ofParameter<int>        m_subRow;
     ofxDatGuiLabel*         m_subLabel;
+    ofxDatGuiScrollView*    m_fontView;
    
     bool        m_showGui;  //It defines the whether the gui should be shown or not
     

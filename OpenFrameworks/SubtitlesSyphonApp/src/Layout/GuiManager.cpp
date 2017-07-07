@@ -18,7 +18,7 @@ const string GuiManager::GUI_SETTINGS_NAME = "SUBTITLES SYPHON GUI";
 const int GuiManager::GUI_WIDTH = 350;
 
 
-GuiManager::GuiManager(): Manager(), m_showGui(true), m_subLabel(NULL), m_fontLabel(NULL)
+GuiManager::GuiManager(): Manager(), m_showGui(true), m_subLabel(NULL), m_fontLabel(NULL), m_fontView(NULL)
 {
     //! Intentionally left empty
 }
@@ -40,6 +40,7 @@ void GuiManager::setup()
     this->setupGuiParameters();
     this->setupSubtitlesGui();
     this->setupTextGui();
+    this->setupFontsGui();
     this->setupColorGui();
     this->setupGuiEvents();
     this->loadGuiValues();
@@ -127,7 +128,7 @@ void GuiManager::setupTextGui()
     m_textWidth.addListener(textManager, &TextManager::onChangeWidth);
     m_parameters.add(m_textWidth);
     
-    m_textLineHeight.set("Line Height", 1.0, 0.0, 3.0);
+    m_textLineHeight.set("Line Height", 1.0, 0.0, 10.0);
     m_textLineHeight.addListener(textManager, &TextManager::onChangeLineHeight);
     m_parameters.add(m_textLineHeight);
     
@@ -142,7 +143,6 @@ void GuiManager::setupTextGui()
     m_textZ.set("Z", 0.0, -1.0, 1.0);
     m_textZ.addListener(textManager, &TextManager::onChangePosZ);
     m_parameters.add(m_textZ);
-
     
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("TEXT", ofColor::cyan);
@@ -160,7 +160,21 @@ void GuiManager::setupTextGui()
 
 }
 
-
+void GuiManager::setupFontsGui()
+{
+    // add a folder to group a few components together //
+    vector<string> opts = {"System", "Unicode"};
+    
+    string label = "FONT:";
+    
+    m_gui.addDropdown(label, opts);
+    auto menu = m_gui.getDropdown(label);
+    //menu->expand(); //let's have it open by default
+    menu->setStripeColor(ofColor::orange);
+    for (int i=0; i<menu->size(); i++) menu->getChildAt(i)->setStripeColor(ofColor::yellow);
+    m_gui.addBreak();
+    
+}
 
 void GuiManager::setupColorGui()
 {
@@ -255,11 +269,10 @@ void GuiManager::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
     cout << "onDropdownEvent: " << e.target->getName() << " Selected" << endl;
     
-    if(e.target->getName() == "SCENES")
+    if(e.target->getName() == "FONT:")
     {
-    //AppManager::getInstance().getSceneManager().changeScene(e.child);
-        //m_gui.getDropdown(e.target->getName())->expand();
-      //  m_gui.getDropdown(e.target->getName())->setLabel("SCENES:" + e.target->getLabel());
+        AppManager::getInstance().getTextManager().setFont(e.target->getLabel());
+        m_gui.getDropdown(e.target->getName())->setLabel("FONT: " + e.target->getLabel());
     }
     
 }
@@ -419,47 +432,47 @@ void GuiManager::setFontLabel(const string& name)
 
 void GuiManager::setTextSize(int value)
 {
-    m_textSize = ofClamp(value, 0, 100);
+    m_textSize = ofClamp(value, m_textSize.getMin(), m_textSize.getMax());
 }
 
 void GuiManager::setTextLineHeight(float value)
 {
-    m_textLineHeight = ofClamp(value, 0, 3);
+    m_textLineHeight = ofClamp(value, m_textLineHeight.getMin(), m_textLineHeight.getMax());
 }
 
 
 void GuiManager::setTextWidth(float value)
 {
-    m_textWidth = ofClamp(value, 0.0, 1.0);
+    m_textWidth = ofClamp(value, m_textWidth.getMin(), m_textWidth.getMax());
 }
 
 
 void GuiManager::setTextPosX(float value)
 {
-    m_textX = ofClamp(value, 0.0, 1.0);
+    m_textX = ofClamp(value, m_textX.getMin(), m_textX.getMax());
 }
 
 
 void GuiManager::setTextPosY(float value)
 {
-    m_textY = ofClamp(value, 0.0, 1.0);
+    m_textY = ofClamp(value,m_textY.getMin(), m_textY.getMax());
 }
 
 
 void GuiManager::setColorR(int value)
 {
-    m_red = ofClamp(value, 0, 255);
+    m_red = ofClamp(value, m_red.getMin(), m_red.getMax());
 }
 
 
 void GuiManager::setColorG(int value)
 {
-    m_green = ofClamp(value, 0, 255);
+    m_green = ofClamp(value,  m_green.getMin(), m_green.getMax());
 }
 
 void GuiManager::setColorB(int value)
 {
-    m_blue = ofClamp(value, 0, 255);
+    m_blue = ofClamp(value,  m_blue.getMin(), m_blue.getMax());
 }
 
 void GuiManager::setSubCol(int value)

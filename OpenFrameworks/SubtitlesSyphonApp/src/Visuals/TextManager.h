@@ -22,6 +22,7 @@
 
 class TextManager: public Manager
 {
+    static const string UNICODE_FONT_PATH; //The Apps unicode font path
     
 public:
     
@@ -62,7 +63,7 @@ public:
     
     void onChangeTransitionTime(float& value);
     
-    void  setColor(ofColor& color);
+    void setColor(ofColor& color);
     
     void setCurrentText(const string& text);
     
@@ -70,8 +71,15 @@ public:
     
     void setFontType(const string& name);
     
+    void setFont(string value);
+    
+    const vector<string>& getSystemFonts() const;
     
 private:
+    
+    void setupFonts();
+    
+    void setupFontNames();
     
     void setupFbos();
     
@@ -81,15 +89,24 @@ private:
     
     void addPreviewCrossFadeAnimations();
     
+    string getRootPath(string path);
+    
+    string getNameFromExtenstion(string path);
+    
 private:
     
     typedef  map<string, shared_ptr<TextVisual>> TextVisualMap;
+    typedef  vector<string>     FontNameVector;
     
-    TextVisualMap  m_textVisuals;
+    TextVisualMap   m_textVisuals;
+    FontNameVector  m_fontNames;
     
     ofFbo       m_currentFbo;
     ofFbo       m_previusFbo;
     float       m_transitionTime;
+    
+    string      m_systemFont;
+    string      m_unicodeFont;
 
 };
 

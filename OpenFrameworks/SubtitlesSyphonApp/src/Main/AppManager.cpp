@@ -45,6 +45,7 @@ void AppManager::setup()
     
     this->setupOF();
 	this->setupManagers();
+    ofSetLogLevel(OF_LOG_NOTICE);
     
     //setDebugMode(m_debugMode);
 }

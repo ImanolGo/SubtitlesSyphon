@@ -42,6 +42,8 @@ class EngineFont{
 		void setTextBlockAlignment(TextBlockAlignment textBlockAlignment){ m_textBlockAlignment = textBlockAlignment; }
 
 		void setLineHeight(float percent);
+    
+        static string getFontFilePathByName(string fontName);
 
     private:
 

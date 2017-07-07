@@ -13,6 +13,9 @@
 #include "TextManager.h"
 #include "AppManager.h"
 
+#include "EngineFont.h"
+
+const string TextManager::UNICODE_FONT_PATH = "fonts/Arial Unicode.ttf";
 
 TextManager::TextManager(): Manager(), m_transitionTime(0.5)
 {
@@ -33,7 +36,7 @@ void TextManager::setup()
     
     Manager::setup();
     
-
+    this->setupFonts();
     this->setupVisuals();
     this->setupFbos();
     
@@ -51,7 +54,7 @@ void TextManager::setupVisuals()
     float w = width - 2*margin;
     float h = height - 2*margin;
     string text = " ";
-    string fontName = "Helvetica";
+    string fontName = m_systemFont;
     float size = 30;
     
 
@@ -85,6 +88,64 @@ void TextManager::setupFbos()
     m_previusFbo.begin(); ofClear(0,0,0,0); m_previusFbo.end();
 }
 
+void TextManager::setupFonts()
+{
+    m_unicodeFont = "Arial Unicode";
+    m_systemFont = OF_TTF_SANS;
+    
+    this->setupFontNames();
+}
+
+void TextManager::setupFontNames()
+{
+    string systemFontsPath = getRootPath(EngineFont::getFontFilePathByName("Helvetica"));
+    
+    ofLogNotice() <<"TextManager::setupFontNames -> " << systemFontsPath;
+    
+    ofDirectory dir(systemFontsPath);
+    //only show font files
+    dir.allowExt("dfont");
+    dir.allowExt("otf");
+    dir.allowExt("ttf");
+    dir.allowExt("ttc");
+    
+    //populate the directory object
+    dir.listDir();
+    
+    for(int i = 0; i < dir.size(); i++){
+        m_fontNames.push_back(this->getNameFromExtenstion(dir.getName(i)));
+    }
+    
+    systemFontsPath = getRootPath(EngineFont::getFontFilePathByName("Arial"));
+    
+    dir.open(systemFontsPath);
+    dir.listDir();
+    dir.getName(5);
+    
+    for(int i = 0; i < dir.size(); i++){
+        m_fontNames.push_back(this->getNameFromExtenstion(dir.getName(i)));
+    }
+    
+    std::sort(std::begin(m_fontNames), std::end(m_fontNames));
+    
+}
+
+string TextManager::getRootPath(string path)
+{
+    auto vectorPath = ofSplitString(path, "/");
+    string rootPath = "";
+    
+    for(int i=1; i<vectorPath.size()-1;i++){
+        rootPath += ("/" + vectorPath[i]);
+    }
+    
+    return rootPath;
+}
+
+string TextManager::getNameFromExtenstion(string path)
+{
+    return ofSplitString(path, ".").front();
+}
 
 void TextManager::update()
 {
@@ -228,6 +289,10 @@ void TextManager::setFontType(const string& name)
         visual.second->setFontName(name);
     }
     AppManager::getInstance().getGuiManager().setFontLabel(name);
+    
+    ofLogNotice() <<"TextManager::setFontType -> " << name ;
+    
+   // m_systemFont = name;
 }
 
 
@@ -268,3 +333,13 @@ void TextManager::addPreviewCrossFadeAnimations()
 }
 
 
+void TextManager::setFont(string value)
+{
+    if(value == "Unicode"){
+         this->setFontType(UNICODE_FONT_PATH);
+    }
+    else{
+        this->setFontType(m_systemFont);
+    }
+   
+}
