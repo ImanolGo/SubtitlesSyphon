@@ -53,6 +53,7 @@ string EngineFont::getFilePathName(string _fontname)
     std::string fontname = _fontname;
     string filename = ofToDataPath(fontname,true);
     ofFile fontFile(filename,ofFile::Reference);
+    
     if(!fontFile.exists()){
 #ifdef TARGET_LINUX
         filename = getFontFilePathByName(fontname);

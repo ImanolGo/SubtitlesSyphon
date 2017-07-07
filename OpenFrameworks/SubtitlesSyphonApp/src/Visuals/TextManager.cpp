@@ -114,20 +114,41 @@ void TextManager::setupFontNames()
     
     for(int i = 0; i < dir.size(); i++){
         m_fontNames.push_back(this->getNameFromExtenstion(dir.getName(i)));
+        m_fontPaths[m_fontNames.back()] = dir.getPath(i);
     }
     
     systemFontsPath = getRootPath(EngineFont::getFontFilePathByName("Arial"));
     
     dir.open(systemFontsPath);
     dir.listDir();
-    dir.getName(5);
     
     for(int i = 0; i < dir.size(); i++){
         m_fontNames.push_back(this->getNameFromExtenstion(dir.getName(i)));
+        m_fontPaths[m_fontNames.back()] = dir.getPath(i);
+    }
+    
+    systemFontsPath = ofFilePath::getUserHomeDir() + "/Library/Fonts/";
+    
+    dir.open(systemFontsPath);
+    dir.listDir();
+    
+    for(int i = 0; i < dir.size(); i++){
+        m_fontNames.push_back(this->getNameFromExtenstion(dir.getName(i)));
+        m_fontPaths[m_fontNames.back()] = dir.getPath(i);
     }
     
     std::sort(std::begin(m_fontNames), std::end(m_fontNames));
     
+}
+
+string TextManager::getFontAbsolutePath(string name)
+{
+    if(m_fontPaths.find(name)==m_fontPaths.end()){
+        return "";
+    }
+    else{
+        return m_fontPaths.at(name);
+    }
 }
 
 string TextManager::getRootPath(string path)
@@ -285,8 +306,14 @@ void TextManager::setNextText(const string& text)
 
 void TextManager::setFontType(const string& name)
 {
+    string fontPath = this->getFontAbsolutePath(name);
+    if(fontPath == ""){
+         ofLogNotice() <<"TextManager::setFontType -> No font found with name " << name ;
+        return;
+    }
+    
     for(auto visual: m_textVisuals){
-        visual.second->setFontName(name);
+        visual.second->setFontName(fontPath);
     }
     AppManager::getInstance().getGuiManager().setFontLabel(name);
     

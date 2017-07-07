@@ -93,13 +93,17 @@ private:
     
     string getNameFromExtenstion(string path);
     
+    string getFontAbsolutePath(string name);
+    
 private:
     
     typedef  map<string, shared_ptr<TextVisual>> TextVisualMap;
     typedef  vector<string>     FontNameVector;
+    typedef  map<string,string>   FontPaths;
     
     TextVisualMap   m_textVisuals;
     FontNameVector  m_fontNames;
+    FontPaths       m_fontPaths;
     
     ofFbo       m_currentFbo;
     ofFbo       m_previusFbo;
