@@ -73,7 +73,7 @@ public:
     
     void setFont(string value);
     
-    const vector<string>& getSystemFonts() const;
+    const vector<string>& getSystemFonts() const {return m_fontNames;}
     
 private:
     

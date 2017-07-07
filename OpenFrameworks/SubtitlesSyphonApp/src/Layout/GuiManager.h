@@ -118,6 +118,14 @@ private:
     
     void drawRectangle();
     
+    void drawGui();
+    
+    void drawFontView();
+    
+    void updateGui();
+    
+    void updateFontView();
+    
     void onDropdownEvent(ofxDatGuiDropdownEvent e);
     
     void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
@@ -127,6 +135,8 @@ private:
     void onToggleEvent(ofxDatGuiToggleEvent e);
     
     void onMatrixEvent(ofxDatGuiMatrixEvent e);
+    
+    void onScrollViewEvent(ofxDatGuiScrollViewEvent e);
     
     void openSystemDialog();
     
@@ -156,6 +166,7 @@ private:
     ofParameter<int>        m_subRow;
     ofxDatGuiLabel*         m_subLabel;
     ofxDatGuiScrollView*    m_fontView;
+    ofxDatGuiLabel*         m_fontViewLabel;
    
     bool        m_showGui;  //It defines the whether the gui should be shown or not
     

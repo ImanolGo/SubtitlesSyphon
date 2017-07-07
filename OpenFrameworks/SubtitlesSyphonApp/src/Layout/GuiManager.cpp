@@ -18,7 +18,7 @@ const string GuiManager::GUI_SETTINGS_NAME = "SUBTITLES SYPHON GUI";
 const int GuiManager::GUI_WIDTH = 350;
 
 
-GuiManager::GuiManager(): Manager(), m_showGui(true), m_subLabel(NULL), m_fontLabel(NULL), m_fontView(NULL)
+GuiManager::GuiManager(): Manager(), m_showGui(true), m_subLabel(NULL), m_fontLabel(NULL), m_fontView(NULL), m_fontViewLabel(NULL)
 {
     //! Intentionally left empty
 }
@@ -154,7 +154,7 @@ void GuiManager::setupTextGui()
     folder->addSlider(m_textX);
     folder->addSlider(m_textY);
     folder->addToggle("Show Box");
-    folder->expand();
+    //folder->expand();
     
     m_fontLabel = m_gui.getLabel("Font Name:");
 
@@ -174,6 +174,31 @@ void GuiManager::setupFontsGui()
     for (int i=0; i<menu->size(); i++) menu->getChildAt(i)->setStripeColor(ofColor::yellow);
     m_gui.addBreak();
     
+    this->setupFontView();
+    
+}
+
+void GuiManager::setupFontView()
+{
+    m_fontViewLabel = new ofxDatGuiLabel("SYSTEM FONTS");
+    m_fontViewLabel->setWidth( m_gui.getWidth());
+    m_fontViewLabel->setPosition(m_gui.getPosition().x, m_gui.getPosition().y + m_gui.getHeight() + 1);
+    m_fontViewLabel->setLabelAlignment(ofxDatGuiAlignment::CENTER);
+    m_fontViewLabel->setTheme(new GuiTheme());
+    m_fontViewLabel->setStripeVisible(false);
+    
+    m_fontView = new ofxDatGuiScrollView("System Fonts", 8);
+    m_fontView->setWidth( m_gui.getWidth());
+    m_fontView->setPosition(m_fontViewLabel->getX(), m_fontViewLabel->getY() + m_fontViewLabel->getHeight() + 1);
+    m_fontView->setTheme(new GuiTheme());
+    m_fontView->onScrollViewEvent(this, &GuiManager::onScrollViewEvent);
+    
+    
+    auto fontNames = AppManager::getInstance().getTextManager().getSystemFonts();
+    for(auto fontName: fontNames){
+        m_fontView->add(fontName);
+    }
+
 }
 
 void GuiManager::setupColorGui()
@@ -195,7 +220,7 @@ void GuiManager::setupColorGui()
     folder->addSlider(m_red);
     folder->addSlider(m_green);
     folder->addSlider(m_blue);
-    folder->expand();
+    //folder->expand();
 }
 
 
@@ -210,7 +235,27 @@ void GuiManager::setupGuiEvents()
 
 void GuiManager::update()
 {
+    this->updateGui();
+    this->updateFontView();
+}
+
+
+void GuiManager::updateGui()
+{
     m_gui.update();
+}
+
+void GuiManager::updateFontView()
+{
+    if( m_fontViewLabel!=NULL){
+        m_fontViewLabel->update();
+        m_fontViewLabel->setPosition(m_gui.getPosition().x, m_gui.getPosition().y + m_gui.getHeight() + LayoutManager::MARGIN);
+    }
+    
+    if( m_fontView!=NULL){
+        m_fontView->update();
+        m_fontView->setPosition(m_fontViewLabel->getX(), m_fontViewLabel->getY() + m_fontViewLabel->getHeight() + 1);
+    }
 }
 
 void GuiManager::draw()
@@ -219,12 +264,26 @@ void GuiManager::draw()
         return;
     
     this->drawRectangle();
-    
-    //ofEnableSmoothing();
+    this->drawGui();
+    this->drawFontView();
+}
+
+void GuiManager::drawGui()
+{
     ofEnableAlphaBlending();
-        m_gui.draw();
+     m_gui.draw();
     ofDisableAlphaBlending();
-    //ofDisableSmoothing();
+}
+
+
+void GuiManager::drawFontView()
+{
+    if( m_fontView!=NULL){
+        m_fontView->draw();
+    }
+    if( m_fontViewLabel!=NULL){
+        m_fontViewLabel->draw();
+    }
     
 }
 
@@ -264,6 +323,12 @@ void GuiManager::onChangeColor(int& value)
     AppManager::getInstance().getTextManager().setColor(m_currentColor);
 }
 
+
+
+void GuiManager::onScrollViewEvent(ofxDatGuiScrollViewEvent e)
+{
+    AppManager::getInstance().getTextManager().setFontType( e.target->getLabel());
+}
 
 void GuiManager::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
