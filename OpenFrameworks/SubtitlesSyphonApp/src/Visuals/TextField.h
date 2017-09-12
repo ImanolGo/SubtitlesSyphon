@@ -114,7 +114,7 @@ class TextField: public BasicVisual
         TextMap                 m_textVisuals;       ///< text to be visualized
         ImageMap                m_imageVisuals;      ///< images to be visualized
         RectangleMap            m_rectangleVisuals;  ///< rectangles used for the frame
-        AsciiVector             m_asciiText;         ///< vector saving the ascii values of the text
+        string                  m_asciiText;         ///< vector saving the ascii values of the text
         AsciiMap                m_asciiGerman;       ///< saves a map of all the german latin extended characters
         ofPtr<BulletsVisual>    m_bullets;           ///< visual representing the visualy encoded (with bullets •) password
         ofPtr<ImageVisual>      m_textField;           ///< visual representing the visualy encoded (with bullets •) password

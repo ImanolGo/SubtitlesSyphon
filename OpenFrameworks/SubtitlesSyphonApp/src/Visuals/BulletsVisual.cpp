@@ -88,10 +88,11 @@ bool BulletsVisual::addCharacter()
     ofPtr<ImageVisual> bullet = ofPtr<ImageVisual>(new ImageVisual(position,resourceName,true));
     bullet->setWidth(m_singleBulletSize, true);
     
-    EffectSettings settings; settings.startAnimation = BULLET_ANIMATION_TIME;
+   // EffectSettings settings; settings.startAnimation = BULLET_ANIMATION_TIME; settings.animationTime = BULLET_ANIMATION_TIME;
+
     
-    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(bullet);
-    AppManager::getInstance().getVisualEffectsManager().createFadeEffect(bullet,0, 255,settings);
+    //AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(bullet);
+    //AppManager::getInstance().getVisualEffectsManager().createFadeEffect(bullet,0, 255,settings);
 
     m_bullets.push_back(bullet);
     m_numberOfBullets = m_bullets.size();

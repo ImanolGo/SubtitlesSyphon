@@ -196,9 +196,13 @@ bool TextField::updateText(int key)
         return this->removeCharacter(key);
 	}
 
+    else if ( key == OF_KEY_RETURN){
+        AppManager::getInstance().getPasswordManager().enterPassword(m_asciiText);
+	}
+    
     else if (key >=32 && key <=255){
         return this->addCharacter(key);
-	}
+    }
 
 	else{
         return false;
@@ -210,7 +214,7 @@ bool TextField::removeCharacter(int key)
     if(!m_bullets->removeCharacter()){
         return false;
     }
-
+    
     if(!m_asciiText.empty()){
         m_asciiText.pop_back();
     }
@@ -268,13 +272,17 @@ void TextField::updateCursorAnimation()
 
 void TextField::updateCursorPosition()
 {
-    ofVec3f position  = m_rectangleVisuals["cursor"]->getPosition();
-    position.x = m_margin + m_bullets->getTotalBulletsWidth();
-
-    EffectSettings settings; settings.startAnimation = BULLET_ANIMATION_TIME;
+    ofVec3f endPosition  = m_rectangleVisuals["cursor"]->getPosition();
+    endPosition.x = m_margin + m_bullets->getTotalBulletsWidth();
+    m_rectangleVisuals["cursor"]->setPosition(endPosition);
     
-    AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_rectangleVisuals["cursor"]);
-    AppManager::getInstance().getVisualEffectsManager().createMoveEffect(m_rectangleVisuals["cursor"],position, settings);
+   // ofLogNotice() <<"TextField::updateCursorPosition-> position x = " <<  endPosition.x;
+
+    
+    //EffectSettings settings; settings.animationTime = 0.5;
+    
+    //AppManager::getInstance().getVisualEffectsManager().removeAllVisualEffects(m_rectangleVisuals["cursor"]);
+    //AppManager::getInstance().getVisualEffectsManager().createMoveEffect(m_rectangleVisuals["cursor"], m_rectangleVisuals["cursor"]->getPosition(), endPosition, settings);
 
     //m_rectangleVisuals["cursor"]->setPosition(position);
 

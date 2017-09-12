@@ -87,7 +87,6 @@ void PasswordManager::draw()
     }
     
     m_fbo.draw(m_boudingBox);
-    //m_textField->draw();
     
 }
 
