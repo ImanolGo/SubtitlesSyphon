@@ -58,6 +58,8 @@ public:
     
     string getMidiName() const {return m_midiName;}
     
+    bool getNeedsPassword() const {return m_needsPassword;}
+    
     
 private:
     
@@ -105,6 +107,7 @@ private:
     string                  m_ipAddress;            ///< stores the Ip Address used for the Network communications
     string                  m_syphonName;           ///<stores the name of the syphon pipe name
     string                  m_midiName;             ///<stores the name of the midi device
+    bool                    m_needsPassword;        ///<stores if the application needs a pssword or not
     
     
 };

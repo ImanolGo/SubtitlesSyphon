@@ -40,13 +40,15 @@ void LayoutManager::setup()
 
 	Manager::setup();
     
+    this->createTextVisuals();
+    this->createSvgVisuals();
+    this->createImageVisuals();
+    
     this->setupFbo();
     this->setupSyphon();
     this->setupWindowFrames();
     
-    this->createTextVisuals();
-    this->createSvgVisuals();
-    this->createImageVisuals();
+
     
     //this->addVisuals();
     
@@ -152,6 +154,43 @@ void LayoutManager::update()
     
     
     this->updateSyphonTexture();
+    this->updateFbos();
+}
+
+void LayoutManager::updateFbos()
+{
+    this->updatePreviousFbo();
+    this->updateCurrentFbo();
+}
+
+
+void LayoutManager::updatePreviousFbo()
+{
+    ofEnableAlphaBlending();
+    m_previewFbo.begin();
+    ofPushStyle();
+    ofClear(0, 0, 0);
+    
+    AppManager::getInstance().getTextManager().drawPreviousVisuals();
+    
+    ofPopStyle();
+    m_previewFbo.end();
+    ofDisableAlphaBlending();
+}
+
+void LayoutManager::updateCurrentFbo()
+{
+    ofEnableAlphaBlending();
+    m_currentFbo.begin();
+    ofClear(0, 0, 0);
+    if(m_syphonToggle)
+    {
+        AppManager::getInstance().getTextManager().draw();
+    }
+    
+    m_currentFbo.end();
+    ofDisableAlphaBlending();
+
 }
 
 
@@ -166,7 +205,7 @@ void LayoutManager::updateSyphonTexture()
 void LayoutManager::createTextVisuals()
 {
     float size = 20;
-    float w = m_currentWindowRect.width;
+    float w = size*50;
     float h = size;
     float x =  m_currentWindowRect.x + m_currentWindowRect.getWidth()*0.5;
     float y =  m_currentWindowRect.y - h - 2*MARGIN;
@@ -180,7 +219,6 @@ void LayoutManager::createTextVisuals()
     m_textVisuals["CurrentSubtitle"] = textVisual;
     
     
-    w = m_previewWindowRect.width;
     x =  m_previewWindowRect.x + m_previewWindowRect.getWidth()*0.5;
     y =  m_previewWindowRect.y - h - 2*MARGIN;
     text = "Next Subtitle";
@@ -279,44 +317,21 @@ void LayoutManager::drawRectangles()
 
 void LayoutManager::drawFbos()
 {
+    
     this->drawCurrentFbo();
     this->drawPreviewFbo();
+    
 
 }
 
 void LayoutManager::drawCurrentFbo()
 {
-    
-    ofEnableAlphaBlending();
-    m_currentFbo.begin();
-         ofClear(0, 0, 0);
-        if(m_syphonToggle)
-        {
-            AppManager::getInstance().getTextManager().draw();
-        }
-    
-    m_currentFbo.end();
-    ofDisableAlphaBlending();
-    
     m_currentWindowFrame.draw();
     m_currentFbo.draw(m_currentWindowRect.x,m_currentWindowRect.y,m_currentWindowRect.width,m_currentWindowRect.height);
-   
 }
 
 void LayoutManager::drawPreviewFbo()
 {
-    
-    ofEnableAlphaBlending();
-    m_previewFbo.begin();
-    ofPushStyle();
-    ofClear(0, 0, 0);
-    
-    AppManager::getInstance().getTextManager().drawPreviousVisuals();
-    
-    ofPopStyle();
-    m_previewFbo.end();
-    ofDisableAlphaBlending();
-    
     m_previewWindowFrame.draw();
     m_previewFbo.draw(m_previewWindowRect.x,m_previewWindowRect.y,m_previewWindowRect.width,m_previewWindowRect.height);
     
@@ -345,5 +360,11 @@ void LayoutManager::onSyphonEnable(bool value)
     }
 }
 
+
+void LayoutManager::setFullScreen()
+{
+    ofSetWindowPosition(0,0);
+    ofSetWindowShape(ofGetScreenWidth(),ofGetScreenHeight());
+}
 
 

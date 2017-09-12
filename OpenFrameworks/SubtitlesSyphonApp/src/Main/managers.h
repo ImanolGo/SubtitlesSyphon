@@ -21,4 +21,5 @@
 #include "OscManager.h"
 #include "TextManager.h"
 #include "SubtitlesManager.h"
+#include "PasswordManager.h"
 

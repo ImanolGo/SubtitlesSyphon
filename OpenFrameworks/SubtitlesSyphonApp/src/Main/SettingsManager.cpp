@@ -14,7 +14,7 @@
 const string SettingsManager::APPLICATION_SETTINGS_FILE_NAME = "xmls/ApplicationSettings.xml";
 
 
-SettingsManager::SettingsManager(): Manager(), m_appHeight(0.0), m_appWidth(0.0)
+SettingsManager::SettingsManager(): Manager(), m_appHeight(0.0), m_appWidth(0.0), m_needsPassword(false)
 {
     //Intentionally left empty
 }
@@ -89,6 +89,9 @@ void SettingsManager::setDebugProperties()
             ofSetLogLevel(OF_LOG_NOTICE);
         }
         
+        m_needsPassword = ofToBool(attributes["password"]);
+        
+        ofLogNotice() <<"SettingsManager::setDebugProperties->  needs password: " << m_needsPassword ;
         
         ofLogNotice() <<"SettingsManager::setDebugProperties->  successfully loaded the OF general settings" ;
         return;
@@ -109,6 +112,7 @@ void SettingsManager::setWindowProperties()
         string title = attributes["title"];
         m_appWidth = ofToInt(attributes["width"]);
         m_appHeight= ofToInt(attributes["height"]);
+        ofSetWindowShape(m_appWidth,m_appHeight);
         
         //m_appWidth = ofGetScreenWidth();
         //m_appHeight = ofGetScreenHeight();
@@ -118,8 +122,11 @@ void SettingsManager::setWindowProperties()
         bool fullscreen = ofToBool(attributes["fullscreen"]);
         
         ofSetFullscreen(fullscreen);
-        ofSetWindowShape(ofGetScreenWidth(),ofGetScreenHeight());
+        //ofSetWindowShape(m_appWidth,m_appHeight);
         if(!fullscreen){
+            //ofSetWindowPosition(x,y);
+            int x = ofGetScreenWidth()/2 - m_appWidth/2;
+            int y = ofGetScreenHeight()/2 - m_appHeight/2;
             ofSetWindowPosition(x,y);
         }
         ofSetWindowTitle(title);

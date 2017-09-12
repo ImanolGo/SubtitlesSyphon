@@ -162,16 +162,16 @@ void GuiManager::setupTextGui()
 
 void GuiManager::setupFontsGui()
 {
-    // add a folder to group a few components together //
-    vector<string> opts = {"System", "Unicode"};
-    
-    string label = "FONT:";
-    
-    m_gui.addDropdown(label, opts);
-    auto menu = m_gui.getDropdown(label);
-    //menu->expand(); //let's have it open by default
-    menu->setStripeColor(ofColor::orange);
-    for (int i=0; i<menu->size(); i++) menu->getChildAt(i)->setStripeColor(ofColor::yellow);
+//    // add a folder to group a few components together //
+//    vector<string> opts = {"System", "Unicode"};
+//    
+//    string label = "FONT:";
+//    
+//    m_gui.addDropdown(label, opts);
+//    auto menu = m_gui.getDropdown(label);
+//    //menu->expand(); //let's have it open by default
+//    menu->setStripeColor(ofColor::orange);
+//    for (int i=0; i<menu->size(); i++) menu->getChildAt(i)->setStripeColor(ofColor::yellow);
     m_gui.addBreak();
     
     this->setupFontView();
@@ -192,7 +192,6 @@ void GuiManager::setupFontView()
     m_fontView->setPosition(m_fontViewLabel->getX(), m_fontViewLabel->getY() + m_fontViewLabel->getHeight() + 1);
     m_fontView->setTheme(new GuiTheme());
     m_fontView->onScrollViewEvent(this, &GuiManager::onScrollViewEvent);
-    
     
     auto fontNames = AppManager::getInstance().getTextManager().getSystemFonts();
     for(auto fontName: fontNames){
@@ -254,7 +253,15 @@ void GuiManager::updateFontView()
     
     if( m_fontView!=NULL){
         m_fontView->update();
-        m_fontView->setPosition(m_fontViewLabel->getX(), m_fontViewLabel->getY() + m_fontViewLabel->getHeight() + 1);
+        
+        if(m_fontView->getY()!=m_fontViewLabel->getY() + m_fontViewLabel->getHeight() + 1){
+            m_fontView->setPosition(m_fontViewLabel->getX(), m_fontViewLabel->getY() + m_fontViewLabel->getHeight() + 1);
+            m_fontView->clear();
+            auto fontNames = AppManager::getInstance().getTextManager().getSystemFonts();
+            for(auto fontName: fontNames){
+                m_fontView->add(fontName);
+            }
+        }
     }
 }
 
@@ -334,11 +341,11 @@ void GuiManager::onDropdownEvent(ofxDatGuiDropdownEvent e)
 {
     cout << "onDropdownEvent: " << e.target->getName() << " Selected" << endl;
     
-    if(e.target->getName() == "FONT:")
-    {
-        AppManager::getInstance().getTextManager().setFont(e.target->getLabel());
-        m_gui.getDropdown(e.target->getName())->setLabel("FONT: " + e.target->getLabel());
-    }
+//    if(e.target->getName() == "FONT:")
+//    {
+//        AppManager::getInstance().getTextManager().setFont(e.target->getLabel());
+//        m_gui.getDropdown(e.target->getName())->setLabel("FONT: " + e.target->getLabel());
+//    }
     
 }
 

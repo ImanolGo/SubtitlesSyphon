@@ -47,7 +47,7 @@ void MouseManager::mousePressed(ofMouseEventArgs &e)
     float x = e.x;
     float y = e.y;
     
-    ofLogNotice() <<"MouseManager::mousePressed-> button: " + ofToString(button) << ", x = " << x << ", y = " << y ;
+    ofLogVerbose() <<"MouseManager::mousePressed-> button: " + ofToString(button) << ", x = " << x << ", y = " << y ;
     
 }
 
@@ -58,7 +58,7 @@ void MouseManager::mouseReleased(ofMouseEventArgs &e)
     float y = e.y;
 
     
-    ofLogNotice() <<"MouseManager::mousePressed-> button: " + ofToString(button) << ", x = " << x << ", y = " << y ;
+    ofLogVerbose() <<"MouseManager::mousePressed-> button: " + ofToString(button) << ", x = " << x << ", y = " << y ;
     
 }
 

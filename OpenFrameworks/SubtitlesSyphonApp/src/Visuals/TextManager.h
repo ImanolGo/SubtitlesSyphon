@@ -71,8 +71,6 @@ public:
     
     void setFontType(const string& name);
     
-    void setFont(string value);
-    
     const vector<string>& getSystemFonts() const {return m_fontNames;}
     
 private:
@@ -108,9 +106,6 @@ private:
     ofFbo       m_currentFbo;
     ofFbo       m_previusFbo;
     float       m_transitionTime;
-    
-    string      m_systemFont;
-    string      m_unicodeFont;
 
 };
 

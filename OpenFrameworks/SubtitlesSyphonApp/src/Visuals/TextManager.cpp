@@ -54,7 +54,7 @@ void TextManager::setupVisuals()
     float w = width - 2*margin;
     float h = height - 2*margin;
     string text = " ";
-    string fontName = m_systemFont;
+    string fontName = OF_TTF_SANS;
     float size = 30;
     
 
@@ -90,9 +90,6 @@ void TextManager::setupFbos()
 
 void TextManager::setupFonts()
 {
-    m_unicodeFont = "Arial Unicode";
-    m_systemFont = OF_TTF_SANS;
-    
     this->setupFontNames();
 }
 
@@ -360,13 +357,4 @@ void TextManager::addPreviewCrossFadeAnimations()
 }
 
 
-void TextManager::setFont(string value)
-{
-    if(value == "Unicode"){
-         this->setFontType(UNICODE_FONT_PATH);
-    }
-    else{
-        this->setFontType(m_systemFont);
-    }
-   
-}
+

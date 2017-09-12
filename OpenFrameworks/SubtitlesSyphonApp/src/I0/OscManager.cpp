@@ -74,17 +74,18 @@ void OscManager::update()
         ofxOscMessage m;
         m_oscReceiver.getNextMessage(m);
         
-        if(m.getAddress() == OSC_PARENT_ADDRESS + "/sentence")
-        {
-            int value = m.getArgAsInt(0);
-            AppManager::getInstance().getGuiManager().setSubRow(value);
-        }
-        
-        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/language")
+        if(m.getAddress() == OSC_PARENT_ADDRESS + "/column")
         {
             int value = m.getArgAsInt(0);
             AppManager::getInstance().getGuiManager().setSubCol(value);
         }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/row")
+        {
+            int value = m.getArgAsInt(0);
+            AppManager::getInstance().getGuiManager().setSubRow(value);
+        }
+
         
         else if(m.getAddress() == OSC_PARENT_ADDRESS + "/color")
         {
@@ -147,6 +148,31 @@ void OscManager::update()
         {
             bool value  = m.getArgAsInt(0)>0;
             AppManager::getInstance().getGuiManager().setShowBox(value);
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/reload")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getSubtitlesManager().reloadFile();
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/updatefile")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getSubtitlesManager().reloadFile();
+        }
+        
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/next")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getGuiManager().nextRow();
+        }
+        
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/previous")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getGuiManager().previousRow();
         }
           //ofLogNotice() <<"OscManager::received -> " << this->getMessageAsString(m);
     }

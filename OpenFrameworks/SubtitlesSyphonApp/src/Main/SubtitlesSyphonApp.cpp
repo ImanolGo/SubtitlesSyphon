@@ -28,6 +28,11 @@ void SubtitlesSyphonApp::draw(){
     AppManager::getInstance().draw();
 }
 
+//--------------------------------------------------------------
+void SubtitlesSyphonApp::drawScreen2(ofEventArgs & args){
+    AppManager::getInstance().draw2();
+}
+
 void SubtitlesSyphonApp::exit()
 {
     ofLogNotice() <<"SubtitlesSyphonApp::exit";
@@ -68,6 +73,7 @@ void SubtitlesSyphonApp::mouseReleased(int x, int y, int button){
 void SubtitlesSyphonApp::windowResized(int w, int h)
 {
     AppManager::getInstance().getLayoutManager().windowResized(w,h);
+    AppManager::getInstance().getPasswordManager().windowResized(w,h);
 }
 
 //--------------------------------------------------------------

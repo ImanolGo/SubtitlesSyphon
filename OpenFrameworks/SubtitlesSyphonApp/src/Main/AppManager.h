@@ -39,6 +39,9 @@ public:
     //! calls the view manager to draw
     void draw();
     
+    //! calls the view manager to draw onto the second screen
+    void draw2();
+    
     //! calls at exit
     void exit();
 
@@ -70,6 +73,9 @@ public:
     
     //! Returns the  subtitles manager
     SubtitlesManager&  getSubtitlesManager() { return m_subtitlesManager; }
+    
+    //! Returns the  password manager
+    PasswordManager&  getPasswordManager() { return m_passwordManager; }
     
     //==========================================================================
     
@@ -114,6 +120,8 @@ private:
     OscManager               m_oscManager;               ///< Manages the OSC messages
     TextManager              m_textManager;              ///< Manages the text to be rendered
     SubtitlesManager         m_subtitlesManager;         ///< Manages the current subtitles
+    PasswordManager          m_passwordManager;          ///< Manages the password input and app allowance
+    
     bool                     m_debugMode;
 };
 

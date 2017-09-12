@@ -70,6 +70,7 @@ void AppManager::setupManagers()
     m_layoutManager.setup();
     m_keyboardManager.setup();
     m_mouseManager.setup();
+    m_passwordManager.setup();
     m_oscManager.setup();
     m_subtitlesManager.setup();
     m_textManager.setup();
@@ -81,6 +82,11 @@ void AppManager::update()
 {
     if(!m_initialized)
         return;
+    
+    if(!m_passwordManager.getAllowApp()){
+        m_passwordManager.update();
+        return;
+    }
     
     m_oscManager.update();
     m_visualEffectsManager.update();
@@ -98,12 +104,36 @@ void AppManager::draw()
     
     auto color = AppManager::getInstance().getSettingsManager().getColor("BackgroundColor");
     ofBackground(color);
+    
+    
+    if(!m_passwordManager.getAllowApp()){
+        m_passwordManager.draw();
+        return;
+    }
+    
+    
     //ofBackground(50,50,50);
    // m_viewManager.draw();
     m_layoutManager.draw();
     m_guiManager.draw();
 
 }
+
+void AppManager::draw2()
+{
+    ofClear(0,0,0);
+    
+    if(!m_initialized)
+        return;
+    
+    if(!m_passwordManager.getAllowApp()){
+        return;
+    }
+    
+    auto& fbo = m_layoutManager.getCurrentFbo();
+    fbo.draw(0, 0, ofGetWidth(), ofGetHeight());
+}
+
 
 void AppManager::toggleDebugMode()
 {

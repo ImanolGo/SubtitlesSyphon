@@ -53,6 +53,10 @@ public:
     void onSyphonToggle(bool value) {m_syphonToggle = value;}
     
     void onSyphonEnable(bool value);
+    
+    void setFullScreen();
+    
+    const ofFbo& getCurrentFbo(){return m_currentFbo;}
 
 private:
 
@@ -88,6 +92,12 @@ private:
     
     //! updates the syphon textture to be published
     void updateSyphonTexture();
+    
+    void updateFbos();
+    
+    void updatePreviousFbo();
+    
+    void updateCurrentFbo();
     
     void drawFbos();
     
