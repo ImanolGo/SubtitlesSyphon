@@ -5,7 +5,7 @@
 
       <window title="Subtitles Syphon" x="300" y="300" width="900" height="600" fullscreen="0" showCursor="1"/>
 
-      <debug showCursor="1" setVerbose="1" password="0"/>
+      <debug showCursor="1" setVerbose="1" password="1"/>
       <network ip="127.0.0.1"  portOscSend="7890" portOscReceive="5678" syphon="SubtitlesSyphon" midi_name="LPD8" />
 
   </of_settings>

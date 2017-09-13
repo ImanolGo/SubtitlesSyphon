@@ -44,8 +44,8 @@ void AppManager::setup()
 	Manager::setup();
     
     this->setupOF();
+    this->setupDisplay();
 	this->setupManagers();
-    //this->setupDisplay();
     
     ofSetLogLevel(OF_LOG_NOTICE);
     
@@ -69,6 +69,13 @@ void AppManager::setupDisplay()
 //    m_displayWindow =  ofCreateWindow(windowSettings.back());
 //    ofAddListener(m_displayWindow->events().draw, this, &AppManager::drawDisplay);
 //    m_displayWindow->setWindowShape(0, 0);
+    
+    auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
+    
+    m_displayShape.x = windowSettings.back().getPosition().x;
+    m_displayShape.y = windowSettings.back().getPosition().y;
+    m_displayShape.width = windowSettings.back().width;
+    m_displayShape.height = windowSettings.back().height;
 }
 
 void AppManager::setupManagers()
@@ -132,6 +139,7 @@ void AppManager::draw()
 void AppManager::drawDisplay()
 {
     ofClear(0,0,0);
+    this->setDisplayShape();
     
     if(!m_initialized)
         return;
@@ -178,21 +186,26 @@ void AppManager::setDebugMode(bool showDebug)
 
 void AppManager::onEnableDisplay(bool value)
 {
-//    if(!m_displayWindow){
-//        return;
-//    }
-//    
-//    if(value)
-//    {
-//        auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
-//        m_displayWindow->setWindowShape(windowSettings.back().width, windowSettings.back().height);
-//    
-//    }
-//    else
-//    {
-//        m_displayWindow->setWindowShape(0, 0);
-//    }
+   
+    if(value)
+    {
+        auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
+        
+        m_displayShape.width = windowSettings.back().width;
+        m_displayShape.height = windowSettings.back().height;
+    
+    }
+    else
+    {
+        m_displayShape.width = 0;
+        m_displayShape.height = 0;
+    }
 
+}
+
+void AppManager::setDisplayShape()
+{
+    ofSetWindowShape(m_displayShape.width, m_displayShape.height);
 }
 
 

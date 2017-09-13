@@ -109,6 +109,8 @@ private:
 
     //! update all the managers
     void updateManagers();
+    
+    void setDisplayShape();
 
 private:
 
@@ -128,6 +130,7 @@ private:
     
     bool                            m_debugMode;
     shared_ptr<ofAppBaseWindow>     m_displayWindow;
+    ofRectangle                     m_displayShape;
 };
 
 //==========================================================================
