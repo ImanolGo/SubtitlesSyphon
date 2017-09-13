@@ -98,6 +98,8 @@ public:
     
     void setSyphonEnable(bool value);
     
+    void setDisplayEnable(bool value);
+    
     void setShowBox(bool value);
     
 private:

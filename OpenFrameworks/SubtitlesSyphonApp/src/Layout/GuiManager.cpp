@@ -72,7 +72,8 @@ void GuiManager::setupGuiParameters()
     toggle->setChecked(true);
     toggle = m_gui.addToggle("Blackout");
     toggle->setChecked(true);
-    //m_gui.addButton("* Save GUI");
+    toggle = m_gui.addToggle("Display");
+    toggle->setChecked(false);
     
     auto oscManager = &AppManager::getInstance().getOscManager();
     
@@ -414,6 +415,11 @@ void GuiManager::onToggleEvent(ofxDatGuiToggleEvent e)
         ofLogNotice()<< "GuiManager::onToggleEvent-> Enable : " << e.target->getChecked();
         AppManager::getInstance().getLayoutManager().onSyphonToggle(e.target->getChecked());
     }
+    else if(e.target->getName() == "Display")
+    {
+        ofLogNotice()<< "GuiManager::onToggleEvent-> Display : " << e.target->getChecked();
+        AppManager::getInstance().onEnableDisplay( e.target->getChecked());
+    }
 
 }
 
@@ -576,6 +582,14 @@ void GuiManager::setSyphonEnable(bool value)
     toggle->setChecked(value);
     AppManager::getInstance().getLayoutManager().onSyphonToggle(value);
 }
+
+void GuiManager::setDisplayEnable(bool value)
+{
+    auto toggle = m_gui.getToggle("Display");
+    toggle->setChecked(value);
+    AppManager::getInstance().onEnableDisplay(value);
+}
+
 
 void GuiManager::setShowBox(bool value)
 {

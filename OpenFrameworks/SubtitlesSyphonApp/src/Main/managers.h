@@ -22,4 +22,4 @@
 #include "TextManager.h"
 #include "SubtitlesManager.h"
 #include "PasswordManager.h"
-
+#include "WindowSettingsManager.h"

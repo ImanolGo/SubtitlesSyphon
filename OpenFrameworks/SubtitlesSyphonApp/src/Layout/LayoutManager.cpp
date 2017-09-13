@@ -23,7 +23,7 @@ const string LayoutManager::LAYOUT_FONT_LIGHT =  "fonts/open-sans/OpenSans-Light
 
 LayoutManager::LayoutManager(): Manager(), m_syphonToggle(true), m_syphonEnable(true)
 {
-	//Intentionally left empty
+    //Intentionally left empty
 }
 
 
@@ -35,10 +35,10 @@ LayoutManager::~LayoutManager()
 
 void LayoutManager::setup()
 {
-	if(m_initialized)
-		return;
+    if(m_initialized)
+        return;
 
-	Manager::setup();
+    Manager::setup();
     
     this->createTextVisuals();
     this->createSvgVisuals();
@@ -332,9 +332,9 @@ void LayoutManager::drawCurrentFbo()
 
 void LayoutManager::drawPreviewFbo()
 {
+ 
     m_previewWindowFrame.draw();
     m_previewFbo.draw(m_previewWindowRect.x,m_previewWindowRect.y,m_previewWindowRect.width,m_previewWindowRect.height);
-    
 }
 
 void LayoutManager::windowResized(int w, int h)

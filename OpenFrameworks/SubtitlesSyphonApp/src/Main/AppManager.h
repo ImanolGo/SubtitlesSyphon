@@ -39,8 +39,8 @@ public:
     //! calls the view manager to draw
     void draw();
     
-    //! calls the view manager to draw onto the second screen
-    void draw2();
+    //! calls the view manager to draw onto the second display
+    void drawDisplay(ofEventArgs & args);
     
     //! calls at exit
     void exit();
@@ -82,6 +82,8 @@ public:
     void toggleDebugMode();
     
     void setDebugMode(bool showDebug);
+    
+    void onEnableDisplay(bool value);
     
 
 private:

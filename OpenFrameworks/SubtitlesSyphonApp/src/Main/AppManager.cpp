@@ -119,16 +119,16 @@ void AppManager::draw()
 
 }
 
-void AppManager::draw2()
+void AppManager::drawDisplay(ofEventArgs & args)
 {
     ofClear(0,0,0);
     
     if(!m_initialized)
         return;
     
-    if(!m_passwordManager.getAllowApp()){
-        return;
-    }
+    //    if(!m_passwordManager.getAllowApp()){
+    //        return;
+    //    }
     
     auto& fbo = m_layoutManager.getCurrentFbo();
     fbo.draw(0, 0, ofGetWidth(), ofGetHeight());
@@ -165,5 +165,26 @@ void AppManager::setDebugMode(bool showDebug)
     
 }
 
+
+void AppManager::onEnableDisplay(bool value)
+{
+    auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
+    
+    //    if(value)
+    //    {
+    //        if(!m_displayWindow){
+    //            m_displayWindow =  ofCreateWindow(windowSettings.back());
+    //            ofAddListener(m_displayWindow->events().draw, this, &AppManager::drawDisplay);
+    //        }
+    //
+    //        m_displayWindow->setWindowShape(windowSettings.back().width, windowSettings.back().height);
+    //
+    //    }
+    //    else
+    //    {
+    //        m_displayWindow->setWindowShape(0, 0);
+    //    }
+    //    
+}
 
 
