@@ -40,7 +40,7 @@ public:
     void draw();
     
     //! calls the view manager to draw onto the second display
-    void drawDisplay(ofEventArgs & args);
+    void drawDisplay();
     
     //! calls at exit
     void exit();
@@ -104,6 +104,8 @@ private:
 
     //! Set-up openFrameworks
     void setupOF();
+    
+    void setupDisplay();
 
     //! update all the managers
     void updateManagers();
@@ -124,7 +126,8 @@ private:
     SubtitlesManager         m_subtitlesManager;         ///< Manages the current subtitles
     PasswordManager          m_passwordManager;          ///< Manages the password input and app allowance
     
-    bool                     m_debugMode;
+    bool                            m_debugMode;
+    shared_ptr<ofAppBaseWindow>     m_displayWindow;
 };
 
 //==========================================================================

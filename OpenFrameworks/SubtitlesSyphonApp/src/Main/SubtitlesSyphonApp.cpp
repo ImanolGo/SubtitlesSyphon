@@ -30,7 +30,7 @@ void SubtitlesSyphonApp::draw(){
 
 //--------------------------------------------------------------
 void SubtitlesSyphonApp::drawScreen2(ofEventArgs & args){
-    AppManager::getInstance().draw();
+    AppManager::getInstance().drawDisplay();
 }
 
 void SubtitlesSyphonApp::exit()

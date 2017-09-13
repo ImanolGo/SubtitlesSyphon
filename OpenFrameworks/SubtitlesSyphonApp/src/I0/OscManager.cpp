@@ -144,6 +144,13 @@ void OscManager::update()
             AppManager::getInstance().getGuiManager().setSyphonEnable(value);
         }
         
+        else if(m.getAddress() == OSC_PARENT_ADDRESS + "/display")
+        {
+            bool value  = m.getArgAsInt(0)>0;
+            AppManager::getInstance().getGuiManager().setDisplayEnable(value);
+        }
+        
+        
         else if(m.getAddress() == OSC_PARENT_ADDRESS + "/showbox")
         {
             bool value  = m.getArgAsInt(0)>0;

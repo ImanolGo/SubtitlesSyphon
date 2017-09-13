@@ -21,7 +21,7 @@ AppManager& AppManager::getInstance()
 
 }
 
-AppManager::AppManager(): Manager(), m_debugMode(false)
+AppManager::AppManager(): Manager(), m_debugMode(false), m_displayWindow(NULL)
 {
    //Intentionally left empty
 }
@@ -45,6 +45,8 @@ void AppManager::setup()
     
     this->setupOF();
 	this->setupManagers();
+    //this->setupDisplay();
+    
     ofSetLogLevel(OF_LOG_NOTICE);
     
     //setDebugMode(m_debugMode);
@@ -60,6 +62,14 @@ void AppManager::setupOF()
     ofSetBackgroundAuto(true);
 }
 
+
+void AppManager::setupDisplay()
+{
+//    auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
+//    m_displayWindow =  ofCreateWindow(windowSettings.back());
+//    ofAddListener(m_displayWindow->events().draw, this, &AppManager::drawDisplay);
+//    m_displayWindow->setWindowShape(0, 0);
+}
 
 void AppManager::setupManagers()
 {
@@ -119,16 +129,16 @@ void AppManager::draw()
 
 }
 
-void AppManager::drawDisplay(ofEventArgs & args)
+void AppManager::drawDisplay()
 {
     ofClear(0,0,0);
     
     if(!m_initialized)
         return;
     
-    //    if(!m_passwordManager.getAllowApp()){
-    //        return;
-    //    }
+    if(!m_passwordManager.getAllowApp()){
+        return;
+    }
     
     auto& fbo = m_layoutManager.getCurrentFbo();
     fbo.draw(0, 0, ofGetWidth(), ofGetHeight());
@@ -154,7 +164,7 @@ void AppManager::setDebugMode(bool showDebug)
     ofLogNotice()<<"AppManager::setDebugMode-> " << m_debugMode;
     
     if(m_debugMode){
-        //ofSetLogLevel(OF_LOG_VERBOSE);
+        ofSetLogLevel(OF_LOG_VERBOSE);
     }
     else{
         ofSetLogLevel(OF_LOG_NOTICE);
@@ -168,23 +178,21 @@ void AppManager::setDebugMode(bool showDebug)
 
 void AppManager::onEnableDisplay(bool value)
 {
-    auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
-    
-    //    if(value)
-    //    {
-    //        if(!m_displayWindow){
-    //            m_displayWindow =  ofCreateWindow(windowSettings.back());
-    //            ofAddListener(m_displayWindow->events().draw, this, &AppManager::drawDisplay);
-    //        }
-    //
-    //        m_displayWindow->setWindowShape(windowSettings.back().width, windowSettings.back().height);
-    //
-    //    }
-    //    else
-    //    {
-    //        m_displayWindow->setWindowShape(0, 0);
-    //    }
-    //    
+//    if(!m_displayWindow){
+//        return;
+//    }
+//    
+//    if(value)
+//    {
+//        auto windowSettings = WindowSettingsManager::getInstance().getWindowsSettings();
+//        m_displayWindow->setWindowShape(windowSettings.back().width, windowSettings.back().height);
+//    
+//    }
+//    else
+//    {
+//        m_displayWindow->setWindowShape(0, 0);
+//    }
+
 }
 
 
