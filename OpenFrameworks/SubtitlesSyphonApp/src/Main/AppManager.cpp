@@ -89,6 +89,7 @@ void AppManager::update()
     }
     
     m_oscManager.update();
+    m_visualEffectsManager.update();
     m_viewManager.update();
     m_layoutManager.update();
     m_textManager.update();
