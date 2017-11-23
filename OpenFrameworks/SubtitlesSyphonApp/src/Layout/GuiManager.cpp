@@ -145,6 +145,18 @@ void GuiManager::setupTextGui()
     m_textZ.addListener(textManager, &TextManager::onChangePosZ);
     m_parameters.add(m_textZ);
     
+    m_textRotX.set("RotX", 0.0, 0.0, 360.0);
+    m_textRotX.addListener(textManager, &TextManager::onChangeRotX);
+    m_parameters.add(m_textRotX);
+    
+    m_textRotY.set("RotY", 0.0, 0.0, 360.0);
+    m_textRotY.addListener(textManager, &TextManager::onChangeRotY);
+    m_parameters.add(m_textRotY);
+    
+    m_textRotZ.set("RotZ", 0.0, 0.0, 360.0);
+    m_textRotZ.addListener(textManager, &TextManager::onChangeRotZ);
+    m_parameters.add(m_textRotZ);
+    
     // add a folder to group a few components together //
     ofxDatGuiFolder* folder = m_gui.addFolder("TEXT", ofColor::cyan);
     folder->addLabel("Font Name:");
@@ -154,6 +166,9 @@ void GuiManager::setupTextGui()
     folder->addSlider(m_textLineHeight);
     folder->addSlider(m_textX);
     folder->addSlider(m_textY);
+    folder->addSlider(m_textRotX);
+    folder->addSlider(m_textRotY);
+    folder->addSlider(m_textRotZ);
     folder->addToggle("Show Box");
     //folder->expand();
     

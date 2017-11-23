@@ -125,6 +125,7 @@ void TextVisual::draw()
     //ofEnableAlphaBlending();
 
         ofScale(m_scale.x, m_scale.y);
+    
         //ofSetColor(ofColor(255,255,10,200));
         //ofCircle(m_position, 3);
         //ofSetColor(ofColor(255,10,10,100));
@@ -137,21 +138,38 @@ void TextVisual::draw()
 
     
         ofSetColor(m_color);
-        if(m_drawBB){
-            ofNoFill();
-            if(m_centred){
-                ofDrawRectangle(m_position.x - m_box.width*0.5, m_position.y - m_box.height*0.5, m_box.width, m_box.height);
-            }
-            else{
-                ofDrawRectangle(m_position.x, m_position.y, m_box.width, m_box.height);
-            }
-        }
     
-        ofTranslate(m_translation.x, m_translation.y);
+        ofPushMatrix();
+                ofTranslate(m_position.x + m_box.height*0.5, m_position.y + m_box.height*0.5, 0);//move pivot to centre
+                ofRotateX(m_rotation.x);
+                ofRotateY(m_rotation.y);
+                ofRotateZ(m_rotation.z);//rotate from centre
+                //ofRotate(m_rotation.x, 0, 0, 1);//rotate from centre
+            ofPushMatrix();
+                ofTranslate( - m_position.x -m_box.height*0.5, -m_position.y-m_box.height*0.5, 0);//move back by the centre offset
+    
+                if(m_drawBB){
+                    ofNoFill();
+                    if(m_centred){
+                        ofDrawRectangle(m_position.x - m_box.width*0.5, m_position.y - m_box.height*0.5, m_box.width, m_box.height);
+                        
+                    }
+                    else{
+                        ofDrawRectangle(m_position.x, m_position.y, m_box.width, m_box.height);
+                    }
+                }
+    
+                ofTranslate(m_translation.x, m_translation.y);
+                m_font.drawMultiLineColumn(m_text,m_position.x,m_position.y,m_width);
+            ofPopMatrix();
+        ofPopMatrix();
+    
+        //ofTranslate(m_translation.x, m_translation.y);
+    
     
 
         //m_font.drawMultiLineColumn(m_text,m_fontSize, m_position.x,m_position.y,m_width);
-        m_font.drawMultiLineColumn(m_text,m_position.x,m_position.y,m_width);
+        //m_font.drawMultiLineColumn(m_text,m_position.x,m_position.y,m_width);
        
 
     //ofDisableAlphaBlending();

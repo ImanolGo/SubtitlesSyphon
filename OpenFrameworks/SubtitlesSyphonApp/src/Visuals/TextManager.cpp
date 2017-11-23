@@ -274,6 +274,34 @@ void TextManager::onChangePosZ(float& value)
 }
 
 
+void TextManager::onChangeRotX(float& value)
+{
+    for(auto visual: m_textVisuals){
+        auto rot = visual.second->getRotation();
+        rot.x = value;
+        visual.second->setRotation(rot);
+    }
+}
+
+void TextManager::onChangeRotY(float& value)
+{
+    for(auto visual: m_textVisuals){
+        auto rot = visual.second->getRotation();
+        rot.y = value;
+        visual.second->setRotation(rot);
+    }
+}
+
+void TextManager::onChangeRotZ(float& value)
+{
+    for(auto visual: m_textVisuals){
+        auto rot = visual.second->getRotation();
+        rot.z = value;
+        visual.second->setRotation(rot);
+    }
+}
+
+
 
 void TextManager::setColor(ofColor& color)
 {

@@ -59,6 +59,12 @@ public:
     
     void  onChangePosZ (float& value);
     
+    void  onChangeRotX (float& value);
+    
+    void  onChangeRotY (float& value);
+    
+    void  onChangeRotZ (float& value);
+    
     void  onChangeShowBox (bool value);
     
     void onChangeTransitionTime(float& value);

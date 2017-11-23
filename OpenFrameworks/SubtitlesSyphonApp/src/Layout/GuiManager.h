@@ -84,6 +84,8 @@ public:
     
     void setTextPosY(float value);
     
+    
+    
     void setColorR(int value);
     
     void setColorG(int value);
@@ -158,6 +160,9 @@ private:
     ofParameter<float>      m_textX;
     ofParameter<float>      m_textY;
     ofParameter<float>      m_textZ;
+    ofParameter<float>      m_textRotX;
+    ofParameter<float>      m_textRotY;
+    ofParameter<float>      m_textRotZ;
     ofParameter<float>      m_textTransitionTime;
     ofxDatGuiLabel*         m_fontLabel;
     

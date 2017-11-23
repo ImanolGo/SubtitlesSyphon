@@ -98,6 +98,7 @@ void PasswordManager::enterPassword(const string& password)
     if(password == KEY){
         m_allowApp = true;
         AppManager::getInstance().getLayoutManager().setFullScreen();
+        AppManager::getInstance().getGuiManager().loadGuiValues();
     }
 
 }

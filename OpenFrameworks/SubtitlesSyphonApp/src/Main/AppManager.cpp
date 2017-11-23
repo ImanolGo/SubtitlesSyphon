@@ -74,8 +74,10 @@ void AppManager::setupDisplay()
     
     m_displayShape.x = windowSettings.back().getPosition().x;
     m_displayShape.y = windowSettings.back().getPosition().y;
-    m_displayShape.width = windowSettings.back().width;
-    m_displayShape.height = windowSettings.back().height;
+    m_displayShape.width = 0;
+    m_displayShape.height = 0;
+//    m_displayShape.width = windowSettings.back().width;
+//    m_displayShape.height = windowSettings.back().height;
 }
 
 void AppManager::setupManagers()
